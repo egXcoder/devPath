@@ -15,7 +15,7 @@ class AllTablesSeeder extends Seeder {
 
         for ($i = 1;$i < 6;$i++) {
             $category_id = factory('App\Category')->create()->id;
-            for ($i = 1;$i < 6;$i++) {
+            for ($j = 1;$j < 6;$j++) {
                 $panel_id = factory('App\Panel')->create(['category_id' => $category_id])->id;
                 factory('App\Header', 3)->create(['panel_id' => $panel_id]);
                 factory('App\Content', 3)->create(['panel_id' => $panel_id,'code_language_id'=>rand(1,3)]);

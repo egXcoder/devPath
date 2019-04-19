@@ -6,26 +6,26 @@ use Faker\Generator as Faker;
 
 $factory->define('App\Category', function (Faker $faker) {
     return [
-        'name' => $faker->sentence(1),
+        'name' => $faker->word,
     ];
 });
 
 $factory->define('App\Panel', function (Faker $faker) {
     return [
-        'name' => $faker->sentence(1),
+        'name' => $faker->word,
     ];
 });
 
 $factory->define('App\CodeLanguage', function (Faker $faker) {
     
     return [
-        'name' => $faker->sentence(1),
+        'name' => $faker->word,
     ];
 });
 
 $factory->define('App\Header', function (Faker $faker) {
     return [
-        'name' => $faker->sentence(1),
+        'name' => $faker->word,
         'priority' => $faker->biasedNumberBetween($min = 1, $max = 10)
     ];
 });
