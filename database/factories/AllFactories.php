@@ -2,29 +2,37 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Panel;
 use Faker\Generator as Faker;
 
-$factory->define(Panel::class, function (Faker $faker) {
+$factory->define('App\Category', function (Faker $faker) {
     return [
         'name' => $faker->sentence(1),
     ];
 });
 
-$factory->define('App\Category',function (Faker $faker){
- return [
+$factory->define('App\Panel', function (Faker $faker) {
+    return [
         'name' => $faker->sentence(1),
     ];
 });
 
-$factory->define('App\Header',function (Faker $faker){
- return [
+$factory->define('App\CodeLanguage', function (Faker $faker) {
+    
+    return [
         'name' => $faker->sentence(1),
     ];
 });
 
-$factory->define('App\Content',function (Faker $faker){
- return [
+$factory->define('App\Header', function (Faker $faker) {
+    return [
         'name' => $faker->sentence(1),
+        'priority' => $faker->biasedNumberBetween($min = 1, $max = 10)
+    ];
+});
+
+$factory->define('App\Content', function (Faker $faker) {
+    return [
+        'content' => $faker->paragraph(6),
+        'priority' => $faker->biasedNumberBetween($min = 1, $max = 10),
     ];
 });

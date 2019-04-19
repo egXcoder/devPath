@@ -16,7 +16,7 @@ class CreateHeadersTable extends Migration
         Schema::create('headers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->tinyInteger('position');
+            $table->tinyInteger('priority');
             $table->bigInteger('panel_id')->unsigned();
             $table->timestamps();
             $table->foreign('panel_id')
