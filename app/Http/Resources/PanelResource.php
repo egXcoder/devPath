@@ -17,7 +17,6 @@ class PanelResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->name,
-            'category'=>$this->category->name,
             'headers'=>HeaderResource::collection($this->header),
             'contents'=>ContentResource::collection($this->content),
         ];

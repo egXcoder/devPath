@@ -4,19 +4,18 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class HeaderResource extends JsonResource
-{
+class HeaderResource extends JsonResource {
     /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
-    {
+    public function toArray($request) {
         return [
-            'name'=>$this->name,
-            'priority'=>$this->priority
+            'name' => $this->name,
+            'type' => 'header',
+            'priority' => $this->priority
         ];
     }
 }

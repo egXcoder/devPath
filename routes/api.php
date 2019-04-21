@@ -29,4 +29,7 @@ Route::post('{category_name}/{panel_name}/headers/create', 'HeadersController@cr
 Route::put('{category_name}/{panel_name}/headers/edit/{header_name}', 'HeadersController@edit');
 Route::delete('{category_name}/{panel_name}/headers/delete/{header_name}', 'HeadersController@destroy');
 
-
+Route::get('{category_name}/{panel_name}/contents', 'ContentsController@listContentsInPanel');
+Route::post('{category_name}/{panel_name}/contents/create', 'ContentsController@create');
+Route::put('{category_name}/{panel_name}/contents/edit/{content_name}', 'ContentsController@edit');
+Route::delete('{category_name}/{panel_name}/contents/delete/{content_name}', 'ContentsController@destroy');
