@@ -10663,10 +10663,10 @@ a.text-dark:focus {
 }
 
 :root {
-  --primary-color: #F17F29;
+  --primary-color: #f17f29;
   --secondary-color: #c5dcec;
-  --primary-bold-color: #F96900;
-  --secondary-bold-color: #0769AD;
+  --primary-bold-color: #f96900;
+  --secondary-bold-color: #0769ad;
 }
 
 nav {
@@ -10689,6 +10689,24 @@ nav .menu-toggle {
   width: 2rem;
   height: 2rem;
   background: transparent;
+}
+
+nav .menu-toggle:hover {
+  -webkit-animation-name: pulse;
+          animation-name: pulse;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+}
+
+nav .menu-toggle span {
+  display: block;
+  margin-bottom: 0.4rem;
+  background: white;
+  width: 100%;
+  height: 0.3rem;
+  border-radius: 2px;
 }
 
 @-webkit-keyframes pulse {
@@ -10725,24 +10743,6 @@ nav .menu-toggle {
   }
 }
 
-nav .menu-toggle:hover {
-  -webkit-animation-name: pulse;
-          animation-name: pulse;
-  -webkit-animation-timing-function: ease-in-out;
-          animation-timing-function: ease-in-out;
-  animation-duration: 1s;
-  -webkit-animation-duration: 1s;
-}
-
-nav .menu-toggle span {
-  display: block;
-  margin-bottom: 0.4rem;
-  background: white;
-  width: 100%;
-  height: 0.3rem;
-  border-radius: 2px;
-}
-
 .navigation-drawer {
   display: none;
   position: fixed;
@@ -10772,29 +10772,6 @@ nav .menu-toggle span {
   transition: -webkit-transform 0.5s ease-in-out;
   transition: transform 0.5s ease-in-out;
   transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
-}
-
-@media (max-width: 992px) {
-  .collapsed-menu {
-    width: 30%;
-  }
-}
-
-@media (max-width: 768px) {
-  .collapsed-menu {
-    width: 40%;
-  }
-}
-
-@media (max-width: 576px) {
-  .collapsed-menu {
-    width: 50% !important;
-  }
-}
-
-.collapsed-menu.show {
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
 }
 
 .collapsed-menu .closeButton {
@@ -10829,6 +10806,29 @@ nav .menu-toggle span {
 .collapsed-menu .menu-container li:hover a {
   color: var(--secondary-color);
   text-decoration: none;
+}
+
+@media (max-width: 992px) {
+  .collapsed-menu {
+    width: 30%;
+  }
+}
+
+@media (max-width: 768px) {
+  .collapsed-menu {
+    width: 40%;
+  }
+}
+
+@media (max-width: 576px) {
+  .collapsed-menu {
+    width: 50% !important;
+  }
+}
+
+.collapsed-menu.show {
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
 }
 
 main {
@@ -10867,36 +10867,39 @@ main .panel .panel-inner {
   height: 100%;
 }
 
-main .panel-inner .header {
+main .panel .panel-inner .header {
   background: var(--secondary-color);
   color: black;
   line-height: 1.4rem;
 }
 
-main .panel-inner .header a {
+main .panel .panel-inner .header a {
   color: var(--primary-bold-color);
   font-weight: bold;
   cursor: pointer;
   margin-right: 1rem;
 }
 
-main .panel-inner .header p {
+main .panel .panel-inner .header p {
   margin-bottom: 0;
   flex-grow: 1;
 }
 
-main .panel-inner .header input {
+main .panel .panel-inner .header input {
   background: var(--secondary-bold-color);
   margin-bottom: 0;
   flex-grow: 1;
 }
 
-main .panel-inner .content {
+main .panel .panel-inner .content {
   position: relative;
 }
 
-main .panel-inner .content a {
-  color: var(--primary-bold-color);
+main .panel .panel-inner .content a {
+  background: var(--primary-bold-color);
+  color: white;
+  border-radius: 5px;
+  padding: 0.3rem;
   font-weight: bold;
   cursor: pointer;
   margin-right: 1rem;
@@ -10905,14 +10908,14 @@ main .panel-inner .content a {
   right: 0;
 }
 
-main .panel-inner pre code {
+main .panel .panel-inner pre code {
   border-left: 0;
   box-shadow: none;
   background-image: none;
   font-size: 0.9rem;
 }
 
-main .panel-inner pre:hover {
+main .panel .panel-inner pre:hover {
   background: rgba(7, 105, 173, 0.09);
   cursor: pointer;
 }

@@ -5,8 +5,8 @@
     <!-- <meta charset="UTF-8"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="css/app.css"> {{--
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"> --}}
     <link rel="stylesheet" href="css/plugins/prism/prism.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <title>Title</title>
@@ -43,57 +43,16 @@
         </div>
     </div>
 
-    <main class="py-5">
+    <main id="app" class="py-5">
         <div class="container">
             <div class="row">
                 <div class="col-12 head">
                     <h1><img width="70px" src="images/cheatsheet.png" /> JQuery CheatSheet</h1>
                 </div>
-                <div class="col-md-4 p-2">
-                    <div class="panel">
-                        <div class="panel-title">JQUERY</div>
-                        <div class="panel-inner my-4">
-
-                            <div class="header d-flex justify-content-between">
-                                <p>&nbsp Header is here</p>
-                                <a onclick="showHeaderEditor(this);"><i class="fas fa-edit"></i></a>
-                            </div>
-                            <div class="content">
-                                <pre><code class="language-js">$(document).ready(function(){
-                                        $(".demo").click(function(){
-                                        $(this).hide(200);
-                                        });
-                                    });
-                                    </code></pre>
-                                <a id="edit" onclick="showContentEditor(this);"><i class="fas fa-edit"></i></a>
-                            </div>
-                            <div class="header d-flex justify-content-between">
-                                <p>&nbsp Header is here</p>
-                                <a onclick="showHeaderEditor(this);"><i class="fas fa-edit"></i></a>
-                            </div>
-                            <div class="content">
-                                <pre><code class="language-js">$(document).ready(function(){
-                                    $(".demo").click(function(){
-                                    $(this).hide(200);
-                                    });
-                                });
-                                </code></pre>
-                                <a id="edit" onclick="showContentEditor(this);"><i class="fas fa-edit"></i></a>
-                            </div>
-
-                            <div class="content">
-                                <pre><code class="language-js">$(document).ready(function(){
-                                $(".demo").click(function(){
-                                $(this).hide(200);
-                                });
-                                });
-                            </code></pre>
-                                <a id="edit" onclick="showContentEditor(this);"><i class="fas fa-edit"></i></a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                <panel></panel>
+                <panel></panel>
+                <panel></panel>
+                <panel></panel>
             </div>
         </div>
 
@@ -102,36 +61,36 @@
     <script src="css/plugins/prism/prism.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
-        $(document).ready(function(){
-           $('pre code').click(function(){
-            toast();
-           });
+        // $(document).ready(function(){
+        //    $('pre code').click(function(){
+        //     toast();
+        //    });
         
-        });
+        // });
         
-        function showHeaderEditor(element){
-            pTag = $(element).siblings("p");
-            pTag.replaceWith('<input type="text" onkeypress="if(event.keyCode==\'13\')submitHeaderEdit(this);" value="' + pTag.text() + '">');
-        }
+        // function showHeaderEditor(element){
+        //     pTag = $(element).siblings("p");
+        //     pTag.replaceWith('<input type="text" onkeypress="if(event.keyCode==\'13\')submitHeaderEdit(this);" value="' + pTag.text() + '">');
+        // }
 
-        function submitHeaderEdit(element){
-            inputTag = $(element);
-            inputTag.replaceWith('<p>' + inputTag.val() + '</p>');
+        // function submitHeaderEdit(element){
+        //     inputTag = $(element);
+        //     inputTag.replaceWith('<p>' + inputTag.val() + '</p>');
                     
-        }
+        // }
 
-        function showContentEditor(element){
-            preTag = $(element).siblings("pre");
-            $(element).replaceWith('<a id="save" onclick="submitContentEdit(this);">Save</a>');
-            preTag.replaceWith('<textarea class="form-control" rows="12" name="" id="" >'+preTag.text()+'</textarea>');
-        }
+        // function showContentEditor(element){
+        //     preTag = $(element).siblings("pre");
+        //     $(element).replaceWith('<a id="save" onclick="submitContentEdit(this);">Save</a>');
+        //     preTag.replaceWith('<textarea class="form-control" rows="12" name="" id="" >'+preTag.text()+'</textarea>');
+        // }
 
-        function submitContentEdit(element){
-            textareaTag = $(element).siblings("textarea");
-            content = textareaTag.val();
-            $(element).replaceWith('<a id="edit" onclick="showContentEditor(this);">Edit</a>');
-            textareaTag.replaceWith('<pre><code class="language-js">'+content+'</code></pre>');
-        }
+        // function submitContentEdit(element){
+        //     textareaTag = $(element).siblings("textarea");
+        //     content = textareaTag.val();
+        //     $(element).replaceWith('<a id="edit" onclick="showContentEditor(this);">Edit</a>');
+        //     textareaTag.replaceWith('<pre><code class="language-js">'+content+'</code></pre>');
+        // }
 
         function toggleDrawer() {
             $('.collapsed-menu').toggleClass('show');

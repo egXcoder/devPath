@@ -1,175 +1,173 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Nunito");
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import 'plugins/bootstrap';
-
+@import "plugins/bootstrap";
 
 :root {
-    --primary-color: #F17F29;
-    --secondary-color: #c5dcec;
-    --primary-bold-color: #F96900;
-    --secondary-bold-color: #0769AD;
+  --primary-color: #f17f29;
+  --secondary-color: #c5dcec;
+  --primary-bold-color: #f96900;
+  --secondary-bold-color: #0769ad;
 }
 
 nav {
-    background: var(--primary-color);
-    padding-top: .9rem;
-    padding-bottom: .5rem;
-}
+  background: var(--primary-color);
+  padding-top: 0.9rem;
+  padding-bottom: 0.5rem;
 
-nav .brand {
+  .brand {
     background: var(--primary-color);
     border-radius: 20px;
     cursor: pointer;
-    margin-left:1rem;
-}
+    margin-left: 1rem;
+  }
 
-nav .menu-toggle {
+  .menu-toggle {
     cursor: pointer;
     margin-right: 1rem;
     display: block;
     width: 2rem;
     height: 2rem;
     background: transparent;
-}
+  }
 
-@keyframes pulse {
-    from {
-        transform: scale3d(1, 1, 1);
-    }
-    50% {
-        transform: scale3d(1.1, 1.1, 1.1);
-    }
-    to {
-        transform: scale3d(1, 1, 1);
-    }
-}
-
-nav .menu-toggle:hover {
+  .menu-toggle:hover {
     animation-name: pulse;
     animation-timing-function: ease-in-out;
     animation-duration: 1s;
     -webkit-animation-duration: 1s;
-}
+  }
 
-nav .menu-toggle span {
+  .menu-toggle span {
     display: block;
-    margin-bottom: .4rem;
+    margin-bottom: 0.4rem;
     background: white;
     width: 100%;
-    height: .3rem;
+    height: 0.3rem;
     border-radius: 2px;
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  to {
+    transform: scale3d(1, 1, 1);
+  }
 }
 
 .navigation-drawer {
-    display: none;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 500;
-    opacity: .5;
-    background: #001;
-    transition: width .2s;
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+  opacity: 0.5;
+  background: #001;
+  transition: width 0.2s;
 }
 
 .navigation-drawer.show {
-    display: block;
+  display: block;
 }
 
 .collapsed-menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 600;
-    height: 100%;
-    transform: translateX(100%);
-    width: 25%;
-    background: var(--primary-color);
-    transition: transform .5s ease-in-out;
-}
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 600;
+  height: 100%;
+  transform: translateX(100%);
+  width: 25%;
+  background: var(--primary-color);
+  transition: transform 0.5s ease-in-out;
 
-@media(max-width:992px) {
-    .collapsed-menu {
-        width:30%;
-    }
-}
-@media(max-width:768px) {
-    .collapsed-menu {
-        width:40%;
-    }
-}
-
-@media(max-width:576px) {
-    .collapsed-menu {
-        width:50% !important;
-    }
-}
-
-.collapsed-menu.show {
-    transform: translateX(0);
-}
-
-.collapsed-menu .closeButton {
+  .closeButton {
     cursor: pointer;
     text-align: left;
     padding: 1rem 2rem 1rem 2rem;
-}
+  }
 
-.collapsed-menu .closeButton a {
+  .closeButton a {
     color: white;
-}
+  }
 
-.collapsed-menu .menu-container {
+  .menu-container {
     width: 70%;
     height: 70%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 5rem;
     font-size: 1.5rem;
-}
+  }
 
-.collapsed-menu .menu-container li {
+  .menu-container li {
     line-height: 3rem;
     cursor: pointer;
-}
+  }
 
-.collapsed-menu .menu-container a {
+  .menu-container a {
     color: white;
     text-decoration: none;
-}
+  }
 
-.collapsed-menu .menu-container li:hover a {
+  .menu-container li:hover a {
     color: var(--secondary-color);
     text-decoration: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .collapsed-menu {
+    width: 30%;
+  }
+}
+@media (max-width: 768px) {
+  .collapsed-menu {
+    width: 40%;
+  }
+}
+
+@media (max-width: 576px) {
+  .collapsed-menu {
+    width: 50% !important;
+  }
+}
+
+.collapsed-menu.show {
+  transform: translateX(0);
 }
 
 main {
-    background: #eee;
-}
+  background: #eee;
 
-main .head {
+  .head {
     text-align: center;
     margin-bottom: 3rem;
     color: var(--secondary-bold-color);
+  }
 }
 
 main .panel {
-    position: relative;
-    padding-top: 1px;
-    margin: .5rem 0rem .5rem 0rem;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0px 1px 5px 0px var(--primary-color);
-}
+  position: relative;
+  padding-top: 1px;
+  margin: 0.5rem 0rem 0.5rem 0rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 1px 5px 0px var(--primary-color);
 
-main .panel .panel-title {
+  .panel-title {
     position: absolute;
-    padding: .5rem 1rem .5rem 1rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
     top: -30px;
     left: 10px;
     border-radius: 15px;
@@ -177,59 +175,63 @@ main .panel .panel-title {
     color: white;
     background: var(--primary-bold-color);
     font-weight: bold;
-}
+  }
 
-main .panel .panel-inner {
+  .panel-inner {
     width: 100%;
     height: 100%;
-}
+  }
 
-main .panel-inner .header {
+  .panel-inner .header {
     background: var(--secondary-color);
     color: black;
     line-height: 1.4rem;
-}
+  }
 
-main .panel-inner .header a {
+  .panel-inner .header a {
     color: var(--primary-bold-color);
     font-weight: bold;
     cursor: pointer;
     margin-right: 1rem;
-}
+  }
 
-main .panel-inner .header p {
+  .panel-inner .header p {
     margin-bottom: 0;
     flex-grow: 1;
-}
+  }
 
-main .panel-inner .header input {
+  .panel-inner .header input {
     background: var(--secondary-bold-color);
     margin-bottom: 0;
     flex-grow: 1;
-}
+  }
 
-main .panel-inner .content {
+  .panel-inner .content {
     position: relative;
-}
+  }
 
-main .panel-inner .content a {
-    color: var(--primary-bold-color);
+  .panel-inner .content a {
+    background: var(--primary-bold-color);
+    color: white;
+    border-radius: 5px;
+    padding: 0.3rem;
     font-weight: bold;
     cursor: pointer;
     margin-right: 1rem;
     position: absolute;
     top: 0;
     right: 0;
-}
+  }
 
-main .panel-inner pre code {
+  .panel-inner pre code {
     border-left: 0;
     box-shadow: none;
     background-image: none;
-    font-size: .9rem;
-}
+    font-size: 0.9rem;
+  }
 
-main .panel-inner pre:hover {
+  .panel-inner pre:hover {
     background: rgba(7, 105, 173, 0.09);
     cursor: pointer;
+  }
 }
