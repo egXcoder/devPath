@@ -11069,7 +11069,7 @@ main .head {
   color: var(--secondary-bold-color);
 }
 
-main .panel {
+.panel {
   position: relative;
   padding-top: 1px;
   margin: 0.5rem 0rem 0.5rem 0rem;
@@ -11078,7 +11078,7 @@ main .panel {
   box-shadow: 0px 1px 5px 0px var(--primary-color);
 }
 
-main .panel .panel-title {
+.panel .panel-title {
   position: absolute;
   padding: 0.5rem 1rem 0.5rem 1rem;
   top: -30px;
@@ -11090,45 +11090,45 @@ main .panel .panel-title {
   font-weight: bold;
 }
 
-main .panel .panel-title h1 {
+.panel .panel-title h1 {
   margin-bottom: 0px;
   font-weight: bold;
 }
 
-main .panel .panel-inner {
+.panel .panel-inner {
   width: 100%;
   height: 100%;
 }
 
-main .panel .panel-inner .header {
+.panel .panel-inner .header {
   background: var(--secondary-color);
   color: black;
   line-height: 1.4rem;
 }
 
-main .panel .panel-inner .header a {
+.panel .panel-inner .header a {
   color: var(--primary-bold-color);
   font-weight: bold;
   cursor: pointer;
   margin-right: 1rem;
 }
 
-main .panel .panel-inner .header p {
+.panel .panel-inner .header p {
   margin-bottom: 0;
   flex-grow: 1;
 }
 
-main .panel .panel-inner .header input {
+.panel .panel-inner .header input {
   background: var(--secondary-bold-color);
   margin-bottom: 0;
   flex-grow: 1;
 }
 
-main .panel .panel-inner .content {
+.panel .panel-inner .content {
   position: relative;
 }
 
-main .panel .panel-inner .content a {
+.panel .panel-inner .content a {
   background: var(--primary-bold-color);
   color: white;
   border-radius: 5px;
@@ -11141,16 +11141,37 @@ main .panel .panel-inner .content a {
   right: 0;
 }
 
-main .panel .panel-inner pre code {
+.panel .panel-inner pre code {
   border-left: 0;
   box-shadow: none;
   background-image: none;
   font-size: 0.9rem;
 }
 
-main .panel .panel-inner pre:hover {
+.panel .panel-inner pre:hover {
   background: rgba(7, 105, 173, 0.09);
   cursor: pointer;
+}
+
+#panel:hover .delete-box {
+  display: block;
+}
+
+.delete-box {
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--primary-bold-color);
+  color: white;
+  padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.delete-box p {
+  margin-bottom: 0;
 }
 
 .add-box {

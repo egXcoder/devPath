@@ -159,7 +159,7 @@ main {
   }
 }
 
-main .panel {
+.panel {
   position: relative;
   padding-top: 1px;
   margin: 0.5rem 0rem 0.5rem 0rem;
@@ -239,6 +239,24 @@ main .panel {
   .panel-inner pre:hover {
     background: rgba(7, 105, 173, 0.09);
     cursor: pointer;
+  }
+}
+#panel:hover .delete-box{
+  display:block;
+}
+.delete-box{
+  display:none;
+  cursor:pointer;
+  position:absolute;
+  top:0;
+  right:0;
+  background:var(--primary-bold-color);
+  color:white;
+  padding:.5rem .7rem .5rem .7rem;
+  font-weight:bold;
+  border-radius:5px;
+  p{
+    margin-bottom:0;
   }
 }
 .add-box {

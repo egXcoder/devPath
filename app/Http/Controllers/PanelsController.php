@@ -66,10 +66,9 @@ class PanelsController extends Controller {
         return 'success';
     }
 
-    public function destroy($category_name, $panel_name) {
-        $category_id = Category::where('name', $category_name)->firstorFail()->id;
+    public function destroy($id) {
 
-        $panel = Panel::where('name', $panel_name)->where('category_id', $category_id)->firstorFail();
+        $panel = Panel::findOrFail($id);
 
         $panel->delete();
 

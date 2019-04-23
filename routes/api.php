@@ -22,7 +22,7 @@ Route::get('panels', 'PanelsController@index');
 Route::get('{category_name}/panels', 'PanelsController@listPanelsInCategory');
 Route::post('{category_name}/panels/create', 'PanelsController@create');
 Route::put('{category_name}/panels/edit/{panel_name}', 'PanelsController@edit');
-Route::delete('{category_name}/panels/delete/{panel_name}', 'PanelsController@destroy');
+Route::delete('/panels/delete/{id}', 'PanelsController@destroy');
 
 Route::get('{category_name}/{panel_name}/headers', 'HeadersController@listHeadersInPanel');
 Route::post('{category_name}/{panel_name}/headers/create', 'HeadersController@create');

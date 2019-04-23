@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-4 p-2">
+    <div id="panel" class="col-md-4 p-2">
         <div class="panel">
             
             <div class="panel-title" 
@@ -10,11 +10,10 @@
             </div>
             
             <div class="panel-inner my-4">
-                
                 <component v-for="(item,index) in headersAndContents_List" :key="index" :is="item.type"></component>
-
             </div>
         </div>
+        <slot></slot>
     </div>
 </template>
 
@@ -60,7 +59,7 @@
             },
             triggerBlur(){
                 this.$refs.panelTitle.blur();
-            }
+            },
         }
     }
 </script>

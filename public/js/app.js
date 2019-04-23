@@ -1782,11 +1782,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       categoryTitle: 'aut',
+      showDeleteBox: false,
       panels: []
     };
   },
@@ -1797,15 +1800,19 @@ __webpack_require__.r(__webpack_exports__);
     panel: _Panel__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
+    fetchPanels: function fetchPanels() {
+      this.$http.get("http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels").then(function (data) {
+        this.panels = data.body.data;
+      });
+    },
     addPanel: function addPanel() {
       this.$http.post("http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels/create").then(function () {
         this.fetchPanels();
       });
     },
-    fetchPanels: function fetchPanels() {
-      this.$http.get("http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels").then(function (data) {
-        this.panels = data.body.data;
-      });
+    deletePanel: function deletePanel(id) {
+      this.$http["delete"]('http://127.0.0.1:8000/api/panels/delete/' + id);
+      this.fetchPanels();
     }
   }
 });
@@ -1895,7 +1902,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Header_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header.vue */ "./resources/js/components/Header.vue");
 /* harmony import */ var _Content_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Content.vue */ "./resources/js/components/Content.vue");
-//
 //
 //
 //
@@ -20158,7 +20164,22 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _vm._l(_vm.panels, function(panel) {
-          return [_c("panel", { key: panel.name, attrs: { panel: panel } })]
+          return [
+            _c("panel", { key: panel.id, attrs: { panel: panel } }, [
+              _c(
+                "p",
+                {
+                  staticClass: "delete-box",
+                  on: {
+                    click: function($event) {
+                      return _vm.deletePanel(panel.id)
+                    }
+                  }
+                },
+                [_vm._v("x")]
+              )
+            ])
+          ]
         }),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-4 p-2" }, [
@@ -20323,40 +20344,47 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-4 p-2" }, [
-    _c("div", { staticClass: "panel" }, [
-      _c(
-        "div",
-        {
-          ref: "panelTitle",
-          staticClass: "panel-title",
-          attrs: { contenteditable: "true" },
-          on: {
-            keypress: function($event) {
-              if (
-                !$event.type.indexOf("key") &&
-                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-              ) {
-                return null
+  return _c(
+    "div",
+    { staticClass: "col-md-4 p-2", attrs: { id: "panel" } },
+    [
+      _c("div", { staticClass: "panel" }, [
+        _c(
+          "div",
+          {
+            ref: "panelTitle",
+            staticClass: "panel-title",
+            attrs: { contenteditable: "true" },
+            on: {
+              keypress: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                $event.preventDefault()
+                return _vm.triggerBlur()
               }
-              $event.preventDefault()
-              return _vm.triggerBlur()
             }
-          }
-        },
-        [_c("h1", { staticClass: "lead" }, [_vm._v(_vm._s(_vm.panel.name))])]
-      ),
+          },
+          [_c("h1", { staticClass: "lead" }, [_vm._v(_vm._s(_vm.panel.name))])]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "panel-inner my-4" },
+          _vm._l(_vm.headersAndContents_List, function(item, index) {
+            return _c(item.type, { key: index, tag: "component" })
+          }),
+          1
+        )
+      ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "panel-inner my-4" },
-        _vm._l(_vm.headersAndContents_List, function(item, index) {
-          return _c(item.type, { key: index, tag: "component" })
-        }),
-        1
-      )
-    ])
-  ])
+      _vm._t("default")
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
