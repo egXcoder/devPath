@@ -44,62 +44,19 @@
     </div>
 
     <main id="app" class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 head">
-                    <h1><img width="70px" src="images/cheatsheet.png" /> JQuery CheatSheet</h1>
-                </div>
-                <panel></panel>
-                <panel></panel>
-                <panel></panel>
-                <panel></panel>
-            </div>
-        </div>
+
+        <all_panels></all_panels>
 
     </main>
     <script src="js/app.js"></script>
     <script src="css/plugins/prism/prism.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
-        // $(document).ready(function(){
-        //    $('pre code').click(function(){
-        //     toast();
-        //    });
-        
-        // });
-        
-        // function showHeaderEditor(element){
-        //     pTag = $(element).siblings("p");
-        //     pTag.replaceWith('<input type="text" onkeypress="if(event.keyCode==\'13\')submitHeaderEdit(this);" value="' + pTag.text() + '">');
-        // }
-
-        // function submitHeaderEdit(element){
-        //     inputTag = $(element);
-        //     inputTag.replaceWith('<p>' + inputTag.val() + '</p>');
-                    
-        // }
-
-        // function showContentEditor(element){
-        //     preTag = $(element).siblings("pre");
-        //     $(element).replaceWith('<a id="save" onclick="submitContentEdit(this);">Save</a>');
-        //     preTag.replaceWith('<textarea class="form-control" rows="12" name="" id="" >'+preTag.text()+'</textarea>');
-        // }
-
-        // function submitContentEdit(element){
-        //     textareaTag = $(element).siblings("textarea");
-        //     content = textareaTag.val();
-        //     $(element).replaceWith('<a id="edit" onclick="showContentEditor(this);">Edit</a>');
-        //     textareaTag.replaceWith('<pre><code class="language-js">'+content+'</code></pre>');
-        // }
-
         function toggleDrawer() {
             $('.collapsed-menu').toggleClass('show');
             $('.navigation-drawer').toggleClass('show');
         }
 
-        function toast(){
-            toastr.success('Code is Copied');
-        }
     </script>
 </body>
 

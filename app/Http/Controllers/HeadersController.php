@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use App\Panel;
 use App\Category;
 use App\Header;
+use App\Content;
 use App\Http\Resources\HeaderResource;
 use Illuminate\Support\Facades\Validator;
 
 class HeadersController extends Controller
 {
-public function listHeadersInPanel($category_name,$panel_name) {
+    use HeadersAndContentsWrapper;
+    
+    public function listHeadersInPanel($category_name,$panel_name) {
         $category_id = Category::where('name', $category_name)->firstorFail()->id;
         $panel = Panel::where('category_id',$category_id)->where('name', $panel_name)->firstorFail();
         $headers = $panel->header;
@@ -24,57 +27,47 @@ public function listHeadersInPanel($category_name,$panel_name) {
 
         $validator = Validator::make(request()->all(), [
             'name' => 'string|max:50|required',
-            'priority'=>'numeric|max:255',
         ]);
 
         if ($validator->fails()) {
             return $validator->getMessageBag()->all();
         }
 
-        Header::forceCreate([
-            'name' => $validator->validated()['name'],
-            'priority' => $validator->validated()['priority'],
+        Header::create([
+            'name' => request('name'),
+            'order' => $this->getLatestOrderOfHeaderOrContentIn($panel_id)+1,
             'panel_id' => $panel_id,
         ]);
         return 'success';
     }
 
-    public function edit($category_name, $panel_name,$header_name) {
+    public function edit($header_id) {
 
-        $category_id = Category::where('name', $category_name)->firstorFail()->id;
-        $panel_id = Panel::where('category_id', $category_id)->where('name', $panel_name)->firstorFail()->id;
-        $header = Header::where('name', $header_name)->where('panel_id', $panel_id)->firstorFail();
-        
+        $header = Header::findOrFail($header_id);
+
         $validator = Validator::make(request()->all(), [
-            'name' => 'string|max:50|required',
-            'priority'=>'numeric|max:255',
-            ]);
-            
-            if ($validator->fails()) {
-                return $validator->getMessageBag()->all();
-            }
+            'name' => 'string|max:255',
+            'order' => 'numeric|max:255',
+        ]);
 
-       if(request('priority')===null){
-           $header->update([
-               'name' => $validator->validated()['name'],
-           ]);
-       }else{
-           $header->update([
-               'name' => $validator->validated()['name'],
-               'priority' => $validator->validated()['priority'],
-           ]);
-       }
+        if ($validator->fails()) {
+            return $validator->getMessageBag()->all();
+        }
+
+        $header->update([
+            'name' => request()->has('name') ? request('name') : $header->name,
+            'order' => request()->has('order') ? request('order') : $header->order,
+        ]);
 
         return 'success';
     }
 
-    public function destroy($category_name,$panel_name, $header_name) {
-        $category_id = Category::where('name', $category_name)->firstorFail()->id;
-        $panel_id = Panel::where('category_id', $category_id)->where('name', $panel_name)->firstorFail()->id;
-        $header = Header::where('name', $header_name)->where('panel_id', $panel_id)->firstorFail();
+    public function destroy($header_id) {
+        $header = Header::findOrFail($header_id);
 
         $header->delete();
         
         return 'success';
     }
+
 }

@@ -26,10 +26,10 @@ Route::delete('{category_name}/panels/delete/{panel_name}', 'PanelsController@de
 
 Route::get('{category_name}/{panel_name}/headers', 'HeadersController@listHeadersInPanel');
 Route::post('{category_name}/{panel_name}/headers/create', 'HeadersController@create');
-Route::put('{category_name}/{panel_name}/headers/edit/{header_name}', 'HeadersController@edit');
-Route::delete('{category_name}/{panel_name}/headers/delete/{header_name}', 'HeadersController@destroy');
+Route::put('/headers/edit/{id}', 'HeadersController@edit');
+Route::delete('/headers/delete/{id}', 'HeadersController@destroy');
 
 Route::get('{category_name}/{panel_name}/contents', 'ContentsController@listContentsInPanel');
 Route::post('{category_name}/{panel_name}/contents/create', 'ContentsController@create');
-Route::put('{category_name}/{panel_name}/contents/edit/{content_name}', 'ContentsController@edit');
-Route::delete('{category_name}/{panel_name}/contents/delete/{content_name}', 'ContentsController@destroy');
+Route::put('/contents/edit/{id}', 'ContentsController@edit');
+Route::delete('/contents/delete/{id}', 'ContentsController@destroy');

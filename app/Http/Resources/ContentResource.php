@@ -13,9 +13,10 @@ class ContentResource extends JsonResource {
      */
     public function toArray($request) {
         return [
+            'id'=>$this->id,
             'content' => $this->content,
-            'type' => 'content',
-            'priority' => $this->priority,
+            'type' => 'panel_content',
+            'order' => $this->order,
             'code_language' => $this->codeLanguage->name,
         ];
     }

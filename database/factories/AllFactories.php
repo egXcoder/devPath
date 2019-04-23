@@ -26,13 +26,13 @@ $factory->define('App\CodeLanguage', function (Faker $faker) {
 $factory->define('App\Header', function (Faker $faker) {
     return [
         'name' => $faker->word,
-        'priority' => $faker->biasedNumberBetween($min = 1, $max = 10)
+        'order' => $faker->biasedNumberBetween($min = 1, $max = 10)
     ];
 });
 
 $factory->define('App\Content', function (Faker $faker) {
     return [
         'content' => $faker->paragraph(6),
-        'priority' => $faker->biasedNumberBetween($min = 1, $max = 10),
+        'order' => $faker->biasedNumberBetween($min = 1, $max = 10),
     ];
 });

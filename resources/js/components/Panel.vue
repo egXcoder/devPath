@@ -1,15 +1,17 @@
 <template>
     <div class="col-md-4 p-2">
         <div class="panel">
-            <div class="panel-title">{{panel_title}}</div>
+            
+            <div class="panel-title" 
+            ref="panelTitle" 
+            @keypress.enter.prevent="triggerBlur()" 
+            contenteditable="true">
+            <h1 class="lead">{{panel.name}}</h1>
+            </div>
+            
             <div class="panel-inner my-4">
-
-                <panel_header></panel_header>
-                <panel_content></panel_content>
-                <panel_header></panel_header>
-                <panel_content></panel_content>
-
-                <panel_content></panel_content>
+                
+                <component v-for="(item,index) in headersAndContents_List" :key="index" :is="item.type"></component>
 
             </div>
         </div>
@@ -22,23 +24,43 @@
     export default {
         data(){
             return{
-                panel_title: 'JQuery',
+                headersAndContents_List:[],
             }
+        },
+        props:{
+            panel:Object
         },
         components: {
             panel_header,
             panel_content,
         },
-        // methods: {
-        //     submitHeaderEdit() {
-        //         this.$refs.header.blur();
-        //         console.log('method is called');
-        //     },
-        //     submitContentEdit() {
-        //         this.$refs.content.blur();
-        //         this.showSave = false;
-        //         console.log('submit Content is called');
-        //     }
-        // }
+        created(){
+            this.createListForheadersAndContents();
+        },
+        mounted(){
+            $(this.$refs.panelTitle).on("blur",function(){
+                // submit title 
+                console.log('submit title');
+                });
+        },
+        methods:{
+            createListForheadersAndContents(){
+                this.panel.headers.forEach(element => {
+                this.headersAndContents_List.push({'name':element['name'],'type':element['type'],'order':element['order']})
+                });
+                this.panel.contents.forEach(element => {
+                    this.headersAndContents_List.push({'name':element['content'],'type':element['type'],'order':element['order']})
+                });
+                // sort headers and contents headersAndContents_List with their order ascending
+                this.headersAndContents_List.sort(function(a,b){
+                    if(a.order<b.order) return -1; 
+                    if(a.order>b.order) return 1; 
+                    if(a.order==b.order) return 0; 
+                });
+            },
+            triggerBlur(){
+                this.$refs.panelTitle.blur();
+            }
+        }
     }
 </script>

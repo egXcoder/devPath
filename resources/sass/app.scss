@@ -7,6 +7,8 @@
 // Bootstrap
 @import "plugins/bootstrap";
 
+@import "../../node_modules/toastr/toastr.scss";
+
 :root {
   --primary-color: #f17f29;
   --secondary-color: #c5dcec;
@@ -80,6 +82,10 @@ nav {
   display: block;
 }
 
+.collapsed-menu.show {
+  transform: translateX(0);
+}
+
 .collapsed-menu {
   position: fixed;
   top: 0;
@@ -143,10 +149,6 @@ nav {
   }
 }
 
-.collapsed-menu.show {
-  transform: translateX(0);
-}
-
 main {
   background: #eee;
 
@@ -175,6 +177,10 @@ main .panel {
     color: white;
     background: var(--primary-bold-color);
     font-weight: bold;
+    h1{
+      margin-bottom:0px;
+      font-weight:bold;
+    }
   }
 
   .panel-inner {
@@ -234,4 +240,22 @@ main .panel {
     background: rgba(7, 105, 173, 0.09);
     cursor: pointer;
   }
+}
+.add-box {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+}
+
+.add-box .btn{
+  padding:3rem;
+  cursor:pointer;
+  border:3px dashed var(--primary-bold-color);
+  background:none;
+  color:white;
+  font-weight:bold;
+  font-size:2rem;
+}
+.add-box .btn:hover{
+  background:var(--primary-bold-color);
 }

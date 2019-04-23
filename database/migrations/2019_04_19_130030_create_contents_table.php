@@ -16,7 +16,7 @@ class CreateContentsTable extends Migration
         Schema::create('contents', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('content');
-            $table->tinyInteger('priority')->unsigned();
+            $table->tinyInteger('order')->unsigned();
             $table->bigInteger('code_language_id')->unsigned();
             $table->bigInteger('panel_id')->unsigned();
             $table->timestamps();

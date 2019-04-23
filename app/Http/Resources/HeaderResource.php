@@ -13,9 +13,10 @@ class HeaderResource extends JsonResource {
      */
     public function toArray($request) {
         return [
+            'id'=>$this->id,
             'name' => $this->name,
-            'type' => 'header',
-            'priority' => $this->priority
+            'type' => 'panel_header',
+            'order' => $this->order
         ];
     }
 }
