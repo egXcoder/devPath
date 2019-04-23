@@ -6,27 +6,28 @@ use Illuminate\Http\Request;
 use App\Panel;
 use App\Category;
 use App\Header;
-use App\Content;
 use App\Http\Resources\HeaderResource;
 use Illuminate\Support\Facades\Validator;
 
-class HeadersController extends Controller
-{
+class HeadersController extends Controller {
     use HeadersAndContentsWrapper;
-    
-    public function listHeadersInPanel($category_name,$panel_name) {
+
+    public function listHeadersInPanel($category_name, $panel_name) {
         $category_id = Category::where('name', $category_name)->firstorFail()->id;
-        $panel = Panel::where('category_id',$category_id)->where('name', $panel_name)->firstorFail();
+        $panel = Panel::where('category_id', $category_id)->where('name', $panel_name)->firstorFail();
         $headers = $panel->header;
         return HeaderResource::collection($headers);
     }
 
-    public function create($category_name,$panel_name) {
+    public static function create($category_name, $panel_name, $panel_id = null) {
         $category_id = Category::where('name', $category_name)->firstorFail()->id;
-        $panel_id = Panel::where('category_id', $category_id)->where('name', $panel_name)->firstorFail()->id;
+        
+        if ($panel_id === null) {
+            $panel_id = Panel::where('category_id', $category_id)->where('name', $panel_name)->firstorFail()->id;
+        }
 
         $validator = Validator::make(request()->all(), [
-            'name' => 'string|max:50|required',
+            'name' => 'string|max:50',
         ]);
 
         if ($validator->fails()) {
@@ -34,15 +35,14 @@ class HeadersController extends Controller
         }
 
         Header::create([
-            'name' => request('name'),
-            'order' => $this->getLatestOrderOfHeaderOrContentIn($panel_id)+1,
+            'name' => request()->has('name') ? request('name') : 'default Header Name',
+            'order' => static::getLatestOrderOfHeaderOrContentIn($panel_id) + 1,
             'panel_id' => $panel_id,
         ]);
         return 'success';
     }
 
     public function edit($header_id) {
-
         $header = Header::findOrFail($header_id);
 
         $validator = Validator::make(request()->all(), [
@@ -66,8 +66,7 @@ class HeadersController extends Controller
         $header = Header::findOrFail($header_id);
 
         $header->delete();
-        
+
         return 'success';
     }
-
 }

@@ -21,27 +21,27 @@ import panel from "./Panel";
 export default {
   data() {
     return {
+      categoryTitle : 'aut',
       panels: []
     };
   },
   created() {
-    this.$http.get("http://127.0.0.1:8000/api/ad/panels").then(function(data) {
-      this.panels = data.body.data;
-    });
+    this.fetchPanels();
   },
   components: {
     panel
   },
   methods:{
     addPanel:function(){
-      this.panels.push(
-        {
-          'name':'panelName',
-          'headers':[{'name':'headerName','type':'panel_header','order':'1'}],
-          'contents':[{'content':'content','type':'panel_content','order':'2'}]
-        });
-        toastr.success('panel Added successfully');
-    }
+      this.$http.post("http://127.0.0.1:8000/api/"+this.categoryTitle+"/panels/create").then(function(){
+        this.fetchPanels();
+      })
+    },
+    fetchPanels(){
+      this.$http.get("http://127.0.0.1:8000/api/"+this.categoryTitle+"/panels").then(function(data) {
+      this.panels = data.body.data;
+      });
+    },
   }
   
 };

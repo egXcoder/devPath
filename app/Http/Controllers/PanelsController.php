@@ -28,17 +28,21 @@ class PanelsController extends Controller {
     public function create($category_name) {
         $category_id = Category::where('name', $category_name)->firstorFail()->id;
         $validator = Validator::make(request()->all(), [
-            'name' => 'string|max:50|required',
+            'name' => 'string|max:50',
         ]);
 
         if ($validator->fails()) {
             return $validator->getMessageBag()->all();
         }
 
-        Panel::forceCreate([
-            'name' => $validator->validated()['name'],
+        $panel_name = request()->has('name') ? request('name') : 'default Panel Name';
+        
+        $created_panel_id = Panel::create([
+            'name' => $panel_name,
             'category_id' => $category_id,
-        ]);
+        ])->id;
+        HeadersController::create($category_name,$panel_name,$created_panel_id);
+        ContentsController::create($category_name,$panel_name,$created_panel_id);
         return 'success';
     }
 
@@ -60,7 +64,6 @@ class PanelsController extends Controller {
             'name' => $validator->validated()['name'],
         ]);
         return 'success';
-
     }
 
     public function destroy($category_name, $panel_name) {

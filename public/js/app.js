@@ -1786,33 +1786,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      categoryTitle: 'aut',
       panels: []
     };
   },
   created: function created() {
-    this.$http.get("http://127.0.0.1:8000/api/ad/panels").then(function (data) {
-      this.panels = data.body.data;
-    });
+    this.fetchPanels();
   },
   components: {
     panel: _Panel__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
     addPanel: function addPanel() {
-      this.panels.push({
-        'name': 'panelName',
-        'headers': [{
-          'name': 'headerName',
-          'type': 'panel_header',
-          'order': '1'
-        }],
-        'contents': [{
-          'content': 'content',
-          'type': 'panel_content',
-          'order': '2'
-        }]
+      this.$http.post("http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels/create").then(function () {
+        this.fetchPanels();
       });
-      toastr.success('panel Added successfully');
+    },
+    fetchPanels: function fetchPanels() {
+      this.$http.get("http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels").then(function (data) {
+        this.panels = data.body.data;
+      });
     }
   }
 });

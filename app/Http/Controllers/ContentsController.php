@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Validator;
 use App\CodeLanguage;
 
 class ContentsController extends Controller {
-    
     use HeadersAndContentsWrapper;
 
     public function listContentsInPanel($category_name, $panel_name) {
@@ -21,24 +20,28 @@ class ContentsController extends Controller {
         return ContentResource::collection($contents);
     }
 
-    public function create($category_name, $panel_name) {
+    public static function create($category_name, $panel_name, $panel_id = null) {
         $category_id = Category::where('name', $category_name)->firstorFail()->id;
-        $panel_id = Panel::where('category_id', $category_id)->where('name', $panel_name)->firstorFail()->id;
+        if ($panel_id === null) {
+            $panel_id = Panel::where('category_id', $category_id)->where('name', $panel_name)->firstorFail()->id;
+        }
 
         $validator = Validator::make(request()->all(), [
-            'content' => 'required|string|max:5000',
-            'code_lang' => 'required|string|max:255',
+            'content' => 'string|max:5000',
+            'code_lang' => 'string|max:255',
         ]);
 
         if ($validator->fails()) {
             return $validator->getMessageBag()->all();
         }
 
-        $code_language_id = CodeLanguage::where('name', request('code_lang'))->firstorFail()->id;
+        $code_language_id = request()->has('code_lang')
+                            ? CodeLanguage::where('name', request('code_lang'))->firstorFail()->id
+                            : '1';
 
         Content::create([
-            'content' => request('content'),
-            'order' => $this->getLatestOrderOfHeaderOrContentIn($panel_id)+1,
+            'content' => request()->has('content') ? request('content') : 'default content',
+            'order' => static::getLatestOrderOfHeaderOrContentIn($panel_id) + 1,
             'panel_id' => $panel_id,
             'code_language_id' => $code_language_id,
         ]);
