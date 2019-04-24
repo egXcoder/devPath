@@ -187,6 +187,7 @@ main {
       line-height: 1.4rem;
     }
     .header a {
+      display:none;
       color: $primary-bold-color;
       font-weight: bold;
       cursor: pointer;
@@ -196,11 +197,8 @@ main {
       margin-bottom: 0;
       flex-grow: 1;
     }
-
-    .header input {
-      background: $secondary-bold-color;
-      margin-bottom: 0;
-      flex-grow: 1;
+    .header:hover a{
+      display:inline;
     }
 
     .content {
@@ -218,6 +216,10 @@ main {
       position: absolute;
       top: 0;
       right: 0;
+      display:none;
+    }
+    .content:hover a{
+      display:inline;
     }
 
     pre code {

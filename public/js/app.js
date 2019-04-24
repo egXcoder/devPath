@@ -1857,12 +1857,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1870,11 +1864,19 @@ __webpack_require__.r(__webpack_exports__);
       showSave: false
     };
   },
+  props: {
+    item: Object,
+    index: Number
+  },
   methods: {
     submitContentEdit: function submitContentEdit() {
-      this.$refs.content.blur();
-      this.showSave = false;
-      console.log('submit Content is called');
+      this.$http.put("http://127.0.0.1:8000/api/contents/edit/" + this.item.id, {
+        content: event.target.innerText
+      });
+    },
+    deleteContent: function deleteContent() {
+      this.$http["delete"]("http://127.0.0.1:8000/api/contents/delete/" + this.item.id);
+      this.$emit("deleteContentEvent", this.index);
     }
   }
 });
@@ -1899,13 +1901,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {};
+  props: {
+    item: Object,
+    index: Number
   },
   methods: {
     submitHeaderEdit: function submitHeaderEdit() {
-      this.$refs.header.blur();
-      console.log('method is called');
+      this.$http.put("http://127.0.0.1:8000/api/headers/edit/" + this.item.id, {
+        name: event.target.innerText
+      });
+    },
+    deleteHeader: function deleteHeader() {
+      this.$http["delete"]("http://127.0.0.1:8000/api/headers/delete/" + this.item.id);
+      this.$emit("deleteHeaderEvent", this.index);
     }
   }
 });
@@ -1979,6 +1987,12 @@ __webpack_require__.r(__webpack_exports__);
         order: highestOrder + 1,
         type: "panel_content"
       });
+    },
+    deleteHeader: function deleteHeader(index) {
+      this.headersAndContents.splice(index, 1);
+    },
+    deleteContent: function deleteContent(index) {
+      this.headersAndContents.splice(index, 1);
     }
   }
 });
@@ -20777,40 +20791,28 @@ var render = function() {
       _c(
         "code",
         {
-          ref: "content",
           staticClass: "language-js",
           attrs: { contenteditable: "true" },
           on: {
-            focusin: function($event) {
-              _vm.showSave = true
-            },
-            focusout: function($event) {
-              _vm.showSave = false
+            blur: function($event) {
+              return _vm.submitContentEdit()
             }
           }
         },
-        [
-          _vm._v(
-            '\n    $(document).ready(function(){\n    $(".demo").click(function(){\n    $(this).hide(200);\n    });\n    });\n    '
-          )
-        ]
+        [_vm._v(_vm._s(_vm.item.name))]
       )
     ]),
     _vm._v(" "),
     _c(
       "a",
       {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.showSave,
-            expression: "showSave"
+        on: {
+          click: function($event) {
+            return _vm.deleteContent()
           }
-        ],
-        on: { click: _vm.submitContentEdit }
+        }
       },
-      [_vm._v("Save")]
+      [_vm._v("x")]
     )
   ])
 }
@@ -20840,9 +20842,11 @@ var render = function() {
     _c(
       "p",
       {
-        ref: "header",
         attrs: { contenteditable: "true" },
         on: {
+          blur: function($event) {
+            return _vm.submitHeaderEdit()
+          },
           keypress: function($event) {
             if (
               !$event.type.indexOf("key") &&
@@ -20851,11 +20855,23 @@ var render = function() {
               return null
             }
             $event.preventDefault()
-            return _vm.submitHeaderEdit($event)
+            return _vm.submitHeaderEdit()
           }
         }
       },
-      [_vm._v("  Header is\n        here\n    ")]
+      [_vm._v("  " + _vm._s(_vm.item.name) + "\n    ")]
+    ),
+    _vm._v(" "),
+    _c(
+      "a",
+      {
+        on: {
+          click: function($event) {
+            return _vm.deleteHeader()
+          }
+        }
+      },
+      [_vm._v("x")]
     )
   ])
 }
@@ -20896,7 +20912,19 @@ var render = function() {
             { staticClass: "panel-inner my-4" },
             [
               _vm._l(_vm.headersAndContents, function(item, index) {
-                return _c(item.type, { key: index, tag: "component" })
+                return _c(item.type, {
+                  key: index,
+                  tag: "component",
+                  attrs: { item: item, index: index },
+                  on: {
+                    deleteContentEvent: function($event) {
+                      return _vm.deleteContent($event)
+                    },
+                    deleteHeaderEvent: function($event) {
+                      return _vm.deleteHeader($event)
+                    }
+                  }
+                })
               }),
               _vm._v(" "),
               _c("div", { staticClass: "row justify-content-between mt-2" }, [

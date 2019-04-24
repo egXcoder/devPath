@@ -1,13 +1,7 @@
 <template>
     <div class="content">
-        <pre><code @focusin="showSave=true" @focusout="showSave=false" ref="content" contenteditable="true" class="language-js">
-        $(document).ready(function(){
-        $(".demo").click(function(){
-        $(this).hide(200);
-        });
-        });
-        </code></pre>
-        <a v-show="showSave" @click="submitContentEdit">Save</a>
+        <pre><code @blur="submitContentEdit()" contenteditable="true" class="language-js">{{item.name}}</code></pre>
+        <a @click="deleteContent()">x</a>
     </div>
 </template>
 
@@ -19,11 +13,17 @@
                 showSave: false,
             }
         },
+        props:{
+            item:Object,
+            index:Number,
+        },
         methods: {
             submitContentEdit() {
-                this.$refs.content.blur();
-                this.showSave = false;
-                console.log('submit Content is called');
+               this.$http.put("http://127.0.0.1:8000/api/contents/edit/"+this.item.id,{content:event.target.innerText});
+            },
+            deleteContent(){
+                this.$http.delete("http://127.0.0.1:8000/api/contents/delete/"+this.item.id);
+                this.$emit("deleteContentEvent",this.index);
             }
         }
     }

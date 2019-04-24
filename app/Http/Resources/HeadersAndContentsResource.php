@@ -12,9 +12,9 @@ class HeadersAndContentsResource extends JsonResource {
      * @return array
      */
     public function toArray($request) {
-        
         if ($this->resource instanceof \App\Header) {
             return [
+                'id' => $this->id,
                 'type' => 'panel_header',
                 'name' => $this->name,
                 'order' => $this->order,
@@ -23,6 +23,7 @@ class HeadersAndContentsResource extends JsonResource {
 
         if ($this->resource instanceof \App\Content) {
             return [
+                'id' => $this->id,
                 'type' => 'panel_content',
                 'name' => $this->content,
                 'order' => $this->order,

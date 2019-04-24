@@ -11100,6 +11100,7 @@ main .head {
 }
 
 .panel .panel-inner .header a {
+  display: none;
   color: #f96900;
   font-weight: bold;
   cursor: pointer;
@@ -11111,10 +11112,8 @@ main .head {
   flex-grow: 1;
 }
 
-.panel .panel-inner .header input {
-  background: #5ca8dc;
-  margin-bottom: 0;
-  flex-grow: 1;
+.panel .panel-inner .header:hover a {
+  display: inline;
 }
 
 .panel .panel-inner .content {
@@ -11132,6 +11131,11 @@ main .head {
   position: absolute;
   top: 0;
   right: 0;
+  display: none;
+}
+
+.panel .panel-inner .content:hover a {
+  display: inline;
 }
 
 .panel .panel-inner pre code {

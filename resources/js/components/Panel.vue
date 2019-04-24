@@ -4,7 +4,7 @@
       <slot name="panelTitle"></slot>
 
       <div class="panel-inner my-4">
-        <component v-for="(item,index) in headersAndContents" :key="index" :is="item.type"></component>
+        <component @deleteContentEvent="deleteContent($event)" @deleteHeaderEvent="deleteHeader($event)" v-for="(item,index) in headersAndContents" :item="item" :key="index" :index="index" :is="item.type"></component>
 
         <div class="row justify-content-between mt-2">
           <div @click="createHeader()" class="btn btn-primary">Add Header</div>
@@ -57,6 +57,12 @@ export default {
         order:highestOrder+1,
         type:"panel_content",
         });
+    },
+    deleteHeader(index){
+      this.headersAndContents.splice(index,1);
+    },
+    deleteContent(index){
+      this.headersAndContents.splice(index,1);
     }
   }
 };
