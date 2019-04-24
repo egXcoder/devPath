@@ -7,7 +7,7 @@
         </h1>
       </div>
       <template v-for="panel in panels">
-        <panel :key="panel.id" :panel="panel">
+        <panel :key="panel.id" :categoryTitle="categoryTitle" :panel="panel">
           <div slot="panelTitle" class="panel-title">
             <h1
               contenteditable="true"
@@ -29,13 +29,14 @@
 
 <script>
 import panel from "./Panel";
+import { Shared } from "./../app.js";
 
 export default {
   data() {
     return {
-      categoryTitle: "aut",
       showDeleteBox: false,
-      panels: []
+      categoryTitle:'aut',
+      panels:[],
     };
   },
   created() {
@@ -46,10 +47,10 @@ export default {
   },
   methods: {
     fetchPanels() {
-      this.$http
+        this.$http
         .get("http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels")
-        .then(function(data) {
-          this.panels = data.body.data;
+        .then(function(response) {
+          this.panels = response.body.data;
         });
     },
     addPanel() {

@@ -22,7 +22,7 @@ window.Vue = require('vue');
 
 // importing toastr 
 window.toastr = require('toastr');
-window.toast = function toast(msg){
+window.toast = function toast(msg) {
     toastr.success(msg);
 }
 

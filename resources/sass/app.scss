@@ -9,20 +9,14 @@
 
 @import "../../node_modules/toastr/toastr.scss";
 
-:root {
-  --primary-color: #f17f29;
-  --secondary-color: #c5dcec;
-  --primary-bold-color: #f96900;
-  --secondary-bold-color: #0769ad;
-}
 
 nav {
-  background: var(--primary-color);
+  background: $primary-color;
   padding-top: 0.9rem;
   padding-bottom: 0.5rem;
 
   .brand {
-    background: var(--primary-color);
+    background: $primary-color;
     border-radius: 20px;
     cursor: pointer;
     margin-left: 1rem;
@@ -94,7 +88,7 @@ nav {
   height: 100%;
   transform: translateX(100%);
   width: 25%;
-  background: var(--primary-color);
+  background: $primary-color;
   transition: transform 0.5s ease-in-out;
 
   .closeButton {
@@ -127,7 +121,7 @@ nav {
   }
 
   .menu-container li:hover a {
-    color: var(--secondary-color);
+    color: $secondary-color;
     text-decoration: none;
   }
 }
@@ -155,7 +149,7 @@ main {
   .head {
     text-align: center;
     margin-bottom: 3rem;
-    color: var(--secondary-bold-color);
+    color: $secondary-bold-color;
   }
 }
 
@@ -165,7 +159,7 @@ main {
   margin: 0.5rem 0rem 0.5rem 0rem;
   background: white;
   border-radius: 10px;
-  box-shadow: 0px 1px 5px 0px var(--primary-color);
+  box-shadow: 0px 1px 5px 0px $primary-color;
 
   .panel-title {
     position: absolute;
@@ -174,7 +168,7 @@ main {
     left: 10px;
     border-radius: 15px;
     color: white;
-    background: var(--primary-bold-color);
+    background: $primary-bold-color;
     font-weight: bold;
     h1 {
       font-size: 1.4rem;
@@ -186,59 +180,69 @@ main {
   .panel-inner {
     width: 100%;
     height: 100%;
-  }
 
-  .panel-inner .header {
-    background: var(--secondary-color);
-    color: black;
-    line-height: 1.4rem;
-  }
+    .header {
+      background: $secondary-color;
+      color: black;
+      line-height: 1.4rem;
+    }
+    .header a {
+      color: $primary-bold-color;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+    .header p {
+      margin-bottom: 0;
+      flex-grow: 1;
+    }
 
-  .panel-inner .header a {
-    color: var(--primary-bold-color);
-    font-weight: bold;
-    cursor: pointer;
-    margin-right: 1rem;
-  }
+    .header input {
+      background: $secondary-bold-color;
+      margin-bottom: 0;
+      flex-grow: 1;
+    }
 
-  .panel-inner .header p {
-    margin-bottom: 0;
-    flex-grow: 1;
-  }
+    .content {
+      position: relative;
+    }
 
-  .panel-inner .header input {
-    background: var(--secondary-bold-color);
-    margin-bottom: 0;
-    flex-grow: 1;
-  }
+    .content a {
+      background: $primary-bold-color;
+      color: white;
+      border-radius: 5px;
+      padding: 0.3rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 1rem;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
 
-  .panel-inner .content {
-    position: relative;
-  }
+    pre code {
+      border-left: 0;
+      box-shadow: none;
+      background-image: none;
+      font-size: 0.9rem;
+    }
 
-  .panel-inner .content a {
-    background: var(--primary-bold-color);
-    color: white;
-    border-radius: 5px;
-    padding: 0.3rem;
-    font-weight: bold;
-    cursor: pointer;
-    margin-right: 1rem;
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
-  .panel-inner pre code {
-    border-left: 0;
-    box-shadow: none;
-    background-image: none;
-    font-size: 0.9rem;
-  }
-
-  .panel-inner pre:hover {
-    background: rgba(7, 105, 173, 0.09);
-    cursor: pointer;
+    pre:hover {
+      background: rgba(7, 105, 173, 0.09);
+      cursor: pointer;
+    }
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .row .btn {
+      cursor:pointer;
+      background: $secondary-bold-color;
+      color:white;
+      border: none;
+      font-weight: bold;
+      border-radius: 5px;
+    }
   }
 }
 #panel:hover .delete-box {
@@ -250,7 +254,7 @@ main {
   position: absolute;
   top: 0;
   right: 0;
-  background: var(--primary-bold-color);
+  background: $primary-bold-color;
   color: white;
   padding: 0.5rem 0.7rem 0.5rem 0.7rem;
   font-weight: bold;
@@ -268,12 +272,12 @@ main {
 .add-box .btn {
   padding: 3rem;
   cursor: pointer;
-  border: 3px dashed var(--primary-bold-color);
+  border: 3px dashed $primary-bold-color;
   background: none;
   color: white;
   font-weight: bold;
   font-size: 2rem;
 }
 .add-box .btn:hover {
-  background: var(--primary-bold-color);
+  background: $primary-bold-color;
 }

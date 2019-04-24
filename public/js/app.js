@@ -1764,6 +1764,7 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Panel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Panel */ "./resources/js/components/Panel.vue");
+/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../app.js */ "./resources/js/app.js");
 //
 //
 //
@@ -1794,11 +1795,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      categoryTitle: "aut",
       showDeleteBox: false,
+      categoryTitle: 'aut',
       panels: []
     };
   },
@@ -1810,8 +1812,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     fetchPanels: function fetchPanels() {
-      this.$http.get("http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels").then(function (data) {
-        this.panels = data.body.data;
+      this.$http.get("http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels").then(function (response) {
+        this.panels = response.body.data;
       });
     },
     addPanel: function addPanel() {
@@ -1934,6 +1936,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1943,7 +1950,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
-    panel: Object
+    panel: Object,
+    categoryTitle: String
   },
   components: {
     panel_header: _Header_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -1952,7 +1960,27 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.headersAndContents = this.panel.headersAndContents;
   },
-  methods: {}
+  methods: {
+    createHeader: function createHeader() {
+      this.$http.post("http://127.0.0.1:8000/api/" + this.categoryTitle + "/" + this.panel.name + "/headers/create");
+      var highestOrder = this.headersAndContents.slice(-1).pop().order;
+      this.headersAndContents.push({
+        name: "default Header Name",
+        order: highestOrder + 1,
+        type: "panel_header"
+      });
+    },
+    createContent: function createContent() {
+      this.$http.post("http://127.0.0.1:8000/api/" + this.categoryTitle + "/" + this.panel.name + "/contents/create");
+      var highestOrder = this.headersAndContents.slice(-1).pop().order;
+      this.headersAndContents.push({
+        code_lang: 'language-css',
+        name: "default content",
+        order: highestOrder + 1,
+        type: "panel_content"
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -20626,61 +20654,68 @@ var render = function() {
         _vm._v(" "),
         _vm._l(_vm.panels, function(panel) {
           return [
-            _c("panel", { key: panel.id, attrs: { panel: panel } }, [
-              _c(
-                "div",
-                {
-                  staticClass: "panel-title",
-                  attrs: { slot: "panelTitle" },
-                  slot: "panelTitle"
-                },
-                [
-                  _c(
-                    "h1",
-                    {
-                      attrs: { contenteditable: "true" },
-                      on: {
-                        blur: function($event) {
-                          return _vm.editPanel(panel)
-                        },
-                        keypress: function($event) {
-                          if (
-                            !$event.type.indexOf("key") &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
+            _c(
+              "panel",
+              {
+                key: panel.id,
+                attrs: { categoryTitle: _vm.categoryTitle, panel: panel }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "panel-title",
+                    attrs: { slot: "panelTitle" },
+                    slot: "panelTitle"
+                  },
+                  [
+                    _c(
+                      "h1",
+                      {
+                        attrs: { contenteditable: "true" },
+                        on: {
+                          blur: function($event) {
+                            return _vm.editPanel(panel)
+                          },
+                          keypress: function($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            $event.preventDefault()
+                            return _vm.editPanel(panel)
                           }
-                          $event.preventDefault()
-                          return _vm.editPanel(panel)
                         }
+                      },
+                      [_vm._v(_vm._s(panel.name))]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "delete-box",
+                    attrs: { slot: "deletePanel" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deletePanel(panel)
                       }
                     },
-                    [_vm._v(_vm._s(panel.name))]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "p",
-                {
-                  staticClass: "delete-box",
-                  attrs: { slot: "deletePanel" },
-                  on: {
-                    click: function($event) {
-                      return _vm.deletePanel(panel)
-                    }
+                    slot: "deletePanel"
                   },
-                  slot: "deletePanel"
-                },
-                [_vm._v("x")]
-              )
-            ])
+                  [_vm._v("x")]
+                )
+              ]
+            )
           ]
         }),
         _vm._v(" "),
@@ -20859,10 +20894,40 @@ var render = function() {
           _c(
             "div",
             { staticClass: "panel-inner my-4" },
-            _vm._l(_vm.headersAndContents, function(item, index) {
-              return _c(item.type, { key: index, tag: "component" })
-            }),
-            1
+            [
+              _vm._l(_vm.headersAndContents, function(item, index) {
+                return _c(item.type, { key: index, tag: "component" })
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "row justify-content-between mt-2" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.createHeader()
+                      }
+                    }
+                  },
+                  [_vm._v("Add Header")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.createContent()
+                      }
+                    }
+                  },
+                  [_vm._v("Add Content")]
+                )
+              ])
+            ],
+            2
           )
         ],
         2
