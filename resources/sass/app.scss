@@ -173,13 +173,13 @@ main {
     top: -30px;
     left: 10px;
     border-radius: 15px;
-    font-size: 1.2rem;
     color: white;
     background: var(--primary-bold-color);
     font-weight: bold;
-    h1{
-      margin-bottom:0px;
-      font-weight:bold;
+    h1 {
+      font-size: 1.4rem;
+      outline: none;
+      margin-bottom: 0;
     }
   }
 
@@ -241,22 +241,22 @@ main {
     cursor: pointer;
   }
 }
-#panel:hover .delete-box{
-  display:block;
+#panel:hover .delete-box {
+  display: block;
 }
-.delete-box{
-  display:none;
-  cursor:pointer;
-  position:absolute;
-  top:0;
-  right:0;
-  background:var(--primary-bold-color);
-  color:white;
-  padding:.5rem .7rem .5rem .7rem;
-  font-weight:bold;
-  border-radius:5px;
-  p{
-    margin-bottom:0;
+.delete-box {
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--primary-bold-color);
+  color: white;
+  padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+  font-weight: bold;
+  border-radius: 5px;
+  p {
+    margin-bottom: 0;
   }
 }
 .add-box {
@@ -265,15 +265,15 @@ main {
   left: 40%;
 }
 
-.add-box .btn{
-  padding:3rem;
-  cursor:pointer;
-  border:3px dashed var(--primary-bold-color);
-  background:none;
-  color:white;
-  font-weight:bold;
-  font-size:2rem;
+.add-box .btn {
+  padding: 3rem;
+  cursor: pointer;
+  border: 3px dashed var(--primary-bold-color);
+  background: none;
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
 }
-.add-box .btn:hover{
-  background:var(--primary-bold-color);
+.add-box .btn:hover {
+  background: var(--primary-bold-color);
 }

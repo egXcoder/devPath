@@ -5,6 +5,7 @@
     <!-- <meta charset="UTF-8"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="css/app.css"> {{--
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"> --}}
     <link rel="stylesheet" href="css/plugins/prism/prism.css">
@@ -50,7 +51,6 @@
     </main>
     <script src="js/app.js"></script>
     <script src="css/plugins/prism/prism.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
         function toggleDrawer() {
             $('.collapsed-menu').toggleClass('show');

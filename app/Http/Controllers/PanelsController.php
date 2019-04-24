@@ -7,19 +7,13 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Http\Resources\PanelResource;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\HeadersAndContentsResource;
 
 class PanelsController extends Controller {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index() {
-        $panels = Panel::all();
-        return PanelResource::collection($panels);
-    }
-
+   
     public function listPanelsInCategory($category_name) {
+        //create panel with name or set default panel name
+        //create default one header and one content attached with this panel
         $category_id = Category::where('name', $category_name)->firstorFail()->id;
         $panels = Panel::where('category_id', $category_id)->get();
         return PanelResource::collection($panels);
@@ -35,22 +29,19 @@ class PanelsController extends Controller {
             return $validator->getMessageBag()->all();
         }
 
-        $panel_name = request()->has('name') ? request('name') : 'default Panel Name';
-        
-        $created_panel_id = Panel::create([
-            'name' => $panel_name,
+        $created_panel = Panel::create([
+            'name' => request()->has('name') ? request('name') : 'default Panel Name',
             'category_id' => $category_id,
-        ])->id;
-        HeadersController::create($category_name,$panel_name,$created_panel_id);
-        ContentsController::create($category_name,$panel_name,$created_panel_id);
+        ]);
+
+        HeadersController::create($category_name, $created_panel->name, $created_panel->id);
+        ContentsController::create($category_name, $created_panel->name, $created_panel->id);
         return 'success';
     }
 
-    public function edit($category_name, $panel_name) {
-        // Put Request with name:'new Name for Panel'
-        $category_id = Category::where('name', $category_name)->firstorFail()->id;
-
-        $panel = Panel::where('name', $panel_name)->where('category_id', $category_id)->firstorFail();
+    public function edit($panel_id) {
+        //edit panel with must be given name
+        $panel = Panel::findOrFail($panel_id);
 
         $validator = Validator::make(request()->all(), [
             'name' => 'string|max:50|required',
@@ -61,13 +52,12 @@ class PanelsController extends Controller {
         }
 
         $panel->update([
-            'name' => $validator->validated()['name'],
+            'name' => request('name'),
         ]);
         return 'success';
     }
 
     public function destroy($id) {
-
         $panel = Panel::findOrFail($id);
 
         $panel->delete();

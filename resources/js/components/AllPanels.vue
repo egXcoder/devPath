@@ -8,11 +8,20 @@
       </div>
       <template v-for="panel in panels">
         <panel :key="panel.id" :panel="panel">
-          <p @click="deletePanel(panel.id)" class="delete-box">x</p>
+          <div slot="panelTitle" class="panel-title">
+            <h1
+              contenteditable="true"
+              @blur="editPanel(panel)"
+              @keypress.enter.prevent="editPanel(panel)"
+            >{{panel.name}}</h1>
+          </div>
+          <p slot="deletePanel" @click="deletePanel(panel)" class="delete-box">x</p>
         </panel>
       </template>
       <div class="col-md-4 p-2">
-        <div v-on:click="addPanel()" class="add-box"><div class="btn btn-primary">+</div></div>
+        <div v-on:click="addPanel()" class="add-box">
+          <div class="btn btn-primary">+</div>
+        </div>
       </div>
     </div>
   </div>
@@ -24,8 +33,8 @@ import panel from "./Panel";
 export default {
   data() {
     return {
-      categoryTitle : 'aut',
-      showDeleteBox:false,
+      categoryTitle: "aut",
+      showDeleteBox: false,
       panels: []
     };
   },
@@ -35,22 +44,35 @@ export default {
   components: {
     panel
   },
-  methods:{
-    fetchPanels(){
-        this.$http.get("http://127.0.0.1:8000/api/"+this.categoryTitle+"/panels").then(function(data) {
-        this.panels = data.body.data;
-      });
+  methods: {
+    fetchPanels() {
+      this.$http
+        .get("http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels")
+        .then(function(data) {
+          this.panels = data.body.data;
+        });
     },
-    addPanel:function(){
-      this.$http.post("http://127.0.0.1:8000/api/"+this.categoryTitle+"/panels/create").then(function(){
-        this.fetchPanels();
-      })
-    },
-    deletePanel(id){
-      this.$http.delete('http://127.0.0.1:8000/api/panels/delete/'+id);
+    addPanel() {
+      this.$http.post(
+        "http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels/create"
+      );
+      toast("panel Created Successfully");
       this.fetchPanels();
+    },
+    deletePanel(panel) {
+      this.$http.delete("http://127.0.0.1:8000/api/panels/delete/" + panel.id);
+      toast("panel Deleted Successfully");
+      this.fetchPanels();
+    },
+    changePanelNameVariable() {
+      console.log(this.$refs.panelTitle);
+    },
+    editPanel(panel) {
+      this.$http.put("http://127.0.0.1:8000/api/panels/edit/" + panel.id, {
+        name: event.target.innerText
+      });
+      toast("panel edited Successfully");
     }
   }
-  
 };
 </script>

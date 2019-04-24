@@ -14,4 +14,5 @@ trait HeadersAndContentsWrapper{
         $highestOrder = $header->union($content)->orderBy('order','DESC')->first();
         return ($highestOrder===null)?0:$highestOrder->order;
     }
+    
 }

@@ -12,11 +12,12 @@ class PanelResource extends JsonResource {
      * @return array
      */
     public function toArray($request) {
+        $panel = $this->resource;
+        $sortHeadersAndContents =$panel->getHeadersAndContentsFrom($this->id);
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'headers' => HeaderResource::collection($this->header),
-            'contents' => ContentResource::collection($this->content),
+            'headersAndContents' => HeadersAndContentsResource::collection($sortHeadersAndContents),
         ];
     }
 }
