@@ -36,15 +36,13 @@
         <div class="menu-container">
             <ul class="list-unstyled">
                 @foreach ($categories as $category)
-                
                 <li><a href="{{route('show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a></li>
                 @endforeach
             </ul>
         </div>
     </div>
 
-
-    <main id="app" class="py-5">
+    <main id="app">
 
         <all_panels v-bind:passed_category_title="category_title"></all_panels>
 

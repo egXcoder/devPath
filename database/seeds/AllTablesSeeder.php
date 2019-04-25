@@ -9,6 +9,7 @@ class AllTablesSeeder extends Seeder {
      * @return void
      */
     public function run() {
+        factory('App\CodeLanguage')->create(['name'=>'language-html']);
         factory('App\CodeLanguage')->create(['name'=>'language-css']);
         factory('App\CodeLanguage')->create(['name'=>'language-js']);
         factory('App\CodeLanguage')->create(['name'=>'language-php']);

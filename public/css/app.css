@@ -11054,6 +11054,8 @@ nav .menu-toggle span {
 
 main {
   background: #eee;
+  padding-top: 3rem;
+  padding-bottom: 200px;
 }
 
 main .head {
@@ -11121,8 +11123,7 @@ main .head {
 }
 
 .panel .panel-inner .content a {
-  background: #f96900;
-  color: white;
+  color: #f96900;
   border-radius: 5px;
   padding: 0.3rem;
   font-weight: bold;

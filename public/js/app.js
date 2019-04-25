@@ -1857,26 +1857,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      content: ''
+      content: '',
+      selected: '',
+      code_lang: this.item.code_lang
     };
+  },
+  watch: {
+    selected: function selected(value) {
+      this.$http.put("http://127.0.0.1:8000/api/contents/edit/" + this.item.id, {
+        code_lang: value
+      });
+      this.code_lang = value;
+      Prism.highlightAll();
+    }
   },
   created: function created() {
     this.content = this.item.name;
+    this.selected = this.item.code_lang;
   },
   mounted: function mounted() {
     Prism.highlightAll();
   },
   updated: function updated() {
     Prism.highlightAll();
-  },
-  computed: {
-    returnClass: function returnClass() {
-      return this.item.code_lang;
-    }
   },
   props: {
     item: Object,
@@ -21772,7 +21787,7 @@ var render = function() {
   return _c("div", { staticClass: "content" }, [
     _c("pre", [
       _c("code", {
-        class: _vm.returnClass,
+        class: _vm.code_lang,
         attrs: { contenteditable: "" },
         domProps: { innerHTML: _vm._s(_vm.content) },
         on: {
@@ -21783,17 +21798,48 @@ var render = function() {
       })
     ]),
     _vm._v(" "),
-    _c(
-      "a",
-      {
-        on: {
-          click: function($event) {
-            return _vm.deleteContent()
+    _c("div", { staticClass: "form-group" }, [
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.selected,
+              expression: "selected"
+            }
+          ],
+          staticClass: "form-control",
+          on: {
+            change: function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.selected = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            }
           }
-        }
-      },
-      [_vm._v("x")]
-    )
+        },
+        [
+          _c("option", [_vm._v("language-html")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("language-css")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("language-js")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("language-php")])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("a", { on: { click: _vm.deleteContent } }, [_vm._v("x")])
   ])
 }
 var staticRenderFns = []

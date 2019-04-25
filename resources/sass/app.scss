@@ -145,6 +145,8 @@ nav {
 
 main {
   background: #eee;
+  padding-top:3rem;
+  padding-bottom:200px;
 
   .head {
     text-align: center;
@@ -206,8 +208,7 @@ main {
     }
 
     .content a {
-      background: $primary-bold-color;
-      color: white;
+      color: $primary-bold-color;
       border-radius: 5px;
       padding: 0.3rem;
       font-weight: bold;
