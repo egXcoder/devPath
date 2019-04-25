@@ -29,28 +29,23 @@
 
     <div class="navigation-drawer" onclick="toggleDrawer()"></div>
 
-    <div class="collapsed-menu">
-        <div onclick="toggleDrawer()" class="closeButton">
-            <a>X</a>
-        </div>
-        <div class="menu-container">
-            <ul class="list-unstyled">
-                <li><a href="http://">HTML</a></li>
-                <li><a href="http://">CSS</a></li>
-                <li><a href="http://">Bootstrap 4</a></li>
-                <li><a href="http://">JQUERY</a></li>
-                <li><a href="http://">GIT</a></li>
-            </ul>
-        </div>
-    </div>
+
 
     <main id="app" class="py-5">
+        <div class="collapsed-menu">
+                <div onclick="toggleDrawer()" class="closeButton">
+                    <a>X</a>
+                </div>
+                <div class="menu-container">
+                    <categories_list></categories_list>
+                </div>
+            </div>
 
+        <p v-for="item in categories">54</p>
         <all_panels></all_panels>
 
     </main>
     <script src="js/app.js"></script>
-    <script src="css/plugins/prism/prism.js"></script>
     <script>
         function toggleDrawer() {
             $('.collapsed-menu').toggleClass('show');

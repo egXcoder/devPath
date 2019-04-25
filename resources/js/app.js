@@ -26,15 +26,30 @@ window.toast = function toast(msg) {
     toastr.success(msg);
 }
 
+//import prism
+window.Prism = require('prismjs');
 
+//Using Vue Plugins
+// import vueRouter from 'vue-router';
+// Vue.use(vueRouter);
+// const panels_router = new VueRouter({
+//     routes: [
+//         { path: '/', component: firstComponent },
+//         { path: '/show', component: secondComponent },
+//     ]
+// });
+
+import vue_resource from '../../node_modules/vue-resource/dist/vue-resource';
+Vue.use(vue_resource);
+
+// registering global components
 Vue.component('all_panels', require('./components/AllPanels.vue').default);
+Vue.component('categories_list', require('./components/Category.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-import vue_resource from '../../node_modules/vue-resource/dist/vue-resource';
-Vue.use(vue_resource);
 
 const app = new Vue({
     el: '#app',

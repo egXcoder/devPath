@@ -46,6 +46,7 @@ export default {
     panel
   },
   methods: {
+    
     fetchPanels() {
         this.$http
         .get("http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels")

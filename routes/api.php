@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/', 'CategoriesController@index');
+
 Route::get('{category_name}/panels', 'PanelsController@listPanelsInCategory');
 Route::post('{category_name}/panels/create', 'PanelsController@create');
 Route::put('panels/edit/{id}', 'PanelsController@edit');

@@ -24,8 +24,10 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "prismjs": "^1.16.0",
         "toastr": "^2.1.4",
         "vue-resource": "^1.5.1",
+        "vue-router": "^3.0.6",
         "vue-toastr-2": "0.0.10"
     }
 }
