@@ -29,20 +29,24 @@
 
     <div class="navigation-drawer" onclick="toggleDrawer()"></div>
 
+    <div class="collapsed-menu">
+        <div onclick="toggleDrawer()" class="closeButton">
+            <a>X</a>
+        </div>
+        <div class="menu-container">
+            <ul class="list-unstyled">
+                @foreach ($categories as $category)
+                
+                <li><a href="{{route('show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a></li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
 
 
     <main id="app" class="py-5">
-        <div class="collapsed-menu">
-                <div onclick="toggleDrawer()" class="closeButton">
-                    <a>X</a>
-                </div>
-                <div class="menu-container">
-                    <categories_list></categories_list>
-                </div>
-            </div>
 
-        <p v-for="item in categories">54</p>
-        <all_panels></all_panels>
+        <all_panels v-bind:passed_category_title="category_title"></all_panels>
 
     </main>
     <script src="js/app.js"></script>
@@ -52,6 +56,12 @@
             $('.navigation-drawer').toggleClass('show');
         }
 
+        const app = new Vue({
+            el: '#app',
+            data:{
+                category_title:"{{$categoryTitle}}"
+            }
+        });
     </script>
 </body>
 

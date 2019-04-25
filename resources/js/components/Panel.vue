@@ -27,7 +27,7 @@ export default {
   },
   props: {
     panel: Object,
-    categoryTitle:String,
+    category_title:String,
   },
   components: {
     panel_header,

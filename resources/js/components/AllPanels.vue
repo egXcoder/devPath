@@ -3,11 +3,11 @@
     <div class="row">
       <div class="col-12 head">
         <h1>
-          <img width="70px" src="images/cheatsheet.png"> JQuery CheatSheet
+          <img width="70px" src="images/cheatsheet.png"> {{category_title}} CheatSheet
         </h1>
       </div>
       <template v-for="panel in panels">
-        <panel :key="panel.id" :categoryTitle="categoryTitle" :panel="panel">
+        <panel :key="panel.id" :category_title="category_title" :panel="panel">
           <div slot="panelTitle" class="panel-title">
             <h1
               contenteditable="true"
@@ -29,34 +29,35 @@
 
 <script>
 import panel from "./Panel";
-import { Shared } from "./../app.js";
 
 export default {
   data() {
     return {
+      category_title:'',
       showDeleteBox: false,
-      categoryTitle:'aut',
       panels:[],
     };
   },
   created() {
+    this.category_title = this.passed_category_title;
     this.fetchPanels();
   },
   components: {
     panel
   },
+  props:['passed_category_title'],
   methods: {
     
     fetchPanels() {
         this.$http
-        .get("http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels")
+        .get("http://127.0.0.1:8000/api/" + this.category_title + "/panels")
         .then(function(response) {
           this.panels = response.body.data;
         });
     },
     addPanel() {
       this.$http.post(
-        "http://127.0.0.1:8000/api/" + this.categoryTitle + "/panels/create"
+        "http://127.0.0.1:8000/api/" + this.category_title + "/panels/create"
       );
       toast("panel Created Successfully");
       this.fetchPanels();
