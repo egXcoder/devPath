@@ -4,11 +4,11 @@
 // Variables
 @import "variables";
 
-// Bootstrap
+// import plugins
 @import "plugins/bootstrap";
 
 @import "../../node_modules/toastr/toastr.scss";
-
+@import "../../node_modules/prismjs/themes/prism-coy.css";
 
 nav {
   background: $primary-color;
@@ -145,14 +145,18 @@ nav {
 
 main {
   background: #eee;
-  padding-top:3rem;
-  padding-bottom:200px;
+  padding-top: 3rem;
+  padding-bottom: 200px;
 
   .head {
     text-align: center;
     margin-bottom: 3rem;
     color: $secondary-bold-color;
   }
+}
+main .container > .row {
+  flex-flow: column wrap;
+  max-height: 1800px;
 }
 
 .panel {
@@ -187,24 +191,27 @@ main {
       background: $secondary-color;
       color: black;
       line-height: 1.4rem;
+      overflow: hidden;
     }
     .header a {
-      display:none;
+      transform: translateX(300%);
       color: $primary-bold-color;
       font-weight: bold;
       cursor: pointer;
       margin-right: 1rem;
+      transition: 0.3s ease-in-out;
     }
     .header p {
       margin-bottom: 0;
       flex-grow: 1;
     }
-    .header:hover a{
-      display:inline;
+    .header:hover a {
+      transform: translateX(0);
     }
 
     .content {
       position: relative;
+      overflow: hidden;
     }
 
     .content a {
@@ -217,10 +224,11 @@ main {
       position: absolute;
       top: 0;
       right: 0;
-      display:none;
+      transform: translateX(200%);
+      transition: ease-in-out 0.3s;
     }
-    .content:hover a{
-      display:inline;
+    .content:hover a {
+      transform: translateX(0);
     }
 
     pre code {
@@ -239,9 +247,9 @@ main {
       margin-right: 0;
     }
     .row .btn {
-      cursor:pointer;
+      cursor: pointer;
       background: $secondary-bold-color;
-      color:white;
+      color: white;
       border: none;
       font-weight: bold;
       border-radius: 5px;
@@ -283,4 +291,11 @@ main {
 }
 .add-box .btn:hover {
   background: $primary-bold-color;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }

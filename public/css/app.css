@@ -1,4 +1,221 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);/**
+ * prism.js Coy theme for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/tshedor/workshop-wp-theme (Example: http://workshop.kansan.com/category/sessions/basics or http://workshop.timshedor.com/category/sessions/basics);
+ * @author Tim  Shedor
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	position: relative;
+	margin: .5em 0;
+	overflow: visible;
+	padding: 0;
+}
+pre[class*="language-"]>code {
+	position: relative;
+	border-left: 10px solid #358ccb;
+	box-shadow: -1px 0px 0px 0px #358ccb, 0px 0px 0px 1px #dfdfdf;
+	background-color: #fdfdfd;
+	background-image: linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+	background-size: 3em 3em;
+	background-origin: content-box;
+	background-attachment: local;
+}
+
+code[class*="language"] {
+	max-height: inherit;
+	height: inherit;
+	padding: 0 1em;
+	display: block;
+	overflow: auto;
+}
+
+/* Margin bottom to accommodate shadow */
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background-color: #fdfdfd;
+	box-sizing: border-box;
+	margin-bottom: 1em;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	position: relative;
+	padding: .2em;
+	border-radius: 0.3em;
+	color: #c92c2c;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	display: inline;
+	white-space: normal;
+}
+
+pre[class*="language-"]:before,
+pre[class*="language-"]:after {
+	content: '';
+	z-index: -2;
+	display: block;
+	position: absolute;
+	bottom: 0.75em;
+	left: 0.18em;
+	width: 40%;
+	height: 20%;
+	max-height: 13em;
+	box-shadow: 0px 13px 8px #979797;
+	-webkit-transform: rotate(-2deg);
+	transform: rotate(-2deg);
+}
+
+:not(pre) > code[class*="language-"]:after,
+pre[class*="language-"]:after {
+	right: 0.75em;
+	left: auto;
+	-webkit-transform: rotate(2deg);
+	transform: rotate(2deg);
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #7D8B99;
+}
+
+.token.punctuation {
+	color: #5F6364;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.function-name,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #c92c2c;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.function,
+.token.builtin,
+.token.inserted {
+	color: #2f9c0a;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.token.variable {
+	color: #a67f59;
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword,
+.token.class-name {
+	color: #1990b8;
+}
+
+.token.regex,
+.token.important {
+	color: #e90;
+}
+
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.token.important {
+	font-weight: normal;
+}
+
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+@media screen and (max-width: 767px) {
+	pre[class*="language-"]:before,
+	pre[class*="language-"]:after {
+		bottom: 14px;
+		box-shadow: none;
+	}
+
+}
+
+/* Plugin styles */
+.token.tab:not(:empty):before,
+.token.cr:before,
+.token.lf:before {
+	color: #e0d7d1;
+}
+
+/* Plugin styles: Line Numbers */
+pre[class*="language-"].line-numbers.line-numbers {
+	padding-left: 0;
+}
+
+pre[class*="language-"].line-numbers.line-numbers code {
+	padding-left: 3.8em;
+}
+
+pre[class*="language-"].line-numbers.line-numbers .line-numbers-rows {
+	left: 0;
+}
+
+/* Plugin styles: Line Highlight */
+pre[class*="language-"][data-line] {
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 0;
+}
+pre[data-line] code {
+	position: relative;
+	padding-left: 4em;
+}
+pre .line-highlight {
+	margin-top: 0;
+}
+@charset "UTF-8";
 
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
@@ -10891,13 +11108,13 @@ button.toast-close-button {
 }
 
 nav {
-  background: #f17f29;
+  background: #3b4045;
   padding-top: 0.9rem;
   padding-bottom: 0.5rem;
 }
 
 nav .brand {
-  background: #f17f29;
+  background: #3b4045;
   border-radius: 20px;
   cursor: pointer;
   margin-left: 1rem;
@@ -10994,7 +11211,7 @@ nav .menu-toggle span {
   -webkit-transform: translateX(100%);
           transform: translateX(100%);
   width: 25%;
-  background: #f17f29;
+  background: #3b4045;
   transition: -webkit-transform 0.5s ease-in-out;
   transition: transform 0.5s ease-in-out;
   transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
@@ -11030,7 +11247,7 @@ nav .menu-toggle span {
 }
 
 .collapsed-menu .menu-container li:hover a {
-  color: #c5dcec;
+  color: #f2f2f2;
   text-decoration: none;
 }
 
@@ -11061,7 +11278,12 @@ main {
 main .head {
   text-align: center;
   margin-bottom: 3rem;
-  color: #5ca8dc;
+  color: #fafafb;
+}
+
+main .container > .row {
+  flex-flow: column wrap;
+  max-height: 1800px;
 }
 
 .panel {
@@ -11070,7 +11292,7 @@ main .head {
   margin: 0.5rem 0rem 0.5rem 0rem;
   background: white;
   border-radius: 10px;
-  box-shadow: 0px 1px 5px 0px #f17f29;
+  box-shadow: 0px 1px 5px 0px #3b4045;
 }
 
 .panel .panel-title {
@@ -11080,7 +11302,7 @@ main .head {
   left: 10px;
   border-radius: 15px;
   color: white;
-  background: #f96900;
+  background: #2f3133;
   font-weight: bold;
 }
 
@@ -11096,17 +11318,20 @@ main .head {
 }
 
 .panel .panel-inner .header {
-  background: #c5dcec;
+  background: #f2f2f2;
   color: black;
   line-height: 1.4rem;
+  overflow: hidden;
 }
 
 .panel .panel-inner .header a {
-  display: none;
-  color: #f96900;
+  -webkit-transform: translateX(300%);
+          transform: translateX(300%);
+  color: #2f3133;
   font-weight: bold;
   cursor: pointer;
   margin-right: 1rem;
+  transition: 0.3s ease-in-out;
 }
 
 .panel .panel-inner .header p {
@@ -11115,15 +11340,17 @@ main .head {
 }
 
 .panel .panel-inner .header:hover a {
-  display: inline;
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
 }
 
 .panel .panel-inner .content {
   position: relative;
+  overflow: hidden;
 }
 
 .panel .panel-inner .content a {
-  color: #f96900;
+  color: #2f3133;
   border-radius: 5px;
   padding: 0.3rem;
   font-weight: bold;
@@ -11132,11 +11359,14 @@ main .head {
   position: absolute;
   top: 0;
   right: 0;
-  display: none;
+  -webkit-transform: translateX(200%);
+          transform: translateX(200%);
+  transition: ease-in-out 0.3s;
 }
 
 .panel .panel-inner .content:hover a {
-  display: inline;
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
 }
 
 .panel .panel-inner pre code {
@@ -11158,7 +11388,7 @@ main .head {
 
 .panel .panel-inner .row .btn {
   cursor: pointer;
-  background: #5ca8dc;
+  background: #fafafb;
   color: white;
   border: none;
   font-weight: bold;
@@ -11175,7 +11405,7 @@ main .head {
   position: absolute;
   top: 0;
   right: 0;
-  background: #f96900;
+  background: #2f3133;
   color: white;
   padding: 0.5rem 0.7rem 0.5rem 0.7rem;
   font-weight: bold;
@@ -11195,7 +11425,7 @@ main .head {
 .add-box .btn {
   padding: 3rem;
   cursor: pointer;
-  border: 3px dashed #f96900;
+  border: 3px dashed #2f3133;
   background: none;
   color: white;
   font-weight: bold;
@@ -11203,6 +11433,16 @@ main .head {
 }
 
 .add-box .btn:hover {
-  background: #f96900;
+  background: #2f3133;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 

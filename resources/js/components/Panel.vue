@@ -19,6 +19,8 @@
 <script>
 import panel_header from "./Header.vue";
 import panel_content from "./Content.vue";
+import {Shared} from "./../app.js";
+
 export default {
   data() {
     return {
@@ -39,7 +41,7 @@ export default {
 
   methods: {
     createHeader() {
-        this.$http.post("http://127.0.0.1:8000/api/"+this.categoryTitle+"/"+this.panel.name+"/headers/create");
+        this.$http.post(Shared.siteUrl+"/api/"+this.categoryTitle+"/"+this.panel.name+"/headers/create");
         let highestOrder = this.headersAndContents.slice(-1).pop().order;
         this.headersAndContents.push({
         name:"default Header Name",
@@ -48,7 +50,7 @@ export default {
         });
     },
     createContent() {
-        this.$http.post("http://127.0.0.1:8000/api/"+this.categoryTitle+"/"+this.panel.name+"/contents/create");
+        this.$http.post(Shared.siteUrl+"/api/"+this.categoryTitle+"/"+this.panel.name+"/contents/create");
         let highestOrder = this.headersAndContents.slice(-1).pop().order;
     
         this.headersAndContents.push({

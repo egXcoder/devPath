@@ -7,6 +7,7 @@
 </template>
 
 <script>
+    import {Shared} from './../app.js';
     export default {
         props:{
             item:Object,
@@ -14,10 +15,10 @@
         },
         methods: {
             submitHeaderEdit() {
-                this.$http.put("http://127.0.0.1:8000/api/headers/edit/"+this.item.id,{name:event.target.innerText});
+                this.$http.put(Shared.siteUrl+"/api/headers/edit/"+this.item.id,{name:event.target.innerText});
             },
             deleteHeader(){
-                this.$http.delete("http://127.0.0.1:8000/api/headers/delete/"+this.item.id);
+                this.$http.delete(Shared.siteUrl+"/api/headers/delete/"+this.item.id);
                 this.$emit("deleteHeaderEvent",this.index);
             }
         }

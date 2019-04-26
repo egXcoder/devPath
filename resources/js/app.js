@@ -37,5 +37,9 @@ Vue.use(vue_resource);
 Vue.component('all_panels', require('./components/AllPanels.vue').default);
 
 
-//creating Bus to communicate between components
-export const Bus = new Vue();
+//creating Shared to communicate between components
+export const Shared = new Vue({
+    data:{
+        siteUrl:document.location.origin
+    }
+});

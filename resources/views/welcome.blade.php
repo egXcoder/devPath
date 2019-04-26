@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="css/app.css"> {{--
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"> --}}
-    <link rel="stylesheet" href="css/plugins/prism/prism.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    {{-- <link rel="stylesheet" href="css/plugins/prism/prism.css"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <title>Title</title>
 </head>
@@ -36,7 +36,7 @@
         <div class="menu-container">
             <ul class="list-unstyled">
                 @foreach ($categories as $category)
-                <li><a href="{{route('show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a></li>
+                <li><i class="fas fa-code text-white mr-2"></i><a href="{{route('show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a></li>
                 @endforeach
             </ul>
         </div>
