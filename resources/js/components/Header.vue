@@ -15,10 +15,10 @@
         },
         methods: {
             submitHeaderEdit() {
-                this.$http.put(Shared.siteUrl+"/api/headers/edit/"+this.item.id,{name:event.target.innerText});
+                this.$http.put(this.$shared.siteUrl+"/api/headers/edit/"+this.item.id,{name:event.target.innerText});
             },
             deleteHeader(){
-                this.$http.delete(Shared.siteUrl+"/api/headers/delete/"+this.item.id);
+                this.$http.delete(this.$shared.siteUrl+"/api/headers/delete/"+this.item.id);
                 this.$emit("deleteHeaderEvent",this.index);
             }
         }

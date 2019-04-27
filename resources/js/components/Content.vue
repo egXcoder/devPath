@@ -15,7 +15,6 @@
 
 <script>
     import panel_header from './Header.vue';
-    import {Shared} from './../app.js';
     export default {
         data(){
             return{
@@ -26,7 +25,7 @@
         },
         watch:{
             selected:function(value){
-                this.$http.put(Shared.siteUrl+"/api/contents/edit/"+this.item.id,{code_lang:value});
+                this.$http.put(this.$shared.siteUrl+"/api/contents/edit/"+this.item.id,{code_lang:value,Authorization:'Bearer '+this.$shared.api_token});
                 this.code_lang = value;
                 Prism.highlightAll();
             },
@@ -48,11 +47,11 @@
         methods: {
             submitContentEdit() {
                let newText = event.target.innerText;
-               this.$http.put(Shared.siteUrl+"/api/contents/edit/"+this.item.id,{content:newText});
+               this.$http.put(this.$shared.siteUrl+"/api/contents/edit/"+this.item.id,{content:newText,Authorization:'Bearer '+this.$shared.api_token});
                this.content = newText;
             },
             deleteContent(){
-                this.$http.delete(Shared.siteUrl+"/api/contents/delete/"+this.item.id);
+                this.$http.delete(this.$shared.siteUrl+"/api/contents/delete/"+this.item.id,{api_token:this.$shared.api_token});
                 this.$emit("deleteContentEvent",this.index);
             }
             

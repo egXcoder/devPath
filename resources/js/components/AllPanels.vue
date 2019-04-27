@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-4 head">
         <h1>
-          <img width="70px" src="images/cheatsheet.png">
+          <img width="70px" src="/images/cheatsheet.png">
           {{category_title}} CheatSheet
         </h1>
       </div>
@@ -33,7 +33,7 @@
 
 <script>
 // import panel from "./Panel";
-import { Shared } from "./../app.js";
+// import { Shared } from "./../app.js";
 
 export default {
   data() {
@@ -45,30 +45,27 @@ export default {
     };
   },
   created() {
-    this.category_title = this.passed_category_title;
+    this.category_title = this.$shared.category_title;
     this.fetchPanels();
   },
   components: {
     panel: require("./Panel").default
   },
-  props: ["passed_category_title"],
   methods: {
     fetchPanels: function() {
       this.$http
-        .get(Shared.siteUrl + "/api/" + this.category_title + "/panels")
+        .get(this.$shared.siteUrl + "/api/" + this.category_title + "/panels")
         .then(response => {
           this.panels = response.body.data;
         });
     },
     addPanel() {
-      this.$http.post(
-        Shared.siteUrl + "/api/" + this.category_title + "/panels/create"
-      );
+      this.$http.post(this.$shared.siteUrl + "/api/" + this.category_title + "/panels/create",{api_token:this.$shared.api_token});
       toast("panel Created Successfully");
       this.fetchPanels();
     },
     deletePanel(panel) {
-      this.$http.delete(Shared.siteUrl + "/api/panels/delete/" + panel.id);
+      this.$http.delete(this.$shared.siteUrl + "/api/panels/delete/" + panel.id,{api_token:this.$shared.api_token});
       toast("panel Deleted Successfully");
       this.fetchPanels();
     },
@@ -76,8 +73,9 @@ export default {
       console.log(this.$refs.panelTitle);
     },
     editPanel(panel) {
-      this.$http.put(Shared.siteUrl + "/api/panels/edit/" + panel.id, {
-        name: event.target.innerText
+      this.$http.put(this.$shared.siteUrl + "/api/panels/edit/" + panel.id, {
+        name: event.target.innerText,
+        api_token : this.$shared.api_token,
       });
       toast("panel edited Successfully");
     }

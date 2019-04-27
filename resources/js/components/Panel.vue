@@ -41,7 +41,7 @@ export default {
 
   methods: {
     createHeader() {
-        this.$http.post(Shared.siteUrl+"/api/"+this.categoryTitle+"/"+this.panel.name+"/headers/create");
+        this.$http.post(this.$shared.siteUrl+"/api/"+this.categoryTitle+"/"+this.panel.name+"/headers/create");
         let highestOrder = this.headersAndContents.slice(-1).pop().order;
         this.headersAndContents.push({
         name:"default Header Name",
@@ -50,7 +50,7 @@ export default {
         });
     },
     createContent() {
-        this.$http.post(Shared.siteUrl+"/api/"+this.categoryTitle+"/"+this.panel.name+"/contents/create");
+        this.$http.post(this.$shared.siteUrl+"/api/"+this.categoryTitle+"/"+this.panel.name+"/contents/create");
         let highestOrder = this.headersAndContents.slice(-1).pop().order;
     
         this.headersAndContents.push({

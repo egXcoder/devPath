@@ -10,6 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::prefix('admin')->group(function () {
+    // Authentication Routes...
+    Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+    Route::post('/login', 'Auth\LoginController@login');
+    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/{categoryTitle}', 'HomeController@showSpecificCategory')->name('show');
+    Route::get('/', 'AdminController@index')->middleware('auth')->name('home');
+    Route::get('/{categoryTitle}', 'AdminController@showSpecificCategory')->middleware('auth')->name('show');
+    
+    
+});
+

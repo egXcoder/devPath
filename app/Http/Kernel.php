@@ -4,8 +4,7 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
-class Kernel extends HttpKernel
-{
+class Kernel extends HttpKernel {
     /**
      * The application's global HTTP middleware stack.
      *
@@ -42,7 +41,7 @@ class Kernel extends HttpKernel
             'bindings',
         ],
     ];
-
+    
     /**
      * The application's route middleware.
      *
@@ -53,6 +52,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'ApiAuthenticated' => \App\Http\Middleware\ApiAuthenticated::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
 
     /**
      * The priority-sorted list of middleware.
+     *
      *
      * This forces non-global middleware to always be in the given order.
      *

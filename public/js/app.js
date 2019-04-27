@@ -1763,7 +1763,6 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../app.js */ "./resources/js/app.js");
 //
 //
 //
@@ -1798,7 +1797,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 // import panel from "./Panel";
-
+// import { Shared } from "./../app.js";
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1809,28 +1808,31 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.category_title = this.passed_category_title;
+    this.category_title = this.$shared.category_title;
     this.fetchPanels();
   },
   components: {
     panel: __webpack_require__(/*! ./Panel */ "./resources/js/components/Panel.vue")["default"]
   },
-  props: ["passed_category_title"],
   methods: {
     fetchPanels: function fetchPanels() {
       var _this = this;
 
-      this.$http.get(_app_js__WEBPACK_IMPORTED_MODULE_0__["Shared"].siteUrl + "/api/" + this.category_title + "/panels").then(function (response) {
+      this.$http.get(this.$shared.siteUrl + "/api/" + this.category_title + "/panels").then(function (response) {
         _this.panels = response.body.data;
       });
     },
     addPanel: function addPanel() {
-      this.$http.post(_app_js__WEBPACK_IMPORTED_MODULE_0__["Shared"].siteUrl + "/api/" + this.category_title + "/panels/create");
+      this.$http.post(this.$shared.siteUrl + "/api/" + this.category_title + "/panels/create", {
+        api_token: this.$shared.api_token
+      });
       toast("panel Created Successfully");
       this.fetchPanels();
     },
     deletePanel: function deletePanel(panel) {
-      this.$http["delete"](_app_js__WEBPACK_IMPORTED_MODULE_0__["Shared"].siteUrl + "/api/panels/delete/" + panel.id);
+      this.$http["delete"](this.$shared.siteUrl + "/api/panels/delete/" + panel.id, {
+        api_token: this.$shared.api_token
+      });
       toast("panel Deleted Successfully");
       this.fetchPanels();
     },
@@ -1838,8 +1840,9 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.$refs.panelTitle);
     },
     editPanel: function editPanel(panel) {
-      this.$http.put(_app_js__WEBPACK_IMPORTED_MODULE_0__["Shared"].siteUrl + "/api/panels/edit/" + panel.id, {
-        name: event.target.innerText
+      this.$http.put(this.$shared.siteUrl + "/api/panels/edit/" + panel.id, {
+        name: event.target.innerText,
+        api_token: this.$shared.api_token
       });
       toast("panel edited Successfully");
     }
@@ -1858,7 +1861,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Header_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header.vue */ "./resources/js/components/Header.vue");
-/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../app.js */ "./resources/js/app.js");
 //
 //
 //
@@ -1874,7 +1876,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1886,8 +1887,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     selected: function selected(value) {
-      this.$http.put(_app_js__WEBPACK_IMPORTED_MODULE_1__["Shared"].siteUrl + "/api/contents/edit/" + this.item.id, {
-        code_lang: value
+      this.$http.put(this.$shared.siteUrl + "/api/contents/edit/" + this.item.id, {
+        code_lang: value,
+        Authorization: 'Bearer ' + this.$shared.api_token
       });
       this.code_lang = value;
       Prism.highlightAll();
@@ -1910,13 +1912,16 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     submitContentEdit: function submitContentEdit() {
       var newText = event.target.innerText;
-      this.$http.put(_app_js__WEBPACK_IMPORTED_MODULE_1__["Shared"].siteUrl + "/api/contents/edit/" + this.item.id, {
-        content: newText
+      this.$http.put(this.$shared.siteUrl + "/api/contents/edit/" + this.item.id, {
+        content: newText,
+        Authorization: 'Bearer ' + this.$shared.api_token
       });
       this.content = newText;
     },
     deleteContent: function deleteContent() {
-      this.$http["delete"](_app_js__WEBPACK_IMPORTED_MODULE_1__["Shared"].siteUrl + "/api/contents/delete/" + this.item.id);
+      this.$http["delete"](this.$shared.siteUrl + "/api/contents/delete/" + this.item.id, {
+        api_token: this.$shared.api_token
+      });
       this.$emit("deleteContentEvent", this.index);
     }
   }
@@ -1950,12 +1955,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submitHeaderEdit: function submitHeaderEdit() {
-      this.$http.put(_app_js__WEBPACK_IMPORTED_MODULE_0__["Shared"].siteUrl + "/api/headers/edit/" + this.item.id, {
+      this.$http.put(this.$shared.siteUrl + "/api/headers/edit/" + this.item.id, {
         name: event.target.innerText
       });
     },
     deleteHeader: function deleteHeader() {
-      this.$http["delete"](_app_js__WEBPACK_IMPORTED_MODULE_0__["Shared"].siteUrl + "/api/headers/delete/" + this.item.id);
+      this.$http["delete"](this.$shared.siteUrl + "/api/headers/delete/" + this.item.id);
       this.$emit("deleteHeaderEvent", this.index);
     }
   }
@@ -2015,7 +2020,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     createHeader: function createHeader() {
-      this.$http.post(_app_js__WEBPACK_IMPORTED_MODULE_2__["Shared"].siteUrl + "/api/" + this.categoryTitle + "/" + this.panel.name + "/headers/create");
+      this.$http.post(this.$shared.siteUrl + "/api/" + this.categoryTitle + "/" + this.panel.name + "/headers/create");
       var highestOrder = this.headersAndContents.slice(-1).pop().order;
       this.headersAndContents.push({
         name: "default Header Name",
@@ -2024,7 +2029,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     createContent: function createContent() {
-      this.$http.post(_app_js__WEBPACK_IMPORTED_MODULE_2__["Shared"].siteUrl + "/api/" + this.categoryTitle + "/" + this.panel.name + "/contents/create");
+      this.$http.post(this.$shared.siteUrl + "/api/" + this.categoryTitle + "/" + this.panel.name + "/contents/create");
       var highestOrder = this.headersAndContents.slice(-1).pop().order;
       this.headersAndContents.push({
         code_lang: 'language-css',
@@ -21684,7 +21689,7 @@ var render = function() {
         _c("div", { staticClass: "col-4 head" }, [
           _c("h1", [
             _c("img", {
-              attrs: { width: "70px", src: "images/cheatsheet.png" }
+              attrs: { width: "70px", src: "/images/cheatsheet.png" }
             }),
             _vm._v(
               "\n        " + _vm._s(_vm.category_title) + " CheatSheet\n      "
@@ -35716,12 +35721,11 @@ module.exports = g;
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! exports provided: Shared */
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Shared", function() { return Shared; });
 /* harmony import */ var _node_modules_vue_resource_dist_vue_resource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/vue-resource/dist/vue-resource */ "./node_modules/vue-resource/dist/vue-resource.js");
 /* harmony import */ var _node_modules_vue_resource_dist_vue_resource__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_resource_dist_vue_resource__WEBPACK_IMPORTED_MODULE_0__);
 /**
@@ -35756,12 +35760,7 @@ window.Prism = __webpack_require__(/*! prismjs */ "./node_modules/prismjs/prism.
 Vue.use(_node_modules_vue_resource_dist_vue_resource__WEBPACK_IMPORTED_MODULE_0___default.a); // registering global components
 
 Vue.component('all_panels', __webpack_require__(/*! ./components/AllPanels.vue */ "./resources/js/components/AllPanels.vue")["default"]); //creating Shared to communicate between components
-
-var Shared = new Vue({
-  data: {
-    siteUrl: document.location.origin
-  }
-});
+// export const Shared = new Vue();
 
 /***/ }),
 

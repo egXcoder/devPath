@@ -38,8 +38,4 @@ Vue.component('all_panels', require('./components/AllPanels.vue').default);
 
 
 //creating Shared to communicate between components
-export const Shared = new Vue({
-    data:{
-        siteUrl:document.location.origin
-    }
-});
+// export const Shared = new Vue();

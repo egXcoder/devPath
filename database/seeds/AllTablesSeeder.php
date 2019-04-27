@@ -13,7 +13,8 @@ class AllTablesSeeder extends Seeder {
         factory('App\CodeLanguage')->create(['name'=>'language-css']);
         factory('App\CodeLanguage')->create(['name'=>'language-js']);
         factory('App\CodeLanguage')->create(['name'=>'language-php']);
-
+        factory('App\User')->create();
+        
         for ($i = 1;$i < 6;$i++) {
             $category_id = factory('App\Category')->create()->id;
             for ($j = 1;$j < 6;$j++) {
