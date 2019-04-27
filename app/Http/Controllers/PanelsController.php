@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\HeadersAndContentsResource;
 
 class PanelsController extends Controller {
-   
+
     public function listPanelsInCategory($category_name) {
         //create panel with name or set default panel name
         //create default one header and one content attached with this panel
@@ -40,9 +40,10 @@ class PanelsController extends Controller {
     }
 
     public function edit($panel_id) {
+        
         //edit panel with must be given name
         $panel = Panel::findOrFail($panel_id);
-
+        
         $validator = Validator::make(request()->all(), [
             'name' => 'string|max:50|required',
         ]);
@@ -50,7 +51,7 @@ class PanelsController extends Controller {
         if ($validator->fails()) {
             return $validator->getMessageBag()->all();
         }
-
+        
         $panel->update([
             'name' => request('name'),
         ]);

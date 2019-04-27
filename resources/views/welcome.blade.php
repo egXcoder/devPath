@@ -7,8 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"> {{--
-    <link rel="stylesheet" href="css/plugins/prism/prism.css"> --}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <title>Title</title>
 </head>
@@ -48,12 +47,12 @@
 
     <main id="app">
 
-        <all_panels v-bind:passed_category_title="category_title"></all_panels>
+        <all_panels></all_panels>
 
     </main>
     <script src={{asset( 'js/app.js')}}></script>
     <script>
-
+        //TODO:data here goes To cookie
         const shared = {
         category_title: "{{$categoryTitle}}",
         api_token:"{{$api_token}}",
@@ -75,15 +74,6 @@
         }
         const app = new Vue({
             el: '#app',
-            // data: {
-            //     category_title: "{{$categoryTitle}}",
-            //     api_token:"{{$api_token}}"
-            // }
-            // created(){
-            //     shared.category_title = this.category_title;
-            //     shared.api_token = this.category_title;
-            //     shared.siteUrl:document.location.origin
-            // }
         });
     </script>
 </body>

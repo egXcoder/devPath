@@ -10,7 +10,7 @@
 
       <template v-for="panel in panels">
         <transition :key="panel.id" name="fade">
-          <panel :key="panel.id" :category_title="category_title" :panel="panel">
+          <panel :key="panel.id" :panel="panel">
             <div slot="panelTitle" class="panel-title">
               <h1
                 contenteditable="true"
@@ -32,35 +32,30 @@
 </template>
 
 <script>
-// import panel from "./Panel";
-// import { Shared } from "./../app.js";
 
 export default {
   data() {
     return {
-      category_title: "",
       showDeleteBox: false,
       panels: [],
-      responsePanels: []
     };
   },
   created() {
-    this.category_title = this.$shared.category_title;
     this.fetchPanels();
   },
   components: {
     panel: require("./Panel").default
   },
   methods: {
-    fetchPanels: function() {
+    fetchPanels() {
       this.$http
-        .get(this.$shared.siteUrl + "/api/" + this.category_title + "/panels")
+        .get(this.$shared.siteUrl + "/api/" + this.$shared.category_title + "/panels")
         .then(response => {
           this.panels = response.body.data;
         });
     },
     addPanel() {
-      this.$http.post(this.$shared.siteUrl + "/api/" + this.category_title + "/panels/create",{api_token:this.$shared.api_token});
+      this.$http.post(this.$shared.siteUrl + "/api/" + this.$shared.category_title + "/panels/create",{api_token:this.$shared.api_token});
       toast("panel Created Successfully");
       this.fetchPanels();
     },
@@ -69,10 +64,8 @@ export default {
       toast("panel Deleted Successfully");
       this.fetchPanels();
     },
-    changePanelNameVariable() {
-      console.log(this.$refs.panelTitle);
-    },
     editPanel(panel) {
+      console.log(panel.id);
       this.$http.put(this.$shared.siteUrl + "/api/panels/edit/" + panel.id, {
         name: event.target.innerText,
         api_token : this.$shared.api_token,

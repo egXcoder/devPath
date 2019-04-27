@@ -36,6 +36,3 @@ Vue.use(vue_resource);
 // registering global components
 Vue.component('all_panels', require('./components/AllPanels.vue').default);
 
-
-//creating Shared to communicate between components
-// export const Shared = new Vue();

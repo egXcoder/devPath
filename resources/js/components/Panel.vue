@@ -29,7 +29,6 @@ export default {
   },
   props: {
     panel: Object,
-    category_title:String,
   },
   components: {
     panel_header,

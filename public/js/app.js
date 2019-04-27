@@ -1796,19 +1796,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// import panel from "./Panel";
-// import { Shared } from "./../app.js";
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      category_title: "",
       showDeleteBox: false,
-      panels: [],
-      responsePanels: []
+      panels: []
     };
   },
   created: function created() {
-    this.category_title = this.$shared.category_title;
     this.fetchPanels();
   },
   components: {
@@ -1818,12 +1813,12 @@ __webpack_require__.r(__webpack_exports__);
     fetchPanels: function fetchPanels() {
       var _this = this;
 
-      this.$http.get(this.$shared.siteUrl + "/api/" + this.category_title + "/panels").then(function (response) {
+      this.$http.get(this.$shared.siteUrl + "/api/" + this.$shared.category_title + "/panels").then(function (response) {
         _this.panels = response.body.data;
       });
     },
     addPanel: function addPanel() {
-      this.$http.post(this.$shared.siteUrl + "/api/" + this.category_title + "/panels/create", {
+      this.$http.post(this.$shared.siteUrl + "/api/" + this.$shared.category_title + "/panels/create", {
         api_token: this.$shared.api_token
       });
       toast("panel Created Successfully");
@@ -1836,10 +1831,8 @@ __webpack_require__.r(__webpack_exports__);
       toast("panel Deleted Successfully");
       this.fetchPanels();
     },
-    changePanelNameVariable: function changePanelNameVariable() {
-      console.log(this.$refs.panelTitle);
-    },
     editPanel: function editPanel(panel) {
+      console.log(panel.id);
       this.$http.put(this.$shared.siteUrl + "/api/panels/edit/" + panel.id, {
         name: event.target.innerText,
         api_token: this.$shared.api_token
@@ -2008,8 +2001,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
-    panel: Object,
-    category_title: String
+    panel: Object
   },
   components: {
     panel_header: _Header_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -21703,68 +21695,61 @@ var render = function() {
               "transition",
               { key: panel.id, attrs: { name: "fade" } },
               [
-                _c(
-                  "panel",
-                  {
-                    key: panel.id,
-                    attrs: { category_title: _vm.category_title, panel: panel }
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "panel-title",
-                        attrs: { slot: "panelTitle" },
-                        slot: "panelTitle"
-                      },
-                      [
-                        _c(
-                          "h1",
-                          {
-                            attrs: { contenteditable: "true" },
-                            on: {
-                              blur: function($event) {
-                                return _vm.editPanel(panel)
-                              },
-                              keypress: function($event) {
-                                if (
-                                  !$event.type.indexOf("key") &&
-                                  _vm._k(
-                                    $event.keyCode,
-                                    "enter",
-                                    13,
-                                    $event.key,
-                                    "Enter"
-                                  )
-                                ) {
-                                  return null
-                                }
-                                $event.preventDefault()
-                                return _vm.editPanel(panel)
+                _c("panel", { key: panel.id, attrs: { panel: panel } }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "panel-title",
+                      attrs: { slot: "panelTitle" },
+                      slot: "panelTitle"
+                    },
+                    [
+                      _c(
+                        "h1",
+                        {
+                          attrs: { contenteditable: "true" },
+                          on: {
+                            blur: function($event) {
+                              return _vm.editPanel(panel)
+                            },
+                            keypress: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
                               }
+                              $event.preventDefault()
+                              return _vm.editPanel(panel)
                             }
-                          },
-                          [_vm._v(_vm._s(panel.name))]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "p",
-                      {
-                        staticClass: "delete-box",
-                        attrs: { slot: "deletePanel" },
-                        on: {
-                          click: function($event) {
-                            return _vm.deletePanel(panel)
                           }
                         },
-                        slot: "deletePanel"
+                        [_vm._v(_vm._s(panel.name))]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    {
+                      staticClass: "delete-box",
+                      attrs: { slot: "deletePanel" },
+                      on: {
+                        click: function($event) {
+                          return _vm.deletePanel(panel)
+                        }
                       },
-                      [_vm._v("x")]
-                    )
-                  ]
-                )
+                      slot: "deletePanel"
+                    },
+                    [_vm._v("x")]
+                  )
+                ])
               ],
               1
             )
@@ -35759,8 +35744,7 @@ window.Prism = __webpack_require__(/*! prismjs */ "./node_modules/prismjs/prism.
 
 Vue.use(_node_modules_vue_resource_dist_vue_resource__WEBPACK_IMPORTED_MODULE_0___default.a); // registering global components
 
-Vue.component('all_panels', __webpack_require__(/*! ./components/AllPanels.vue */ "./resources/js/components/AllPanels.vue")["default"]); //creating Shared to communicate between components
-// export const Shared = new Vue();
+Vue.component('all_panels', __webpack_require__(/*! ./components/AllPanels.vue */ "./resources/js/components/AllPanels.vue")["default"]);
 
 /***/ }),
 
