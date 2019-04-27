@@ -34,5 +34,6 @@ import vue_resource from '../../node_modules/vue-resource/dist/vue-resource';
 Vue.use(vue_resource);
 
 // registering global components
-Vue.component('all_panels', require('./components/AllPanels.vue').default);
+Vue.component('all_panels_in_admin', require('./admin_components/AllPanels.vue').default);
+Vue.component('all_panels_in_home', require('./home_components/AllPanels.vue').default);
 

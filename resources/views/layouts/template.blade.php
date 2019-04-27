@@ -46,16 +46,13 @@
     </div>
 
     <main id="app">
-
-        <all_panels></all_panels>
-
+        @yield('all_panels')
     </main>
     <script src={{asset( 'js/app.js')}}></script>
     <script>
         //TODO:data here goes To cookie
         const shared = {
         category_title: "{{$categoryTitle}}",
-        api_token:"{{$api_token}}",
         siteUrl:document.location.origin
         }
 
