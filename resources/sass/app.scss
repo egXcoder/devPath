@@ -10,6 +10,8 @@
 @import "../../node_modules/toastr/toastr.scss";
 @import "../../node_modules/prismjs/themes/prism-coy.css";
 
+
+
 nav {
   background: $primary-color;
   padding-top: 0.9rem;
@@ -113,16 +115,42 @@ nav {
   .menu-container li {
     line-height: 3rem;
     cursor: pointer;
+    position:relative;
+    overflow:hidden;
   }
 
   .menu-container a {
     color: white;
     text-decoration: none;
+    transition:ease-in-out .3s;
+  }
+
+  .menu-container a#delete{
+    position:absolute;
+    right:0;
+    transform: translateX(200%);
+  }
+  .menu-container a#edit{
+    position:absolute;
+    right:25px;
+    transform: translateX(200%);
   }
 
   .menu-container li:hover a {
     color: $secondary-color;
     text-decoration: none;
+  }
+  .menu-container li:hover a#delete {
+    transform:translateX(0);
+  }
+  .menu-container li:hover a#edit {
+    transform:translateX(0);
+  }
+  #logout-form{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
   }
 }
 
@@ -154,10 +182,10 @@ main {
     color: $secondary-bold-color;
   }
 }
-main .container > .row {
-  flex-flow: column wrap;
-  max-height: 1800px;
-}
+// main .container > .row {
+//   flex-flow: column wrap;
+//   max-height: 1800px;
+// }
 
 .panel {
   position: relative;

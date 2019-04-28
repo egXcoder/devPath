@@ -16,11 +16,14 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', 'Auth\LoginController@login');
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-    Route::get('/', 'AdminController@index')->middleware('auth')->name('home');
-    Route::get('/{categoryTitle}', 'AdminController@showSpecificCategory')->middleware('auth')->name('show');
+    Route::middleware('auth')->group(function(){
+        Route::get('/', 'AdminController@index')->name('admin.home');
+        Route::get('/{categoryTitle}', 'AdminController@showSpecificCategory')->name('admin.show');
+        Route::post('/categories/create', 'AdminController@createCategory')->name('categories.create');
+        Route::put('/categories/edit/{id}', 'AdminController@editCategory')->name('categories.edit');
+        Route::get('/categories/delete/{id}', 'AdminController@deleteCategory')->name('categories.delete');
+    });
 });
 
-Route::get('/','HomeController@index');
-Route::get('/{categoryTitle}', 'HomeController@showSpecificCategory')->name('show');
-
-
+Route::get('/', 'HomeController@index');
+Route::get('/{categoryTitle}', 'HomeController@showSpecificCategory')->name('guest.show');

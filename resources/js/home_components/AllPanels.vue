@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col-4 head">
         <h1>
-          <img width="70px" src="/images/cheatsheet.png">
-          {{category_title}} CheatSheet
+          <img width="70px" :src="$shared.category_image">
+          {{$shared.category_title}} CheatSheet
         </h1>
       </div>
 

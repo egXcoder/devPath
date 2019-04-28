@@ -20,7 +20,7 @@ class CreatePanelsTable extends Migration {
                 ->on('categories')
                 ->references('id')
                 ->onUpdate('No Action')
-                ->onDelete('Restrict');
+                ->onDelete('Cascade');
         });
     }
 

@@ -7,14 +7,14 @@ use App\Category;
 class HomeController extends Controller
 {
     public function index() {
-        $categoryTitle = Category::find(1)->name;
+        $selectedCategory = Category::findOrFail(1);
         $categories = Category::all();
-        return view('home', ['categories' => $categories, 'categoryTitle' => $categoryTitle]);
+        return view('home', ['categories' => $categories, 'selectedCategory' => $selectedCategory]);
     }
 
     public function showSpecificCategory($categoryTitle) {
-        abort_if(Category::where('name', $categoryTitle)->first() === null, 404);
+        $selectedCategory= Category::where('name', $categoryTitle)->firstOrFail();
         $categories = Category::all();
-        return view('home', ['categories' => $categories, 'categoryTitle' => $categoryTitle]);
+        return view('home', ['categories' => $categories, 'selectedCategory' => $selectedCategory]);
     }
 }

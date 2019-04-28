@@ -1832,7 +1832,6 @@ __webpack_require__.r(__webpack_exports__);
       this.fetchPanels();
     },
     editPanel: function editPanel(panel) {
-      console.log(panel.id);
       this.$http.put(this.$shared.siteUrl + "/api/panels/edit/" + panel.id, {
         name: event.target.innerText,
         api_token: this.$shared.api_token
@@ -21844,10 +21843,12 @@ var render = function() {
         _c("div", { staticClass: "col-4 head" }, [
           _c("h1", [
             _c("img", {
-              attrs: { width: "70px", src: "/images/cheatsheet.png" }
+              attrs: { width: "70px", src: _vm.$shared.category_image }
             }),
             _vm._v(
-              "\n        " + _vm._s(_vm.category_title) + " CheatSheet\n      "
+              "\n        " +
+                _vm._s(_vm.$shared.category_title) +
+                " CheatSheet\n      "
             )
           ])
         ]),
@@ -22198,10 +22199,12 @@ var render = function() {
         _c("div", { staticClass: "col-4 head" }, [
           _c("h1", [
             _c("img", {
-              attrs: { width: "70px", src: "/images/cheatsheet.png" }
+              attrs: { width: "70px", src: _vm.$shared.category_image }
             }),
             _vm._v(
-              "\n        " + _vm._s(_vm.category_title) + " CheatSheet\n      "
+              "\n        " +
+                _vm._s(_vm.$shared.category_title) +
+                " CheatSheet\n      "
             )
           ])
         ]),
