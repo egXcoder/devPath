@@ -6,7 +6,7 @@
         <h1>
           {{$shared.category_title}} CheatSheet
         </h1>
-        <panel class="col-md-12 mt-3" :panel="panels[0]">
+        <panel class="col-md-12 mt-5" :panel="panels[0]">
           <div slot="panelTitle" class="panel-title">
               <h1>{{panels[0].name}}</h1>
             </div>

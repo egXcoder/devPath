@@ -42,6 +42,7 @@ export default {
     createHeader() {
         console.log(this.$http.post(document.location.origin+"/api/"+this.$shared.category_title+"/"+this.panel.name+"/headers/create",{api_token:this.$shared.api_token}));
         let highestOrder = this.headersAndContents.slice(-1).pop().order;
+        toast('Header created successfully');
         this.headersAndContents.push({
         name:"default Header Name",
         order:highestOrder+1,
@@ -51,7 +52,7 @@ export default {
     createContent() {
         this.$http.post(document.location.origin+"/api/"+this.$shared.category_title+"/"+this.panel.name+"/contents/create",{api_token:this.$shared.api_token});
         let highestOrder = this.headersAndContents.slice(-1).pop().order;
-    
+        toast('Content created successfully');
         this.headersAndContents.push({
         name:"default content",
         order:highestOrder+1,

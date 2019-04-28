@@ -5,10 +5,15 @@
         <img width="70px" :src="$shared.category_image">
         <h1>{{$shared.category_title}} CheatSheet</h1>
 
-        <panel class="col-md-12 mt-3" :panel="panels[0]">
-          <div slot="panelTitle" class="panel-title">
-            <h1>{{panels[0].name}}</h1>
-          </div>
+        <panel class="col-md-12 mt-5" :panel="panels[0]">
+            <div slot="panelTitle" class="panel-title">
+              <h1
+                contenteditable="true"
+                @blur="editPanel(panels[0])"
+                @keypress.enter.prevent="editPanel(panels[0])"
+              >{{panels[0].name}}</h1>
+            </div>
+            <p slot="deletePanel" @click="deletePanel(panels[0])" class="delete-box">x</p>
         </panel>
       </div>
 

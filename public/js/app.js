@@ -1800,6 +1800,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2023,6 +2028,7 @@ __webpack_require__.r(__webpack_exports__);
         api_token: this.$shared.api_token
       }));
       var highestOrder = this.headersAndContents.slice(-1).pop().order;
+      toast('Header created successfully');
       this.headersAndContents.push({
         name: "default Header Name",
         order: highestOrder + 1,
@@ -2034,6 +2040,7 @@ __webpack_require__.r(__webpack_exports__);
         api_token: this.$shared.api_token
       });
       var highestOrder = this.headersAndContents.slice(-1).pop().order;
+      toast('Content created successfully');
       this.headersAndContents.push({
         name: "default content",
         order: highestOrder + 1,
@@ -2141,6 +2148,9 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.content = this.item.name;
     this.selected = this.item.code_lang;
+  },
+  mounted: function mounted() {
+    Prism.highlightAll();
   },
   props: {
     item: Object,
@@ -21872,7 +21882,7 @@ var render = function() {
             _c(
               "panel",
               {
-                staticClass: "col-md-12 mt-3",
+                staticClass: "col-md-12 mt-5",
                 attrs: { panel: _vm.panels[0] }
               },
               [
@@ -21883,7 +21893,51 @@ var render = function() {
                     attrs: { slot: "panelTitle" },
                     slot: "panelTitle"
                   },
-                  [_c("h1", [_vm._v(_vm._s(_vm.panels[0].name))])]
+                  [
+                    _c(
+                      "h1",
+                      {
+                        attrs: { contenteditable: "true" },
+                        on: {
+                          blur: function($event) {
+                            return _vm.editPanel(_vm.panels[0])
+                          },
+                          keypress: function($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            $event.preventDefault()
+                            return _vm.editPanel(_vm.panels[0])
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.panels[0].name))]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "delete-box",
+                    attrs: { slot: "deletePanel" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deletePanel(_vm.panels[0])
+                      }
+                    },
+                    slot: "deletePanel"
+                  },
+                  [_vm._v("x")]
                 )
               ]
             )
@@ -22003,16 +22057,20 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content" }, [
     _c("pre", [
-      _c("code", {
-        class: _vm.code_lang,
-        attrs: { contenteditable: "" },
-        domProps: { innerHTML: _vm._s(_vm.content) },
-        on: {
-          blur: function($event) {
-            return _vm.submitContentEdit()
+      _c(
+        "code",
+        {
+          class: _vm.code_lang,
+          staticStyle: { display: "inline-block", width: "100%" },
+          attrs: { contenteditable: "" },
+          on: {
+            blur: function($event) {
+              return _vm.submitContentEdit()
+            }
           }
-        }
-      })
+        },
+        [_vm._v(_vm._s(_vm.content))]
+      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
@@ -22255,7 +22313,7 @@ var render = function() {
             _c(
               "panel",
               {
-                staticClass: "col-md-12 mt-3",
+                staticClass: "col-md-12 mt-5",
                 attrs: { panel: _vm.panels[0] }
               },
               [
@@ -22320,10 +22378,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content" }, [
     _c("pre", [
-      _c("code", {
-        class: _vm.code_lang,
-        domProps: { innerHTML: _vm._s(_vm.content) }
-      })
+      _c(
+        "code",
+        {
+          class: _vm.code_lang,
+          staticStyle: { display: "inline-block", width: "100%" }
+        },
+        [_vm._v(_vm._s(_vm.content))]
+      )
     ])
   ])
 }

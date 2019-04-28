@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <pre><code :class="code_lang" v-html="content"></code></pre>
+        <pre><code style="display:inline-block;width:100%" :class="code_lang">{{content}}</code></pre>
     </div>
 </template>
 
@@ -17,6 +17,9 @@
         created(){
             this.content = this.item.name;
             this.selected = this.item.code_lang;
+        },
+        mounted(){
+            Prism.highlightAll();
         },
         props:{
             item:Object,

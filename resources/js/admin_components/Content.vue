@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <pre><code @blur="submitContentEdit()" :class="code_lang" contenteditable v-html="content"></code></pre>
+        <pre><code style="display:inline-block;width:100%" @blur="submitContentEdit()" :class="code_lang" contenteditable>{{content}}</code></pre>
             <div class="form-group">
                 <select v-model="code_lang" class="form-control">
                     <option>language-html</option>
@@ -54,7 +54,6 @@
                 this.$http.post(document.location.origin+"/api/contents/delete/"+this.item.id,{api_token:this.$shared.api_token});
                 this.$emit("deleteContentEvent",this.index);
                toast('Content is deleted Successfully');
-
             }
             
         }
