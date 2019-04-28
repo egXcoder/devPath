@@ -2,7 +2,7 @@
     <div class="content">
         <pre><code @blur="submitContentEdit()" :class="code_lang" contenteditable v-html="content"></code></pre>
             <div class="form-group">
-                <select v-model="selected" class="form-control">
+                <select v-model="code_lang" class="form-control">
                     <option>language-html</option>
                     <option>language-css</option>
                     <option>language-js</option>
@@ -19,20 +19,19 @@
         data(){
             return{
                 content:'',
-                selected:'',
                 code_lang:this.item.code_lang,
             }
         },
         watch:{
-            selected:function(value){
-                this.$http.put(this.$shared.siteUrl+"/api/contents/edit/"+this.item.id,{code_lang:value,Authorization:'Bearer '+this.$shared.api_token});
+            code_lang:function(value){
+                this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{code_lang:value,api_token:this.$shared.api_token});
                 this.code_lang = value;
+                toast('Code language is updated Successfully');
                 Prism.highlightAll();
             },
         },
         created(){
             this.content = this.item.name;
-            this.selected = this.item.code_lang;
         },
         mounted() {
             Prism.highlightAll();
@@ -47,12 +46,15 @@
         methods: {
             submitContentEdit() {
                let newText = event.target.innerText;
-               this.$http.put(this.$shared.siteUrl+"/api/contents/edit/"+this.item.id,{content:newText,Authorization:'Bearer '+this.$shared.api_token});
+               this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{content:newText,api_token:this.$shared.api_token});
                this.content = newText;
+               toast('Content is updated Successfully');
             },
             deleteContent(){
-                this.$http.post(this.$shared.siteUrl+"/api/contents/delete/"+this.item.id,{api_token:this.$shared.api_token});
+                this.$http.post(document.location.origin+"/api/contents/delete/"+this.item.id,{api_token:this.$shared.api_token});
                 this.$emit("deleteContentEvent",this.index);
+               toast('Content is deleted Successfully');
+
             }
             
         }

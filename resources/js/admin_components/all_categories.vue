@@ -37,7 +37,7 @@ export default {
     fetchPanels() {
       this.$http
         .get(
-          this.$shared.siteUrl +
+          document.location.origin +
             "/api/" +
             this.$shared.category_title +
             "/panels"
@@ -48,7 +48,7 @@ export default {
     },
     addPanel() {
       this.$http.post(
-        this.$shared.siteUrl +
+        document.location.origin +
           "/api/" +
           this.$shared.category_title +
           "/panels/create",
@@ -59,7 +59,7 @@ export default {
     },
     deletePanel(panel) {
       this.$http.delete(
-        this.$shared.siteUrl + "/api/panels/delete/" + panel.id,
+        document.location.origin + "/api/panels/delete/" + panel.id,
         { api_token: this.$shared.api_token }
       );
       toast("panel Deleted Successfully");
@@ -67,11 +67,11 @@ export default {
     },
     editPanel(panel) {
       console.log(panel.id);
-      this.$http.put(this.$shared.siteUrl + "/api/panels/edit/" + panel.id, {
+      this.$http.put(document.location.origin + "/api/panels/edit/" + panel.id, {
         name: event.target.innerText,
         api_token: this.$shared.api_token
       });
-      toast("panel edited Successfully");
+      toast("panel updated Successfully");
     }
   }
 };

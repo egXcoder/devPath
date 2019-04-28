@@ -95,14 +95,18 @@
     <main id="app">
         @yield('all_panels')
     </main>
+    
     <script src={{asset( 'js/app.js')}}></script>
     <script>
         //TODO:data here goes To cookie
         const shared = {
-        api_token:"{{$api_token}}",        
+        
+        @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
+        api_token: "{{$api_token}}" ,
+        @endif
+
         category_image:"{{$selectedCategory->image_url}}",    
         category_title: "{{$selectedCategory->name}}",
-        siteUrl:document.location.origin
         }
 
         shared.install = function () {
@@ -132,6 +136,8 @@
         const app = new Vue({
             el: '#app',
         });
+        
+        
     </script>
 </body>
 

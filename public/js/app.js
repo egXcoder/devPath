@@ -1796,6 +1796,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1813,30 +1817,30 @@ __webpack_require__.r(__webpack_exports__);
     fetchPanels: function fetchPanels() {
       var _this = this;
 
-      this.$http.get(this.$shared.siteUrl + "/api/" + this.$shared.category_title + "/panels").then(function (response) {
+      this.$http.get(document.location.origin + "/api/" + this.$shared.category_title + "/panels").then(function (response) {
         _this.panels = response.body.data;
       });
     },
     addPanel: function addPanel() {
-      this.$http.post(this.$shared.siteUrl + "/api/" + this.$shared.category_title + "/panels/create", {
+      this.$http.post(document.location.origin + "/api/" + this.$shared.category_title + "/panels/create", {
         api_token: this.$shared.api_token
       });
       toast("panel Created Successfully");
       this.fetchPanels();
     },
     deletePanel: function deletePanel(panel) {
-      this.$http.post(this.$shared.siteUrl + "/api/panels/delete/" + panel.id, {
+      this.$http.post(document.location.origin + "/api/panels/delete/" + panel.id, {
         api_token: this.$shared.api_token
       });
       toast("panel Deleted Successfully");
       this.fetchPanels();
     },
     editPanel: function editPanel(panel) {
-      this.$http.put(this.$shared.siteUrl + "/api/panels/edit/" + panel.id, {
+      this.$http.put(document.location.origin + "/api/panels/edit/" + panel.id, {
         name: event.target.innerText,
         api_token: this.$shared.api_token
       });
-      toast("panel edited Successfully");
+      toast("panel updated Successfully");
     }
   }
 });
@@ -1873,23 +1877,22 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       content: '',
-      selected: '',
       code_lang: this.item.code_lang
     };
   },
   watch: {
-    selected: function selected(value) {
-      this.$http.put(this.$shared.siteUrl + "/api/contents/edit/" + this.item.id, {
+    code_lang: function code_lang(value) {
+      this.$http.put(document.location.origin + "/api/contents/edit/" + this.item.id, {
         code_lang: value,
-        Authorization: 'Bearer ' + this.$shared.api_token
+        api_token: this.$shared.api_token
       });
       this.code_lang = value;
+      toast('Code language is updated Successfully');
       Prism.highlightAll();
     }
   },
   created: function created() {
     this.content = this.item.name;
-    this.selected = this.item.code_lang;
   },
   mounted: function mounted() {
     Prism.highlightAll();
@@ -1904,17 +1907,19 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     submitContentEdit: function submitContentEdit() {
       var newText = event.target.innerText;
-      this.$http.put(this.$shared.siteUrl + "/api/contents/edit/" + this.item.id, {
+      this.$http.put(document.location.origin + "/api/contents/edit/" + this.item.id, {
         content: newText,
-        Authorization: 'Bearer ' + this.$shared.api_token
+        api_token: this.$shared.api_token
       });
       this.content = newText;
+      toast('Content is updated Successfully');
     },
     deleteContent: function deleteContent() {
-      this.$http.post(this.$shared.siteUrl + "/api/contents/delete/" + this.item.id, {
+      this.$http.post(document.location.origin + "/api/contents/delete/" + this.item.id, {
         api_token: this.$shared.api_token
       });
       this.$emit("deleteContentEvent", this.index);
+      toast('Content is deleted Successfully');
     }
   }
 });
@@ -1945,15 +1950,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submitHeaderEdit: function submitHeaderEdit() {
-      this.$http.put(this.$shared.siteUrl + "/api/headers/edit/" + this.item.id, {
+      this.$http.put(document.location.origin + "/api/headers/edit/" + this.item.id, {
         name: event.target.innerText,
         api_token: this.$shared.api_token
       });
+      toast('Header is editted Successfully');
     },
     deleteHeader: function deleteHeader() {
-      this.$http.post(this.$shared.siteUrl + "/api/headers/delete/" + this.item.id, {
+      this.$http.post(document.location.origin + "/api/headers/delete/" + this.item.id, {
         api_token: this.$shared.api_token
       });
+      toast('Header is deleted Successfully');
       this.$emit("deleteHeaderEvent", this.index);
     }
   }
@@ -2012,7 +2019,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     createHeader: function createHeader() {
-      this.$http.post(this.$shared.siteUrl + "/api/" + this.categoryTitle + "/" + this.panel.name + "/headers/create");
+      console.log(this.$http.post(document.location.origin + "/api/" + this.$shared.category_title + "/" + this.panel.name + "/headers/create", {
+        api_token: this.$shared.api_token
+      }));
       var highestOrder = this.headersAndContents.slice(-1).pop().order;
       this.headersAndContents.push({
         name: "default Header Name",
@@ -2021,13 +2030,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     createContent: function createContent() {
-      this.$http.post(this.$shared.siteUrl + "/api/" + this.categoryTitle + "/" + this.panel.name + "/contents/create");
+      this.$http.post(document.location.origin + "/api/" + this.$shared.category_title + "/" + this.panel.name + "/contents/create", {
+        api_token: this.$shared.api_token
+      });
       var highestOrder = this.headersAndContents.slice(-1).pop().order;
       this.headersAndContents.push({
-        code_lang: 'language-css',
         name: "default content",
         order: highestOrder + 1,
-        type: "panel_content"
+        type: "panel_content",
+        code_lang: 'language-css'
       });
     },
     deleteHeader: function deleteHeader(index) {
@@ -2071,6 +2082,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2088,7 +2104,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchPanels: function fetchPanels() {
       var _this = this;
 
-      this.$http.get(this.$shared.siteUrl + "/api/" + this.$shared.category_title + "/panels").then(function (response) {
+      this.$http.get(document.location.origin + "/api/" + this.$shared.category_title + "/panels").then(function (response) {
         _this.panels = response.body.data;
       });
     }
@@ -21841,80 +21857,103 @@ var render = function() {
       "div",
       { staticClass: "row" },
       [
-        _c("div", { staticClass: "col-4 head" }, [
-          _c("h1", [
+        _c(
+          "div",
+          { staticClass: "col-md-4 head" },
+          [
             _c("img", {
               attrs: { width: "70px", src: _vm.$shared.category_image }
             }),
-            _vm._v(
-              "\n        " +
-                _vm._s(_vm.$shared.category_title) +
-                " CheatSheet\n      "
+            _vm._v(" "),
+            _c("h1", [
+              _vm._v(_vm._s(_vm.$shared.category_title) + " CheatSheet")
+            ]),
+            _vm._v(" "),
+            _c(
+              "panel",
+              {
+                staticClass: "col-md-12 mt-3",
+                attrs: { panel: _vm.panels[0] }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "panel-title",
+                    attrs: { slot: "panelTitle" },
+                    slot: "panelTitle"
+                  },
+                  [_c("h1", [_vm._v(_vm._s(_vm.panels[0].name))])]
+                )
+              ]
             )
-          ])
-        ]),
+          ],
+          1
+        ),
         _vm._v(" "),
-        _vm._l(_vm.panels, function(panel) {
+        _vm._l(_vm.panels, function(panel, index) {
           return [
             _c(
               "transition",
               { key: panel.id, attrs: { name: "fade" } },
               [
-                _c("panel", { key: panel.id, attrs: { panel: panel } }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "panel-title",
-                      attrs: { slot: "panelTitle" },
-                      slot: "panelTitle"
-                    },
-                    [
+                index >= 1
+                  ? _c("panel", { key: panel.id, attrs: { panel: panel } }, [
                       _c(
-                        "h1",
+                        "div",
                         {
-                          attrs: { contenteditable: "true" },
-                          on: {
-                            blur: function($event) {
-                              return _vm.editPanel(panel)
-                            },
-                            keypress: function($event) {
-                              if (
-                                !$event.type.indexOf("key") &&
-                                _vm._k(
-                                  $event.keyCode,
-                                  "enter",
-                                  13,
-                                  $event.key,
-                                  "Enter"
-                                )
-                              ) {
-                                return null
-                              }
-                              $event.preventDefault()
-                              return _vm.editPanel(panel)
-                            }
-                          }
+                          staticClass: "panel-title",
+                          attrs: { slot: "panelTitle" },
+                          slot: "panelTitle"
                         },
-                        [_vm._v(_vm._s(panel.name))]
+                        [
+                          _c(
+                            "h1",
+                            {
+                              attrs: { contenteditable: "true" },
+                              on: {
+                                blur: function($event) {
+                                  return _vm.editPanel(panel)
+                                },
+                                keypress: function($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  $event.preventDefault()
+                                  return _vm.editPanel(panel)
+                                }
+                              }
+                            },
+                            [_vm._v(_vm._s(panel.name))]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        {
+                          staticClass: "delete-box",
+                          attrs: { slot: "deletePanel" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deletePanel(panel)
+                            }
+                          },
+                          slot: "deletePanel"
+                        },
+                        [_vm._v("x")]
                       )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "p",
-                    {
-                      staticClass: "delete-box",
-                      attrs: { slot: "deletePanel" },
-                      on: {
-                        click: function($event) {
-                          return _vm.deletePanel(panel)
-                        }
-                      },
-                      slot: "deletePanel"
-                    },
-                    [_vm._v("x")]
-                  )
-                ])
+                    ])
+                  : _vm._e()
               ],
               1
             )
@@ -21984,8 +22023,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.selected,
-              expression: "selected"
+              value: _vm.code_lang,
+              expression: "code_lang"
             }
           ],
           staticClass: "form-control",
@@ -21999,7 +22038,7 @@ var render = function() {
                   var val = "_value" in o ? o._value : o.value
                   return val
                 })
-              _vm.selected = $event.target.multiple
+              _vm.code_lang = $event.target.multiple
                 ? $$selectedVal
                 : $$selectedVal[0]
             }
@@ -22197,32 +22236,59 @@ var render = function() {
       "div",
       { staticClass: "row" },
       [
-        _c("div", { staticClass: "col-4 head" }, [
-          _c("h1", [
+        _c(
+          "div",
+          { staticClass: "col-4 head" },
+          [
             _c("img", {
               attrs: { width: "70px", src: _vm.$shared.category_image }
             }),
-            _vm._v(
-              "\n        " +
-                _vm._s(_vm.$shared.category_title) +
-                " CheatSheet\n      "
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.panels, function(panel) {
-          return [
-            _c("panel", { key: panel.id, attrs: { panel: panel } }, [
-              _c(
-                "div",
-                {
-                  staticClass: "panel-title",
-                  attrs: { slot: "panelTitle" },
-                  slot: "panelTitle"
-                },
-                [_c("h1", [_vm._v(_vm._s(panel.name))])]
+            _vm._v(" "),
+            _c("h1", [
+              _vm._v(
+                "\n        " +
+                  _vm._s(_vm.$shared.category_title) +
+                  " CheatSheet\n      "
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "panel",
+              {
+                staticClass: "col-md-12 mt-3",
+                attrs: { panel: _vm.panels[0] }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "panel-title",
+                    attrs: { slot: "panelTitle" },
+                    slot: "panelTitle"
+                  },
+                  [_c("h1", [_vm._v(_vm._s(_vm.panels[0].name))])]
+                )
+              ]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._l(_vm.panels, function(panel, index) {
+          return [
+            index >= 1
+              ? _c("panel", { key: panel.id, attrs: { panel: panel } }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "panel-title",
+                      attrs: { slot: "panelTitle" },
+                      slot: "panelTitle"
+                    },
+                    [_c("h1", [_vm._v(_vm._s(panel.name))])]
+                  )
+                ])
+              : _vm._e()
           ]
         })
       ],

@@ -2,14 +2,19 @@
   <div class="container">
     <div class="row">
       <div class="col-4 head">
-        <h1>
           <img width="70px" :src="$shared.category_image">
+        <h1>
           {{$shared.category_title}} CheatSheet
         </h1>
+        <panel class="col-md-12 mt-3" :panel="panels[0]">
+          <div slot="panelTitle" class="panel-title">
+              <h1>{{panels[0].name}}</h1>
+            </div>
+        </panel>
       </div>
 
-      <template v-for="panel in panels">
-          <panel :key="panel.id" :panel="panel">
+      <template v-for="(panel,index) in panels">
+          <panel v-if="index >= 1" :key="panel.id" :panel="panel">
             <div slot="panelTitle" class="panel-title">
               <h1>{{panel.name}}</h1>
             </div>
@@ -37,7 +42,7 @@ export default {
   methods: {
     fetchPanels() {
       this.$http
-        .get(this.$shared.siteUrl + "/api/" + this.$shared.category_title + "/panels")
+        .get(document.location.origin + "/api/" + this.$shared.category_title + "/panels")
         .then(response => {
           this.panels = response.body.data;
         });

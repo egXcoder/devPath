@@ -15,10 +15,12 @@
         },
         methods: {
             submitHeaderEdit() {
-                this.$http.put(this.$shared.siteUrl+"/api/headers/edit/"+this.item.id,{name:event.target.innerText,api_token:this.$shared.api_token});
+                this.$http.put(document.location.origin+"/api/headers/edit/"+this.item.id,{name:event.target.innerText,api_token:this.$shared.api_token});
+                toast('Header is editted Successfully');
             },
             deleteHeader(){
-                this.$http.post(this.$shared.siteUrl+"/api/headers/delete/"+this.item.id,{api_token:this.$shared.api_token});
+                this.$http.post(document.location.origin+"/api/headers/delete/"+this.item.id,{api_token:this.$shared.api_token});
+                toast('Header is deleted Successfully');
                 this.$emit("deleteHeaderEvent",this.index);
             }
         }

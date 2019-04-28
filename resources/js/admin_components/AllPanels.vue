@@ -1,16 +1,20 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-4 head">
-        <h1>
-          <img width="70px" :src="$shared.category_image">
-          {{$shared.category_title}} CheatSheet
-        </h1>
+      <div class="col-md-4 head">
+        <img width="70px" :src="$shared.category_image">
+        <h1>{{$shared.category_title}} CheatSheet</h1>
+
+        <panel class="col-md-12 mt-3" :panel="panels[0]">
+          <div slot="panelTitle" class="panel-title">
+            <h1>{{panels[0].name}}</h1>
+          </div>
+        </panel>
       </div>
 
-      <template v-for="panel in panels">
+      <template v-for="(panel,index) in panels">
         <transition :key="panel.id" name="fade">
-          <panel :key="panel.id" :panel="panel">
+          <panel v-if="index >= 1" :key="panel.id" :panel="panel">
             <div slot="panelTitle" class="panel-title">
               <h1
                 contenteditable="true"
@@ -32,12 +36,11 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
       showDeleteBox: false,
-      panels: [],
+      panels: []
     };
   },
   created() {
@@ -49,27 +52,44 @@ export default {
   methods: {
     fetchPanels() {
       this.$http
-        .get(this.$shared.siteUrl + "/api/" + this.$shared.category_title + "/panels")
+        .get(
+          document.location.origin +
+            "/api/" +
+            this.$shared.category_title +
+            "/panels"
+        )
         .then(response => {
           this.panels = response.body.data;
         });
     },
     addPanel() {
-      this.$http.post(this.$shared.siteUrl + "/api/" + this.$shared.category_title + "/panels/create",{api_token:this.$shared.api_token});
+      this.$http.post(
+        document.location.origin +
+          "/api/" +
+          this.$shared.category_title +
+          "/panels/create",
+        { api_token: this.$shared.api_token }
+      );
       toast("panel Created Successfully");
       this.fetchPanels();
     },
     deletePanel(panel) {
-      this.$http.post(this.$shared.siteUrl + "/api/panels/delete/" + panel.id,{api_token:this.$shared.api_token});
+      this.$http.post(
+        document.location.origin + "/api/panels/delete/" + panel.id,
+        { api_token: this.$shared.api_token }
+      );
       toast("panel Deleted Successfully");
       this.fetchPanels();
     },
     editPanel(panel) {
-      this.$http.put(this.$shared.siteUrl + "/api/panels/edit/" + panel.id, {
-        name: event.target.innerText,
-        api_token : this.$shared.api_token,
-      });
-      toast("panel edited Successfully");
+      this.$http.put(
+        document.location.origin + "/api/panels/edit/" + panel.id,
+        {
+          name: event.target.innerText,
+          api_token: this.$shared.api_token
+        }
+      );
+      toast("panel updated Successfully");
     }
   }
 };

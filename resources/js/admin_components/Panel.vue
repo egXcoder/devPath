@@ -40,7 +40,7 @@ export default {
 
   methods: {
     createHeader() {
-        this.$http.post(this.$shared.siteUrl+"/api/"+this.categoryTitle+"/"+this.panel.name+"/headers/create");
+        console.log(this.$http.post(document.location.origin+"/api/"+this.$shared.category_title+"/"+this.panel.name+"/headers/create",{api_token:this.$shared.api_token}));
         let highestOrder = this.headersAndContents.slice(-1).pop().order;
         this.headersAndContents.push({
         name:"default Header Name",
@@ -49,14 +49,14 @@ export default {
         });
     },
     createContent() {
-        this.$http.post(this.$shared.siteUrl+"/api/"+this.categoryTitle+"/"+this.panel.name+"/contents/create");
+        this.$http.post(document.location.origin+"/api/"+this.$shared.category_title+"/"+this.panel.name+"/contents/create",{api_token:this.$shared.api_token});
         let highestOrder = this.headersAndContents.slice(-1).pop().order;
     
         this.headersAndContents.push({
-        code_lang:'language-css',
         name:"default content",
         order:highestOrder+1,
         type:"panel_content",
+        code_lang:'language-css',
         });
     },
     deleteHeader(index){

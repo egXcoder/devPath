@@ -17,13 +17,12 @@ Route::prefix('admin')->group(function () {
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
     Route::middleware('auth')->group(function(){
-        Route::get('/', 'AdminController@index')->name('admin.home');
+        Route::get('/', 'AdminController@index')->name('admin.index');
         Route::get('/{categoryTitle}', 'AdminController@showSpecificCategory')->name('admin.show');
         Route::post('/categories/create', 'AdminController@createCategory')->name('categories.create');
         Route::put('/categories/edit/{id}', 'AdminController@editCategory')->name('categories.edit');
         Route::get('/categories/delete/{id}', 'AdminController@deleteCategory')->name('categories.delete');
     });
 });
-
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('guest.index');
 Route::get('/{categoryTitle}', 'HomeController@showSpecificCategory')->name('guest.show');
