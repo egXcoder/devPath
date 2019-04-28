@@ -14,10 +14,10 @@ class ApiAuthenticated {
      */
     public function handle($request, Closure $next) {
         $api_token_in_database = \App\User::find(1)->api_token;
-        if($request->get('api_token')===$api_token_in_database){
+        if ($request->get('api_token') === $api_token_in_database) {
             return $next($request);
-        }else{
-            return response()->json(['401'=>'unauthorized']);
+        } else {
+            return response()->json(['401' => 'unauthorized']);
         }
     }
 }

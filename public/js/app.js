@@ -1825,7 +1825,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fetchPanels();
     },
     deletePanel: function deletePanel(panel) {
-      this.$http["delete"](this.$shared.siteUrl + "/api/panels/delete/" + panel.id, {
+      this.$http.post(this.$shared.siteUrl + "/api/panels/delete/" + panel.id, {
         api_token: this.$shared.api_token
       });
       toast("panel Deleted Successfully");
@@ -1911,7 +1911,7 @@ __webpack_require__.r(__webpack_exports__);
       this.content = newText;
     },
     deleteContent: function deleteContent() {
-      this.$http["delete"](this.$shared.siteUrl + "/api/contents/delete/" + this.item.id, {
+      this.$http.post(this.$shared.siteUrl + "/api/contents/delete/" + this.item.id, {
         api_token: this.$shared.api_token
       });
       this.$emit("deleteContentEvent", this.index);
@@ -1930,7 +1930,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../app.js */ "./resources/js/app.js");
 //
 //
 //
@@ -1939,7 +1938,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     item: Object,
@@ -1948,11 +1946,14 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     submitHeaderEdit: function submitHeaderEdit() {
       this.$http.put(this.$shared.siteUrl + "/api/headers/edit/" + this.item.id, {
-        name: event.target.innerText
+        name: event.target.innerText,
+        api_token: this.$shared.api_token
       });
     },
     deleteHeader: function deleteHeader() {
-      this.$http["delete"](this.$shared.siteUrl + "/api/headers/delete/" + this.item.id);
+      this.$http.post(this.$shared.siteUrl + "/api/headers/delete/" + this.item.id, {
+        api_token: this.$shared.api_token
+      });
       this.$emit("deleteHeaderEvent", this.index);
     }
   }

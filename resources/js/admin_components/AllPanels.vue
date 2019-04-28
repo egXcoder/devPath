@@ -60,7 +60,7 @@ export default {
       this.fetchPanels();
     },
     deletePanel(panel) {
-      this.$http.delete(this.$shared.siteUrl + "/api/panels/delete/" + panel.id,{api_token:this.$shared.api_token});
+      this.$http.post(this.$shared.siteUrl + "/api/panels/delete/" + panel.id,{api_token:this.$shared.api_token});
       toast("panel Deleted Successfully");
       this.fetchPanels();
     },

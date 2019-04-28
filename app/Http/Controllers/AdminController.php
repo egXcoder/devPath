@@ -23,26 +23,29 @@ class AdminController extends Controller {
 
     public function createCategory() {
         request()->validate([
-            'name'=>'required|max:255|string'
+            'name' => 'required|max:255|string'
         ]);
         Category::create([
-            'name'=>request('name'),
+            'name' => request('name'),
         ]);
         return redirect()->back();
-
     }
-    public function deleteCategory($category_id){
+
+    public function deleteCategory($category_id) {
         $category = Category::findOrFail($category_id);
         $category->delete();
         return redirect()->back();
     }
-    public function editCategory($category_id){
+
+    public function editCategory($category_id) {
         $category = Category::findOrFail($category_id);
         request()->validate([
-            'name'=>'required|max:255|string'
+            'name' => 'required|max:255|string',
+            'image' => 'required|max:255|string'
         ]);
         $category->update([
-            'name'=>request('name'),
+            'name' => request('name'),
+            'image_url' => request('image')
         ]);
         return redirect()->back();
     }

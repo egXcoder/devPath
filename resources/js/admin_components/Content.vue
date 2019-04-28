@@ -51,7 +51,7 @@
                this.content = newText;
             },
             deleteContent(){
-                this.$http.delete(this.$shared.siteUrl+"/api/contents/delete/"+this.item.id,{api_token:this.$shared.api_token});
+                this.$http.post(this.$shared.siteUrl+"/api/contents/delete/"+this.item.id,{api_token:this.$shared.api_token});
                 this.$emit("deleteContentEvent",this.index);
             }
             
