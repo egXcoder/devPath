@@ -9,14 +9,9 @@
     export default {
         data(){
             return{
-                content:'',
-                selected:'',
+                content:this.item.name,
                 code_lang:this.item.code_lang,
             }
-        },
-        created(){
-            this.content = this.item.name;
-            this.selected = this.item.code_lang;
         },
         mounted(){
             Prism.highlightAll();

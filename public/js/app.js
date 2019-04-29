@@ -1881,9 +1881,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      content: '',
+      isEditable: false,
+      content: this.item.name,
       code_lang: this.item.code_lang
     };
+  },
+  props: {
+    item: Object,
+    index: Number
   },
   watch: {
     code_lang: function code_lang(value) {
@@ -1892,32 +1897,26 @@ __webpack_require__.r(__webpack_exports__);
         api_token: this.$shared.api_token
       });
       this.code_lang = value;
-      toast('Code language is updated Successfully');
+      toast('Code language is updated Successfully'); //highlight with prism when code_lang changed
+
       Prism.highlightAll();
     }
   },
-  created: function created() {
-    this.content = this.item.name;
-  },
   mounted: function mounted() {
+    //highlight with prism when content visible to screen
     Prism.highlightAll();
-  },
-  updated: function updated() {
-    Prism.highlightAll();
-  },
-  props: {
-    item: Object,
-    index: Number
   },
   methods: {
     submitContentEdit: function submitContentEdit() {
       var newText = event.target.innerText;
+      this.content = newText;
+      Prism.highlightAll();
       this.$http.put(document.location.origin + "/api/contents/edit/" + this.item.id, {
         content: newText,
         api_token: this.$shared.api_token
       });
-      this.content = newText;
       toast('Content is updated Successfully');
+      this.isEditable = false;
     },
     deleteContent: function deleteContent() {
       this.$http.post(document.location.origin + "/api/contents/delete/" + this.item.id, {
@@ -1984,7 +1983,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Header_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header.vue */ "./resources/js/admin_components/Header.vue");
 /* harmony import */ var _Content_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Content.vue */ "./resources/js/admin_components/Content.vue");
-/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../app.js */ "./resources/js/app.js");
 //
 //
 //
@@ -2003,7 +2001,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2024,11 +2031,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     createHeader: function createHeader() {
-      console.log(this.$http.post(document.location.origin + "/api/" + this.$shared.category_title + "/" + this.panel.name + "/headers/create", {
+      this.$http.post(document.location.origin + "/api/" + this.$shared.category_title + "/" + this.panel.name + "/headers/create", {
         api_token: this.$shared.api_token
-      }));
+      });
       var highestOrder = this.headersAndContents.slice(-1).pop().order;
-      toast('Header created successfully');
+      toast("Header created successfully");
       this.headersAndContents.push({
         name: "default Header Name",
         order: highestOrder + 1,
@@ -2040,12 +2047,12 @@ __webpack_require__.r(__webpack_exports__);
         api_token: this.$shared.api_token
       });
       var highestOrder = this.headersAndContents.slice(-1).pop().order;
-      toast('Content created successfully');
+      toast("Content created successfully");
       this.headersAndContents.push({
         name: "default content",
         order: highestOrder + 1,
         type: "panel_content",
-        code_lang: 'language-css'
+        code_lang: "language-css"
       });
     },
     deleteHeader: function deleteHeader(index) {
@@ -2140,14 +2147,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      content: '',
-      selected: '',
+      content: this.item.name,
       code_lang: this.item.code_lang
     };
-  },
-  created: function created() {
-    this.content = this.item.name;
-    this.selected = this.item.code_lang;
   },
   mounted: function mounted() {
     Prism.highlightAll();
@@ -22062,8 +22064,14 @@ var render = function() {
         {
           class: _vm.code_lang,
           staticStyle: { display: "inline-block", width: "100%" },
-          attrs: { contenteditable: "" },
+          attrs: { contenteditable: _vm.isEditable },
           on: {
+            mouseenter: function($event) {
+              _vm.isEditable = true
+            },
+            mouseleave: function($event) {
+              _vm.isEditable = false
+            },
             blur: function($event) {
               return _vm.submitContentEdit()
             }

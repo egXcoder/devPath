@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <pre><code style="display:inline-block;width:100%" @blur="submitContentEdit()" :class="code_lang" contenteditable>{{content}}</code></pre>
+        <pre><code @mouseenter="isEditable = true" @mouseleave="isEditable=false" :contenteditable="isEditable" @blur="submitContentEdit()" style="display:inline-block;width:100%" :class="code_lang">{{content}}</code></pre>
             <div class="form-group">
                 <select v-model="code_lang" class="form-control">
                     <option>language-html</option>
@@ -18,42 +18,41 @@
     export default {
         data(){
             return{
-                content:'',
+                isEditable:false,
+                content:this.item.name,
                 code_lang:this.item.code_lang,
             }
+        },
+        props:{
+            item:Object,
+            index:Number,
         },
         watch:{
             code_lang:function(value){
                 this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{code_lang:value,api_token:this.$shared.api_token});
                 this.code_lang = value;
                 toast('Code language is updated Successfully');
+                //highlight with prism when code_lang changed
                 Prism.highlightAll();
             },
         },
-        created(){
-            this.content = this.item.name;
-        },
         mounted() {
+            //highlight with prism when content visible to screen
             Prism.highlightAll();
             },
-        updated(){
-            Prism.highlightAll();
-        },
-        props:{
-            item:Object,
-            index:Number,
-        },
         methods: {
             submitContentEdit() {
                let newText = event.target.innerText;
-               this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{content:newText,api_token:this.$shared.api_token});
                this.content = newText;
+               Prism.highlightAll();
+               this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{content:newText,api_token:this.$shared.api_token});
                toast('Content is updated Successfully');
+               this.isEditable = false;
             },
             deleteContent(){
                 this.$http.post(document.location.origin+"/api/contents/delete/"+this.item.id,{api_token:this.$shared.api_token});
                 this.$emit("deleteContentEvent",this.index);
-               toast('Content is deleted Successfully');
+                toast('Content is deleted Successfully');
             }
             
         }
