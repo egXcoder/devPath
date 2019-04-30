@@ -20,6 +20,9 @@ Route::get('{category_name}/{panel_name}/headers', 'HeadersController@listHeader
 Route::get('{category_name}/{panel_name}/contents', 'ContentsController@listContentsInPanel');
 
 Route::middleware('ApiAuthenticated')->group(function () {
+
+    Route::put('{category_name}/panels/editOrder', 'PanelsController@editOrder');
+
     Route::post('{category_name}/panels/create', 'PanelsController@create');
     Route::put('panels/edit/{id}', 'PanelsController@edit');
     Route::post('panels/delete/{id}', 'PanelsController@destroy');

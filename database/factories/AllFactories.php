@@ -13,11 +13,11 @@ $factory->define('App\Category', function (Faker $faker) {
 $factory->define('App\Panel', function (Faker $faker) {
     return [
         'name' => $faker->word,
+        'order' => 0
     ];
 });
 
 $factory->define('App\CodeLanguage', function (Faker $faker) {
-    
     return [
         'name' => $faker->word,
     ];

@@ -14,6 +14,7 @@ class CreatePanelsTable extends Migration {
         Schema::create('panels', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->unsignedTinyInteger('order');
             $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
             $table->foreign('category_id')

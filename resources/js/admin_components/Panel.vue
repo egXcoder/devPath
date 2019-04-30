@@ -94,3 +94,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.panel{
+  cursor:move;
+}
+.panel-inner{
+cursor:auto;
+}
+</style>
