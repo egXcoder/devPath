@@ -28,8 +28,8 @@
             index:Number,
         },
         watch:{
-            code_lang:function(value){
-                this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{code_lang:value,api_token:this.$shared.api_token});
+            async code_lang(value){
+                await this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{code_lang:value,api_token:this.$shared.api_token});
                 this.code_lang = value;
                 toast('Code language is updated Successfully');
                 //highlight with prism when code_lang changed
@@ -41,16 +41,16 @@
             Prism.highlightAll();
             },
         methods: {
-            submitContentEdit() {
+            async submitContentEdit() {
                let newText = event.target.innerText;
                this.content = newText;
                Prism.highlightAll();
-               this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{content:newText,api_token:this.$shared.api_token});
+               await this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{content:newText,api_token:this.$shared.api_token});
                toast('Content is updated Successfully');
                this.isEditable = false;
             },
-            deleteContent(){
-                this.$http.post(document.location.origin+"/api/contents/delete/"+this.item.id,{api_token:this.$shared.api_token});
+            async deleteContent(){
+                await this.$http.post(document.location.origin+"/api/contents/delete/"+this.item.id,{api_token:this.$shared.api_token});
                 this.$emit("deleteContentEvent",this.index);
                 toast('Content is deleted Successfully');
             }

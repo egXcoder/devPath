@@ -14,12 +14,12 @@
             index:Number,
         },
         methods: {
-            submitHeaderEdit() {
-                this.$http.put(document.location.origin+"/api/headers/edit/"+this.item.id,{name:event.target.innerText,api_token:this.$shared.api_token});
+            async submitHeaderEdit() {
+                await this.$http.put(document.location.origin+"/api/headers/edit/"+this.item.id,{name:event.target.innerText,api_token:this.$shared.api_token});
                 toast('Header is editted Successfully');
             },
-            deleteHeader(){
-                this.$http.post(document.location.origin+"/api/headers/delete/"+this.item.id,{api_token:this.$shared.api_token});
+            async deleteHeader(){
+                await this.$http.post(document.location.origin+"/api/headers/delete/"+this.item.id,{api_token:this.$shared.api_token});
                 toast('Header is deleted Successfully');
                 this.$emit("deleteHeaderEvent",this.index);
             }

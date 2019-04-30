@@ -48,8 +48,8 @@ export default {
   },
 
   methods: {
-    createHeader() {
-      this.$http.post(
+    async createHeader() {
+      await this.$http.post(
         document.location.origin +
           "/api/" +
           this.$shared.category_title +
@@ -66,8 +66,8 @@ export default {
         type: "panel_header"
       });
     },
-    createContent() {
-      this.$http.post(
+    async createContent() {
+      await this.$http.post(
         document.location.origin +
           "/api/" +
           this.$shared.category_title +
