@@ -17,7 +17,8 @@
     <nav class="nav">
         <div class="container">
             <div class="row justify-content-between">
-                <div class="brand"><img class="img-fluid" width="250px" src="{{asset('images/brand.png')}}" alt=""></div>
+                <div class="brand"><img class="img-fluid" width="250px" src="{{asset('images/brand.png')}}" alt="">
+                </div>
                 <div class="menu-toggle my-auto" onclick="toggleDrawer();">
                     <span></span>
                     <span></span>
@@ -36,16 +37,19 @@
         <div class="menu-container">
             <ul class="list-unstyled">
                 @foreach ($categories as $category)
-                <li><img class="img-fluid" width="50px" height="50px" src="{{$category->image_url}}"> 
-                    
+                <li><img class="img-fluid" width="50px" height="50px" src="{{$category->image_url}}">
+
                     @auth
                     <a href="{{route('admin.show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a>
-                    <a id="edit" data-toggle="modal" data-target="#exampleModal" data-category_name="{{$category->name}}" data-category_image="{{$category->getAttributes()['image_url']}}"><i class="fas fa-edit"></i></a>
+                    <a id="edit" data-toggle="modal" data-target="#exampleModal" data-category_id="{{$category->id}}"
+                        data-category_name="{{$category->name}}"
+                        data-category_image="{{$category->getAttributes()['image_url']}}"><i
+                            class="fas fa-edit"></i></a>
                     <a id="delete" href="{{route('categories.delete',['id'=>$category->id])}}">x</a>
                     @endauth
 
                     @guest
-                    <a href="{{route('guest.show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a> 
+                    <a href="{{route('guest.show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a>
                     @endguest
                 </li>
                 @endforeach
@@ -66,36 +70,37 @@
     </div>
 
     @auth
-     <!-- Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white rounded-0">
                     <h5 class="modal-title" id="exampleModalLongTitle">Edit Category</h5>
                     <button type="button" class="close text-white" data-dismiss="modal">
-                                  <span>&times;</span>
-                                </button>
+                        <span>&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <form id="edit_form" method="POST">
-                        @csrf 
+                        @csrf
                         {{ method_field('PUT') }}
                         <input id="category" name="name" type="text" class="form-control">
                         <input id="image" name="image" type="text" class="form-control">
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="event.preventDefault(); document.getElementById('edit_form').submit();">Save</button>
+                    <button type="button" class="btn btn-primary"
+                        onclick="event.preventDefault(); document.getElementById('edit_form').submit();">Save</button>
                 </div>
             </div>
         </div>
-    </div>   
+    </div>
     @endauth
 
     <main id="app">
         @yield('all_panels')
     </main>
-    
+
     <script src={{asset( 'js/app.js')}}></script>
     <script>
         //TODO:data here goes To cookie
@@ -125,13 +130,14 @@
 
         $('#exampleModal').on('show.bs.modal', function (event) {
             var hyperLink = $(event.relatedTarget); // Button that triggered the modal
+            var category_id = hyperLink.data('category_id');
             var category_name = hyperLink.data('category_name');
             var image = hyperLink.data('category_image');
        
             var modal = $(this);
             modal.find('.modal-body input#category').val(category_name);
             modal.find('.modal-body input#image').val(image);
-            modal.find('.modal-body #edit_form').attr("action","{{route('categories.edit',['id'=>'1'])}}");
+            modal.find('.modal-body #edit_form').attr("action",document.location.href+"/categories/edit/"+category_id);
         });
         const app = new Vue({
             el: '#app',
