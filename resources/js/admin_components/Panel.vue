@@ -44,11 +44,13 @@ export default {
     panel_content,
   },
   created() {
-    this.headersAndContents = this.panel.headersAndContents;
-  },
+    this.headersAndContents = this.panel.headersAndContents; 
+     },
 
   methods: {
     async createHeader() {
+      var header_id;
+
       await this.$http.post(
         document.location.origin +
           "/api/" +
@@ -57,16 +59,20 @@ export default {
           this.panel.name +
           "/headers/create",
         { api_token: this.$shared.api_token }
-      );
+      ).then(response=> {header_id=response.body.id});
+      
       let highestOrder = this.headersAndContents.slice(-1).pop().order;
       toast("Header created successfully");
       this.headersAndContents.push({
+        id:header_id,
         name: "default Header Name",
         order: highestOrder + 1,
         type: "panel_header"
       });
     },
     async createContent() {
+      var content_id;
+
       await this.$http.post(
         document.location.origin +
           "/api/" +
@@ -75,10 +81,12 @@ export default {
           this.panel.name +
           "/contents/create",
         { api_token: this.$shared.api_token }
-      );
+      ).then(response=> {content_id=response.body.id});
+
       let highestOrder = this.headersAndContents.slice(-1).pop().order;
       toast("Content created successfully");
       this.headersAndContents.push({
+        id:content_id,
         name: "default content",
         order: highestOrder + 1,
         type: "panel_content",

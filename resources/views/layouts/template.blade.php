@@ -137,7 +137,7 @@
             var modal = $(this);
             modal.find('.modal-body input#category').val(category_name);
             modal.find('.modal-body input#image').val(image);
-            modal.find('.modal-body #edit_form').attr("action",document.location.href+"/categories/edit/"+category_id);
+            modal.find('.modal-body #edit_form').attr("action",document.location.origin+"/admin/categories/edit/"+category_id);
         });
         const app = new Vue({
             el: '#app',

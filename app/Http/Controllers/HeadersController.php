@@ -21,7 +21,7 @@ class HeadersController extends Controller {
 
     public static function create($category_name, $panel_name, $panel_id = null) {
         $category_id = Category::where('name', $category_name)->firstorFail()->id;
-        
+
         if ($panel_id === null) {
             $panel_id = Panel::where('category_id', $category_id)->where('name', $panel_name)->firstorFail()->id;
         }
@@ -34,12 +34,12 @@ class HeadersController extends Controller {
             return $validator->getMessageBag()->all();
         }
 
-        Header::create([
+        $header_id = Header::create([
             'name' => request()->has('name') ? request('name') : 'default Header Name',
             'order' => static::getLatestOrderOfHeaderOrContentIn($panel_id) + 1,
             'panel_id' => $panel_id,
-        ]);
-        return 'success';
+        ])->id;
+        return response()->json(['id' => $header_id]);
     }
 
     public function edit($header_id) {

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div :style="grid_style" class="row">
       <div class="col-4 head">
           <img width="70px" :src="$shared.category_image">
         <h1>
@@ -38,6 +38,14 @@ export default {
   },
   components: {
     panel: require("./Panel").default
+  },
+  computed:{
+    grid_style(){
+      return {
+      'flex-flow': 'column wrap',
+      'max-height': ((this.panels.length*900)/3)+'px',
+      }
+    }
   },
   methods: {
     fetchPanels() {

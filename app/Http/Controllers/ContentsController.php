@@ -39,13 +39,13 @@ class ContentsController extends Controller {
                             ? CodeLanguage::where('name', request('code_lang'))->firstorFail()->id
                             : '1';
 
-        Content::create([
+        $content_id = Content::create([
             'content' => request()->has('content') ? request('content') : 'default content',
             'order' => static::getLatestOrderOfHeaderOrContentIn($panel_id) + 1,
             'panel_id' => $panel_id,
             'code_language_id' => $code_language_id,
-        ]);
-        return 'success';
+        ])->id;
+        return response()->json(['id' => $content_id]);
     }
 
     public function edit($content_id) {

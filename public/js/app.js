@@ -1817,17 +1817,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2002,6 +1991,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -2311,7 +2301,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _createHeader = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var highestOrder;
+        var header_id, highestOrder;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2319,12 +2309,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 2;
                 return this.$http.post(document.location.origin + "/api/" + this.$shared.category_title + "/" + this.panel.name + "/headers/create", {
                   api_token: this.$shared.api_token
+                }).then(function (response) {
+                  header_id = response.body.id;
                 });
 
               case 2:
                 highestOrder = this.headersAndContents.slice(-1).pop().order;
                 toast("Header created successfully");
                 this.headersAndContents.push({
+                  id: header_id,
                   name: "default Header Name",
                   order: highestOrder + 1,
                   type: "panel_header"
@@ -2348,7 +2341,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _createContent = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var highestOrder;
+        var content_id, highestOrder;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -2356,12 +2349,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.next = 2;
                 return this.$http.post(document.location.origin + "/api/" + this.$shared.category_title + "/" + this.panel.name + "/contents/create", {
                   api_token: this.$shared.api_token
+                }).then(function (response) {
+                  content_id = response.body.id;
                 });
 
               case 2:
                 highestOrder = this.headersAndContents.slice(-1).pop().order;
                 toast("Content created successfully");
                 this.headersAndContents.push({
+                  id: content_id,
                   name: "default content",
                   order: highestOrder + 1,
                   type: "panel_content",
@@ -2440,6 +2436,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     panel: __webpack_require__(/*! ./Panel */ "./resources/js/home_components/Panel.vue")["default"]
+  },
+  computed: {
+    grid_style: function grid_style() {
+      return {
+        'flex-flow': 'column wrap',
+        'max-height': this.panels.length * 900 / 3 + 'px'
+      };
+    }
   },
   methods: {
     fetchPanels: function fetchPanels() {
@@ -26239,9 +26243,6 @@ var render = function() {
             mouseenter: function($event) {
               _vm.isEditable = true
             },
-            mouseleave: function($event) {
-              _vm.isEditable = false
-            },
             blur: function($event) {
               return _vm.submitContentEdit()
             }
@@ -26287,7 +26288,9 @@ var render = function() {
           _vm._v(" "),
           _c("option", [_vm._v("language-js")]),
           _vm._v(" "),
-          _c("option", [_vm._v("language-php")])
+          _c("option", [_vm._v("language-php")]),
+          _vm._v(" "),
+          _c("option", [_vm._v("language-sql")])
         ]
       )
     ]),
@@ -26470,7 +26473,7 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c(
       "div",
-      { staticClass: "row" },
+      { staticClass: "row", style: _vm.grid_style },
       [
         _c(
           "div",

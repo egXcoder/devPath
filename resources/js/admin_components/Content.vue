@@ -1,12 +1,13 @@
 <template>
     <div class="content">
-        <pre><code @mouseenter="isEditable = true" @mouseleave="isEditable=false" :contenteditable="isEditable" @blur="submitContentEdit()" style="display:inline-block;width:100%" :class="code_lang">{{content}}</code></pre>
+        <pre><code @mouseenter="isEditable = true" :contenteditable="isEditable" @blur="submitContentEdit()" style="display:inline-block;width:100%" :class="code_lang">{{content}}</code></pre>
             <div class="form-group">
                 <select v-model="code_lang" class="form-control">
                     <option>language-html</option>
                     <option>language-css</option>
                     <option>language-js</option>
                     <option>language-php</option>
+                    <option>language-sql</option>
                 </select>
             </div>
         <a @click="deleteContent">x</a>
