@@ -13,38 +13,23 @@ use App\CodeLanguage;
 class ContentsController extends Controller {
     use HeadersAndContentsWrapper;
 
-    public function listContentsInPanel($category_name, $panel_name) {
-        $category_id = Category::where('name', $category_name)->firstorFail()->id;
-        $panel = Panel::where('category_id', $category_id)->where('name', $panel_name)->firstorFail();
+    public function listContentsInPanel(Category $category, $panel_name) {
+        $panel = Panel::where('category_id', $category->id)->where('name', $panel_name)->firstorFail();
         $contents = $panel->content;
         return ContentResource::collection($contents);
     }
 
-    public static function create($category_name, $panel_name, $panel_id = null) {
-        $category_id = Category::where('name', $category_name)->firstorFail()->id;
-        if ($panel_id === null) {
-            $panel_id = Panel::where('category_id', $category_id)->where('name', $panel_name)->firstorFail()->id;
-        }
-
-        $validator = Validator::make(request()->all(), [
-            'content' => 'string|max:5000',
-            'code_lang' => 'string|max:255',
-        ]);
-
-        if ($validator->fails()) {
-            return $validator->getMessageBag()->all();
-        }
-
-        $code_language_id = request()->has('code_lang')
-                            ? CodeLanguage::where('name', request('code_lang'))->firstorFail()->id
-                            : '1';
-
+    public static function create(Category $category, $panel_name) {
+        
+        $panel_id = Panel::where('category_id', $category->id)->where('name', $panel_name)->firstorFail()->id;
+        
         $content_id = Content::create([
-            'content' => request()->has('content') ? request('content') : 'default content',
+            'content' => 'default content Name',
             'order' => static::getLatestOrderOfHeaderOrContentIn($panel_id) + 1,
             'panel_id' => $panel_id,
-            'code_language_id' => $code_language_id,
+            'code_language_id' => '1',
         ])->id;
+        
         return response()->json(['id' => $content_id]);
     }
 

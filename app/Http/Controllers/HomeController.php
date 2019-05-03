@@ -12,9 +12,8 @@ class HomeController extends Controller
         return view('home', ['categories' => $categories, 'selectedCategory' => $selectedCategory]);
     }
 
-    public function showSpecificCategory($categoryTitle) {
-        $selectedCategory= Category::where('name', $categoryTitle)->firstOrFail();
+    public function showSpecificCategory(Category $category) {
         $categories = Category::all();
-        return view('home', ['categories' => $categories, 'selectedCategory' => $selectedCategory]);
+        return view('home', ['categories' => $categories, 'selectedCategory' => $category]);
     }
 }

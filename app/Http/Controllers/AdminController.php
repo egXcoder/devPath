@@ -11,10 +11,9 @@ class AdminController extends Controller {
         return view('admin', ['categories' => $categories, 'selectedCategory' => $selectedCategory, 'api_token' => $this->getAdminApiToken()]);
     }
 
-    public function showSpecificCategory($categoryTitle) {
-        $selectedCategory = Category::where('name', $categoryTitle)->firstOrFail();
+    public function showSpecificCategory(Category $category) {
         $categories = Category::all();
-        return view('admin', ['categories' => $categories, 'selectedCategory' => $selectedCategory, 'api_token' => $this->getAdminApiToken()]);
+        return view('admin', ['categories' => $categories, 'selectedCategory' => $category, 'api_token' => $this->getAdminApiToken()]);
     }
 
     public function getAdminApiToken() {

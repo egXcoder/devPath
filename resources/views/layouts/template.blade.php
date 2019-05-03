@@ -39,18 +39,21 @@
                 @foreach ($categories as $category)
                 <li><img class="img-fluid" width="50px" height="50px" src="{{$category->image_url}}">
 
-                    @auth
+                    @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
                     <a href="{{route('admin.show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a>
+
                     <a id="edit" data-toggle="modal" data-target="#exampleModal" data-category_id="{{$category->id}}"
                         data-category_name="{{$category->name}}"
                         data-category_image="{{$category->getAttributes()['image_url']}}"><i
                             class="fas fa-edit"></i></a>
                     <a id="delete" href="{{route('categories.delete',['id'=>$category->id])}}">x</a>
-                    @endauth
+                    @endif
 
-                    @guest
+
+                    @if (Route::currentRouteName()==='guest.index'||Route::currentRouteName()==='guest.show')
                     <a href="{{route('guest.show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a>
-                    @endguest
+                    @endif
+
                 </li>
                 @endforeach
             </ul>

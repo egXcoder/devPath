@@ -12,33 +12,22 @@ use Illuminate\Support\Facades\Validator;
 class HeadersController extends Controller {
     use HeadersAndContentsWrapper;
 
-    public function listHeadersInPanel($category_name, $panel_name) {
-        $category_id = Category::where('name', $category_name)->firstorFail()->id;
-        $panel = Panel::where('category_id', $category_id)->where('name', $panel_name)->firstorFail();
+    public function listHeadersInPanel(Category $category, $panel_name) {
+        $panel = Panel::where('category_id', $category->id)->where('name', $panel_name)->firstorFail();
         $headers = $panel->header;
         return HeaderResource::collection($headers);
     }
 
-    public static function create($category_name, $panel_name, $panel_id = null) {
-        $category_id = Category::where('name', $category_name)->firstorFail()->id;
+    public static function create(Category $category, $panel_name) {
 
-        if ($panel_id === null) {
-            $panel_id = Panel::where('category_id', $category_id)->where('name', $panel_name)->firstorFail()->id;
-        }
-
-        $validator = Validator::make(request()->all(), [
-            'name' => 'string|max:50',
-        ]);
-
-        if ($validator->fails()) {
-            return $validator->getMessageBag()->all();
-        }
+        $panel_id = Panel::where('category_id', $category->id)->where('name', $panel_name)->firstorFail()->id;
 
         $header_id = Header::create([
-            'name' => request()->has('name') ? request('name') : 'default Header Name',
+            'name' => 'default header Name',
             'order' => static::getLatestOrderOfHeaderOrContentIn($panel_id) + 1,
             'panel_id' => $panel_id,
         ])->id;
+
         return response()->json(['id' => $header_id]);
     }
 

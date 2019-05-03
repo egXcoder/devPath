@@ -43,7 +43,7 @@ export default {
     grid_style(){
       return {
       'flex-flow': 'column wrap',
-      'max-height': ((this.panels.length*900)/3)+'px',
+      'max-height': ((this.panels.length*1000)/3)+'px',
       }
     }
   },
