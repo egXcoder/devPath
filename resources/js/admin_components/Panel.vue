@@ -54,9 +54,7 @@ export default {
       await this.$http.post(
         document.location.origin +
           "/api/" +
-          this.$shared.category_title +
-          "/" +
-          this.panel.name +
+          this.panel.id+
           "/headers/create",
         { api_token: this.$shared.api_token }
       ).then(response=> {header_id=response.body.id});
@@ -76,9 +74,7 @@ export default {
       await this.$http.post(
         document.location.origin +
           "/api/" +
-          this.$shared.category_title +
-          "/" +
-          this.panel.name +
+          this.panel.id+
           "/contents/create",
         { api_token: this.$shared.api_token }
       ).then(response=> {content_id=response.body.id});

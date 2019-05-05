@@ -1,7 +1,6 @@
 <template>
     <div class="header d-flex justify-content-between">
-        <p>&nbsp {{item.name}}
-        </p>
+        <p>{{item.name}}</p>
     </div>
 </template>
 

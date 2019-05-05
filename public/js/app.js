@@ -2158,6 +2158,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     item: Object,
@@ -2179,7 +2183,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                toast('Header is editted Successfully');
+                toast("Header is editted Successfully");
 
               case 3:
               case "end":
@@ -2209,7 +2213,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                toast('Header is deleted Successfully');
+                toast("Header is deleted Successfully");
                 this.$emit("deleteHeaderEvent", this.index);
 
               case 4:
@@ -2307,7 +2311,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return this.$http.post(document.location.origin + "/api/" + this.$shared.category_title + "/" + this.panel.name + "/headers/create", {
+                return this.$http.post(document.location.origin + "/api/" + this.panel.id + "/headers/create", {
                   api_token: this.$shared.api_token
                 }).then(function (response) {
                   header_id = response.body.id;
@@ -2347,7 +2351,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return this.$http.post(document.location.origin + "/api/" + this.$shared.category_title + "/" + this.panel.name + "/contents/create", {
+                return this.$http.post(document.location.origin + "/api/" + this.panel.id + "/contents/create", {
                   api_token: this.$shared.api_token
                 }).then(function (response) {
                   content_id = response.body.id;
@@ -2502,7 +2506,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -26341,7 +26344,7 @@ var render = function() {
           }
         }
       },
-      [_vm._v("  " + _vm._s(_vm.item.name) + "\n    ")]
+      [_vm._v(_vm._s(_vm.item.name))]
     ),
     _vm._v(" "),
     _c(
@@ -26593,7 +26596,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "header d-flex justify-content-between" }, [
-    _c("p", [_vm._v("  " + _vm._s(_vm.item.name) + "\n    ")])
+    _c("p", [_vm._v(_vm._s(_vm.item.name))])
   ])
 }
 var staticRenderFns = []

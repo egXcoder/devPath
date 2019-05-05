@@ -6,8 +6,15 @@ use App\Panel;
 use Illuminate\Http\Request;
 use App\Category;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\PanelResource;
 
 class PanelsController extends Controller {
+    
+    public function listPanelsInCategory(Category $category) {
+        $panels = Panel::where('category_id', $category->id)->orderBy('order')->get();
+        return PanelResource::collection($panels);
+    }
+
     public function create(Category $category) {
         $validator = Validator::make(request()->all(), [
             'name' => 'string|max:50',
@@ -25,17 +32,14 @@ class PanelsController extends Controller {
             'order' => ($lastOrder === null) ? 0 : $lastOrder->order + 1,
         ]);
 
-        HeadersController::create($category,$created_panel->name);
-        ContentsController::create($category,$created_panel->name);
+        HeadersController::create($created_panel);
+        ContentsController::create($created_panel);
 
         return 'success';
     }
 
 
-    public function edit($panel_id) {
-        //edit panel with must be a given name
-        $panel = Panel::findOrFail($panel_id);
-
+    public function edit(Panel $panel) {
         $validator = Validator::make(request()->all(), [
             'name' => 'string|max:50|required',
         ]);
@@ -47,6 +51,13 @@ class PanelsController extends Controller {
         $panel->update([
             'name' => request('name'),
         ]);
+        return 'success';
+    }
+
+    public function destroy(Panel $panel) {
+        $category_id = $panel->category_id;
+        $panel->delete();
+        $this->syncOrder($category_id);
         return 'success';
     }
 
@@ -93,14 +104,6 @@ class PanelsController extends Controller {
         //update order of dragged element
         $draggedPanel->update(['order' => $newIndex]);
 
-        return 'success';
-    }
-
-    public function destroy($id) {
-        $panel = Panel::findOrFail($id);
-        $category_id = $panel->category_id;
-        $panel->delete();
-        $this->syncOrder($category_id);
         return 'success';
     }
 

@@ -11364,6 +11364,8 @@ main .head {
 }
 
 .panel .panel-inner .header p {
+  text-transform: capitalize;
+  margin-left: 0.5rem;
   margin-bottom: 0;
   flex-grow: 1;
 }
