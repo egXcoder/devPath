@@ -1,8 +1,8 @@
 <template>
   <div class="container">
       <div class="col-md-12 head">
-        <img width="70px" :src="$shared.category_image">
-        <h1>{{$shared.category_title}} CheatSheet</h1>
+        <img width="70px" :src="category.image_url">
+        <h1>{{category.name}} CheatSheet</h1>
       </div>
       <draggable @change="onMove" v-model="panels" class="row">
         <template v-for="panel in panels">
@@ -42,6 +42,9 @@ export default {
   created() {
     this.fetchPanels();
   },
+  props:{
+    category:Object
+  },
   components: {
     panel,
     draggable,
@@ -52,7 +55,7 @@ export default {
         .get(
           document.location.origin +
             "/api/" +
-            this.$shared.category_title +
+            this.category.name +
             "/panels"
         )
         .then(response => {
@@ -63,7 +66,7 @@ export default {
       await this.$http.post(
         document.location.origin +
           "/api/" +
-          this.$shared.category_title +
+          this.category.name +
           "/panels/create",
         { api_token: this.$shared.api_token }
       );
@@ -90,7 +93,7 @@ export default {
     },
     async onMove({moved}){
       await this.$http.put(
-        document.location.origin + "/api/"+this.$shared.category_title+"/panels/editOrder/",
+        document.location.origin + "/api/"+this.category.name+"/panels/editOrder/",
         {
           oldIndex: moved.oldIndex,
           newIndex: moved.newIndex,

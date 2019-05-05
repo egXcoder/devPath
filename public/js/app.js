@@ -1829,6 +1829,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {
     this.fetchPanels();
   },
+  props: {
+    category: Object
+  },
   components: {
     panel: _Panel__WEBPACK_IMPORTED_MODULE_2__["default"],
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a
@@ -1837,7 +1840,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     fetchPanels: function fetchPanels() {
       var _this = this;
 
-      this.$http.get(document.location.origin + "/api/" + this.$shared.category_title + "/panels").then(function (response) {
+      this.$http.get(document.location.origin + "/api/" + this.category.name + "/panels").then(function (response) {
         _this.panels = response.body.data;
       });
     },
@@ -1850,7 +1853,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return this.$http.post(document.location.origin + "/api/" + this.$shared.category_title + "/panels/create", {
+                return this.$http.post(document.location.origin + "/api/" + this.category.name + "/panels/create", {
                   api_token: this.$shared.api_token
                 });
 
@@ -1945,7 +1948,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 moved = _ref.moved;
                 _context4.next = 3;
-                return this.$http.put(document.location.origin + "/api/" + this.$shared.category_title + "/panels/editOrder/", {
+                return this.$http.put(document.location.origin + "/api/" + this.category.name + "/panels/editOrder/", {
                   oldIndex: moved.oldIndex,
                   newIndex: moved.newIndex,
                   api_token: this.$shared.api_token
@@ -2438,6 +2441,9 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.fetchPanels();
   },
+  props: {
+    category: Object
+  },
   components: {
     panel: __webpack_require__(/*! ./Panel */ "./resources/js/home_components/Panel.vue")["default"]
   },
@@ -2453,7 +2459,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchPanels: function fetchPanels() {
       var _this = this;
 
-      this.$http.get(document.location.origin + "/api/" + this.$shared.category_title + "/panels").then(function (response) {
+      this.$http.get(document.location.origin + "/api/" + this.category.name + "/panels").then(function (response) {
         _this.panels = response.body.data;
       });
     }
@@ -26103,11 +26109,9 @@ var render = function() {
     { staticClass: "container" },
     [
       _c("div", { staticClass: "col-md-12 head" }, [
-        _c("img", {
-          attrs: { width: "70px", src: _vm.$shared.category_image }
-        }),
+        _c("img", { attrs: { width: "70px", src: _vm.category.image_url } }),
         _vm._v(" "),
-        _c("h1", [_vm._v(_vm._s(_vm.$shared.category_title) + " CheatSheet")])
+        _c("h1", [_vm._v(_vm._s(_vm.category.name) + " CheatSheet")])
       ]),
       _vm._v(" "),
       _c(
@@ -26483,14 +26487,12 @@ var render = function() {
           { staticClass: "col-4 head" },
           [
             _c("img", {
-              attrs: { width: "70px", src: _vm.$shared.category_image }
+              attrs: { width: "70px", src: _vm.category.image_url }
             }),
             _vm._v(" "),
             _c("h1", [
               _vm._v(
-                "\n        " +
-                  _vm._s(_vm.$shared.category_title) +
-                  " CheatSheet\n      "
+                "\n        " + _vm._s(_vm.category.name) + " CheatSheet\n      "
               )
             ]),
             _vm._v(" "),

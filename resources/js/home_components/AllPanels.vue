@@ -2,9 +2,9 @@
   <div class="container">
     <div :style="grid_style" class="row">
       <div class="col-4 head">
-          <img width="70px" :src="$shared.category_image">
+          <img width="70px" :src="category.image_url">
         <h1>
-          {{$shared.category_title}} CheatSheet
+          {{category.name}} CheatSheet
         </h1>
         <panel class="col-md-12 mt-5" :panel="panels[0]">
           <div slot="panelTitle" class="panel-title">
@@ -36,6 +36,9 @@ export default {
   created() {
     this.fetchPanels();
   },
+  props:{
+    category:Object
+  },
   components: {
     panel: require("./Panel").default
   },
@@ -50,7 +53,7 @@ export default {
   methods: {
     fetchPanels() {
       this.$http
-        .get(document.location.origin + "/api/" + this.$shared.category_title + "/panels")
+        .get(document.location.origin + "/api/" + this.category.name + "/panels")
         .then(response => {
           this.panels = response.body.data;
         });

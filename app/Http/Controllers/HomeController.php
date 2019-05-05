@@ -9,11 +9,11 @@ class HomeController extends Controller
     public function index() {
         $selectedCategory = Category::findOrFail(1);
         $categories = Category::all();
-        return view('home', ['categories' => $categories, 'selectedCategory' => $selectedCategory]);
+        return view('index', ['categories' => $categories, 'selectedCategory' => $selectedCategory]);
     }
 
     public function showSpecificCategory(Category $category) {
         $categories = Category::all();
-        return view('home', ['categories' => $categories, 'selectedCategory' => $category]);
+        return view('index', ['categories' => $categories, 'selectedCategory' => $category]);
     }
 }

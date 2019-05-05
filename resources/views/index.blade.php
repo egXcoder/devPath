@@ -101,7 +101,14 @@
     @endauth
 
     <main id="app">
-        @yield('all_panels')
+        @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
+        <all_panels_in_admin :category="{{$selectedCategory}}"></all_panels_in_admin>
+        @endif
+        
+        @if (Route::currentRouteName()==='guest.index'||Route::currentRouteName()==='guest.show')
+        <all_panels_in_home :category="{{$selectedCategory}}"></all_panels_in_home>
+        @endif
+
     </main>
 
     <script src={{asset( 'js/app.js')}}></script>
@@ -113,8 +120,6 @@
         api_token: "{{$api_token}}" ,
         @endif
 
-        category_image:"{{$selectedCategory->image_url}}",    
-        category_title: "{{$selectedCategory->name}}",
         }
 
         shared.install = function () {
