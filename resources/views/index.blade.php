@@ -42,7 +42,7 @@
                     @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
                     <a href="{{route('admin.show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a>
 
-                    <a id="edit" data-toggle="modal" data-target="#exampleModal" data-category_id="{{$category->id}}"
+                    <a id="edit" data-toggle="modal" data-target="#modal" data-category_id="{{$category->id}}"
                         data-category_name="{{$category->name}}"
                         data-category_image="{{$category->getAttributes()['image_url']}}"><i
                             class="fas fa-edit"></i></a>
@@ -57,7 +57,7 @@
                 </li>
                 @endforeach
             </ul>
-
+            @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
             <form id="new-category" action="{{route('categories.create')}}" method="POST">
                 @csrf
                 <div class="form-group">
@@ -69,16 +69,17 @@
                 @csrf
                 <button type="submit" class="btn btn-primary d-block mx-auto">Logout</button>
             </form>
+            @endif
         </div>
     </div>
 
     @auth
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1">
+    <div class="modal fade" id="modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white rounded-0">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Category</h5>
+                    <h5 class="modal-title" id="title">Edit Category</h5>
                     <button type="button" class="close text-white" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
@@ -104,7 +105,7 @@
         @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
         <all_panels_in_admin :category="{{$selectedCategory}}"></all_panels_in_admin>
         @endif
-        
+
         @if (Route::currentRouteName()==='guest.index'||Route::currentRouteName()==='guest.show')
         <all_panels_in_home :category="{{$selectedCategory}}"></all_panels_in_home>
         @endif
@@ -113,22 +114,15 @@
 
     <script src={{asset( 'js/app.js')}}></script>
     <script>
-        //TODO:data here goes To cookie
-        const shared = {
-        
         @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
-        api_token: "{{$api_token}}" ,
-        @endif
-
-        }
-
+        const shared = {api_token: "{{$api_token}}"}
         shared.install = function () {
             Object.defineProperty(Vue.prototype, '$shared', {
                 get() { return shared }
             })
         }
-
         Vue.use(shared);
+        @endif
 
  
         function toggleDrawer() {
@@ -136,7 +130,7 @@
             $('.navigation-drawer').toggleClass('show');
         }
 
-        $('#exampleModal').on('show.bs.modal', function (event) {
+        $('#modal').on('show.bs.modal', function (event) {
             var hyperLink = $(event.relatedTarget); // Button that triggered the modal
             var category_id = hyperLink.data('category_id');
             var category_name = hyperLink.data('category_name');

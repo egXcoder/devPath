@@ -11232,12 +11232,12 @@ nav .menu-toggle span {
   height: 70%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 5rem;
+  margin-top: 3rem;
   font-size: 1.5rem;
 }
 
 .collapsed-menu .menu-container li {
-  line-height: 3rem;
+  line-height: 4rem;
   cursor: pointer;
   position: relative;
   overflow: hidden;
