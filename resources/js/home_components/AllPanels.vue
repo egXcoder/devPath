@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div :style="grid_style" class="row">
+    <div class="row">
       <div class="col-4 head">
           <img width="70px" :src="category.image_url">
         <h1>
@@ -41,14 +41,6 @@ export default {
   },
   components: {
     panel: require("./Panel").default
-  },
-  computed:{
-    grid_style(){
-      return {
-      'flex-flow': 'column wrap',
-      'max-height': ((this.panels.length*1000)/3)+'px',
-      }
-    }
   },
   methods: {
     fetchPanels() {
