@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);/**
+@import url(https://fonts.googleapis.com/css?family=Quicksand);/**
  * GHColors theme by Avi Aryan (http://aviaryan.in)
  * Inspired by Github syntax coloring
  */
@@ -11061,6 +11061,7 @@ nav .menu-toggle {
   display: block;
   width: 2rem;
   height: 2rem;
+  margin-right: 0.5rem;
   background: transparent;
 }
 
@@ -11138,6 +11139,7 @@ nav .menu-toggle span {
 }
 
 .collapsed-menu {
+  font-family: "Quicksand", sans-serif !important;
   position: fixed;
   top: 0;
   right: 0;
@@ -11167,12 +11169,14 @@ nav .menu-toggle span {
   height: 70%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 3rem;
+  margin-top: 2rem;
   font-size: 1.5rem;
 }
 
 .collapsed-menu .menu-container li {
-  line-height: 4rem;
+  font-size: 1.3rem;
+  margin-right: 0.5rem;
+  line-height: 3.5rem;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -11251,6 +11255,7 @@ main .head {
 }
 
 .panel {
+  font-family: "Quicksand", sans-serif !important;
   position: relative;
   padding-top: 1px;
   margin: 0.5rem 0rem 0.5rem 0rem;
@@ -11262,7 +11267,7 @@ main .head {
 .panel .panel-title {
   position: absolute;
   padding: 0.5rem 1rem 0.5rem 1rem;
-  top: -30px;
+  top: -25px;
   left: 10px;
   border-radius: 15px;
   color: white;
@@ -11271,6 +11276,7 @@ main .head {
 }
 
 .panel .panel-title h1 {
+  font-weight: bold;
   font-size: 1.4rem;
   outline: none;
   margin-bottom: 0;
@@ -11282,6 +11288,7 @@ main .head {
 }
 
 .panel .panel-inner .header {
+  font-weight: bold;
   background: #f2f2f2;
   color: black;
   line-height: 1.4rem;
@@ -11340,6 +11347,7 @@ main .head {
 }
 
 .panel .panel-inner pre code {
+  font-weight: 500;
   border-left: 0;
   box-shadow: none;
   background-image: none;

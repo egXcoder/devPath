@@ -37,7 +37,7 @@
         <div class="menu-container">
             <ul class="list-unstyled">
                 @foreach ($categories as $category)
-                <li><img class="img-fluid" width="50px" height="50px" src="{{$category->image_url}}">
+                <li><img class="img-fluid" width="40px" height="40px" src="{{$category->image_url}}">
 
                     @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
                     <a href="{{route('admin.show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a>
