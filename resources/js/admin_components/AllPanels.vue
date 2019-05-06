@@ -38,10 +38,23 @@ export default {
   data() {
     return {
       showDeleteBox: false,
-      panels: []
+      panels: [],
+      loader:{},
     };
   },
   created() {
+    this.loader = Vue.$loading.show({
+        // Pass props by their camelCased names
+        container: this.$refs.loadingContainer,
+        canCancel: true, // default false
+        color: '#D5573B',
+        loader: 'bars',
+        width: 128,
+        height: 128,
+        backgroundColor: '#ffffff',
+        opacity: 0.5,
+        zIndex: 999,
+    });
     this.fetchPanels();
   },
   props:{
@@ -64,7 +77,7 @@ export default {
         .then(response => {
           this.panels = response.body.data;
           this.$Progress.finish();
-
+          this.loader.hide();
         });
     },
    addPanel() {

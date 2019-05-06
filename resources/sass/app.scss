@@ -191,7 +191,6 @@ main {
   margin: 0.5rem 0rem 0.5rem 0rem;
   background: white;
   border-radius: 10px;
-  box-shadow: 0px 1px 5px 0px $primary-color;
 
   .panel-title {
     position: absolute;
@@ -199,8 +198,8 @@ main {
     top: -25px;
     left: 10px;
     border-radius: 15px;
-    color: white;
-    background: $primary-bold-color;
+    color: black;
+    background: white;
     font-weight: bold;
     h1 {
       font-weight:bold;
@@ -223,7 +222,7 @@ main {
     }
     .header a {
       transform: translateX(300%);
-      color: $primary-bold-color;
+      color: $primary-color;
       font-weight: bold;
       cursor: pointer;
       margin-right: 1rem;
@@ -245,7 +244,7 @@ main {
     }
 
     .content a {
-      color: $primary-bold-color;
+      color: $primary-color;
       border-radius: 5px;
       padding: 0.3rem;
       font-weight: bold;
@@ -264,6 +263,7 @@ main {
       border:none;
     }
     pre code {
+      font-size:.8rem;
       font-weight:500;
       border-left: 0;
       box-shadow: none;
@@ -297,7 +297,7 @@ main {
   position: absolute;
   top: 0;
   right: 0;
-  background: $primary-bold-color;
+  background: $primary-color;
   color: white;
   padding: 0.5rem 0.7rem 0.5rem 0.7rem;
   font-weight: bold;
@@ -315,14 +315,14 @@ main {
 .add-box .btn {
   padding: 3rem;
   cursor: pointer;
-  border: 3px dashed $primary-bold-color;
+  border: 3px dashed $primary-color;
   background: none;
   color: white;
   font-weight: bold;
   font-size: 2rem;
 }
 .add-box .btn:hover {
-  background: $primary-bold-color;
+  background: $primary-color;
 }
 .fade-enter-active,
 .fade-leave-active {

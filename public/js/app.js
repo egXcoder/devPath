@@ -1817,10 +1817,24 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showDeleteBox: false,
-      panels: []
+      panels: [],
+      loader: {}
     };
   },
   created: function created() {
+    this.loader = Vue.$loading.show({
+      // Pass props by their camelCased names
+      container: this.$refs.loadingContainer,
+      canCancel: true,
+      // default false
+      color: '#D5573B',
+      loader: 'bars',
+      width: 128,
+      height: 128,
+      backgroundColor: '#ffffff',
+      opacity: 0.5,
+      zIndex: 999
+    });
     this.fetchPanels();
   },
   props: {
@@ -1839,6 +1853,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.panels = response.body.data;
 
         _this.$Progress.finish();
+
+        _this.loader.hide();
       });
     },
     addPanel: function addPanel() {
@@ -2319,7 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
       container: this.$refs.loadingContainer,
       canCancel: true,
       // default false
-      color: '#41b883',
+      color: '#D5573B',
       loader: 'bars',
       width: 128,
       height: 128,
@@ -25300,7 +25316,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "col-md-6 col-lg-4 p-2", attrs: { id: "panel" } },
+    { staticClass: "col-md-6 col-lg-4 p-3", attrs: { id: "panel" } },
     [
       _c(
         "div",
@@ -25537,7 +25553,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "col-lg-4 col-md-6 p-2", attrs: { id: "panel" } },
+    { staticClass: "col-lg-4 col-md-6 p-3", attrs: { id: "panel" } },
     [
       _c(
         "div",

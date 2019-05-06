@@ -1,5 +1,5 @@
 <template>
-  <div id="panel" class="col-md-6 col-lg-4 p-2">
+  <div id="panel" class="col-md-6 col-lg-4 p-3">
     <div class="panel">
       <slot name="panelTitle"></slot>
 

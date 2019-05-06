@@ -40,7 +40,7 @@ export default {
             // Pass props by their camelCased names
             container: this.$refs.loadingContainer,
             canCancel: true, // default false
-            color: '#41b883',
+            color: '#D5573B',
             loader: 'bars',
             width: 128,
             height: 128,
@@ -49,7 +49,6 @@ export default {
             zIndex: 999,
         });
     this.fetchPanels();
-
   },
   props:{
     category:Object
