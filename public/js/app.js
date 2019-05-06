@@ -25016,7 +25016,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container" },
+    { staticClass: "container-fluid" },
     [
       _c("vue-progress-bar", { staticClass: "progress" }),
       _vm._v(" "),
@@ -40310,11 +40310,9 @@ window.toast = function toast(msg, type) {
 window.Prism = __webpack_require__(/*! ../../public/css/plugins/prism/prism */ "./public/css/plugins/prism/prism.js"); //register getApiToken From Cookie
 
 window.getApiToken = function getCookie() {
-  var token;
-  var value = "; " + document.cookie;
-  var parts = value.split("; " + 'devPathApi' + "=");
-  if (parts.length == 2) token = parts.pop().split(";").shift();
-  return token === undefined ? false : token;
+  var match = document.cookie.match(new RegExp('(^| )' + 'devPathApi' + '=([^;]+)'));
+  if (match) return match[2];
+  return match ? match[2] : false;
 }; //Using Vue Plugins
 
 

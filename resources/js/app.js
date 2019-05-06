@@ -32,11 +32,9 @@ window.Prism = require('../../public/css/plugins/prism/prism');
 
 //register getApiToken From Cookie
 window.getApiToken = function getCookie() {
-    var token;
-    var value = "; " + document.cookie;
-    var parts = value.split("; " + 'devPathApi' + "=");
-    if (parts.length == 2) token = parts.pop().split(";").shift();
-    return (token === undefined) ? false :  token ;
+    var match = document.cookie.match(new RegExp('(^| )' + 'devPathApi' + '=([^;]+)'));
+    if (match) return match[2];
+    return (match) ? match[2] : false;
 }
 
 //Using Vue Plugins

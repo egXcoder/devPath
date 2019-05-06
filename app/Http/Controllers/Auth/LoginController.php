@@ -48,6 +48,6 @@ class LoginController extends Controller
         ])->save();
         
         //cookie will be set for two hours as admin session also is set for two hours then he will have to relogin
-        setcookie('devPathApi',$hashed,now()+3600*2,'/');   
+        setcookie('devPathApi',$hashed,time() + 7200);
     }
 }

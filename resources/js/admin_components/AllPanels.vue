@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
         <vue-progress-bar class="progress"></vue-progress-bar>
 
       <div class="col-md-12 head">
