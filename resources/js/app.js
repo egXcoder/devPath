@@ -42,6 +42,27 @@ window.getApiToken = function getCookie() {
 import vue_resource from '../../node_modules/vue-resource/dist/vue-resource';
 Vue.use(vue_resource);
 
+import Loading from 'vue-loading-overlay';
+Vue.use(Loading);
+
+import VueProgressBar from 'vue-progressbar';
+const options = {
+    color: '#bffaf3',
+    failedColor: '#874b4b',
+    thickness: '5px',
+    transition: {
+        speed: '0.2s',
+        opacity: '0.6s',
+        termination: 300
+    },
+    autoRevert: true,
+    location: 'top',
+    inverse: false,
+    autoFinish:true,
+}
+Vue.use(VueProgressBar, options);
+
+
 // registering global components
 Vue.component('all_panels_in_admin', require('./admin_components/AllPanels.vue').default);
 Vue.component('all_panels_in_home', require('./home_components/AllPanels.vue').default);
