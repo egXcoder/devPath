@@ -8,8 +8,7 @@
 @import "plugins/bootstrap";
 
 @import "../../node_modules/toastr/toastr.scss";
-@import "../../node_modules/prismjs/themes/prism-coy.css";
-
+@import "../../public/css/plugins/prism/gh.css";
 
 
 nav {
@@ -26,7 +25,6 @@ nav {
 
   .menu-toggle {
     cursor: pointer;
-    margin-right: 1rem;
     display: block;
     width: 2rem;
     height: 2rem;
@@ -256,7 +254,9 @@ main {
     .content:hover a {
       transform: translateX(0);
     }
-
+    pre{
+      border:none;
+    }
     pre code {
       border-left: 0;
       box-shadow: none;

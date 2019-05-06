@@ -25408,7 +25408,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "col-md-4 p-2", attrs: { id: "panel" } },
+    { staticClass: "col-md-6 col-lg-4 p-2", attrs: { id: "panel" } },
     [
       _c(
         "div",
@@ -25504,7 +25504,7 @@ var render = function() {
       [
         _c(
           "div",
-          { staticClass: "col-4 head" },
+          { staticClass: "col-lg-4 col-md-6 head" },
           [
             _c("img", {
               attrs: { width: "70px", src: _vm.category.image_url }
@@ -25519,7 +25519,7 @@ var render = function() {
             _c(
               "panel",
               {
-                staticClass: "col-md-12 mt-5",
+                staticClass: "col-lg-12 col-md-12 mt-5",
                 attrs: { panel: _vm.panels[0] }
               },
               [
@@ -25643,37 +25643,41 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-4 p-2", attrs: { id: "panel" } }, [
-    _c(
-      "div",
-      { staticClass: "panel" },
-      [
-        _vm._t("panelTitle"),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "panel-inner my-4" },
-          _vm._l(_vm.headersAndContents, function(item, index) {
-            return _c(item.type, {
-              key: index,
-              tag: "component",
-              attrs: { item: item, index: index },
-              on: {
-                deleteContentEvent: function($event) {
-                  return _vm.deleteContent($event)
-                },
-                deleteHeaderEvent: function($event) {
-                  return _vm.deleteHeader($event)
+  return _c(
+    "div",
+    { staticClass: "col-lg-4 col-md-6 p-2", attrs: { id: "panel" } },
+    [
+      _c(
+        "div",
+        { staticClass: "panel" },
+        [
+          _vm._t("panelTitle"),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "panel-inner my-4" },
+            _vm._l(_vm.headersAndContents, function(item, index) {
+              return _c(item.type, {
+                key: index,
+                tag: "component",
+                attrs: { item: item, index: index },
+                on: {
+                  deleteContentEvent: function($event) {
+                    return _vm.deleteContent($event)
+                  },
+                  deleteHeaderEvent: function($event) {
+                    return _vm.deleteHeader($event)
+                  }
                 }
-              }
-            })
-          }),
-          1
-        )
-      ],
-      2
-    )
-  ])
+              })
+            }),
+            1
+          )
+        ],
+        2
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-4 head">
+      <div class="col-lg-4 col-md-6 head">
           <img width="70px" :src="category.image_url">
         <h1>
           {{category.name}} CheatSheet
         </h1>
-        <panel class="col-md-12 mt-5" :panel="panels[0]">
+        <panel class="col-lg-12 col-md-12 mt-5" :panel="panels[0]">
           <div slot="panelTitle" class="panel-title">
               <h1>{{panels[0].name}}</h1>
             </div>
