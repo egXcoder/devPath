@@ -30,7 +30,7 @@
         },
         watch:{
             async code_lang(value){
-                await this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{code_lang:value,api_token:this.$shared.api_token});
+                await this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{code_lang:value,api_token:getApiToken()});
                 this.code_lang = value;
                 toast('Code language is updated Successfully');
                 //highlight with prism when code_lang changed
@@ -46,12 +46,12 @@
                let newText = event.target.innerText;
                this.content = newText;
                Prism.highlightAll();
-               await this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{content:newText,api_token:this.$shared.api_token});
+               await this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{content:newText,api_token:getApiToken()});
                toast('Content is updated Successfully');
                this.isEditable = false;
             },
             async deleteContent(){
-                await this.$http.post(document.location.origin+"/api/contents/delete/"+this.item.id,{api_token:this.$shared.api_token});
+                await this.$http.post(document.location.origin+"/api/contents/delete/"+this.item.id,{api_token:getApiToken()});
                 this.$emit("deleteContentEvent",this.index);
                 toast('Content is deleted Successfully');
             }

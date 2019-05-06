@@ -1,7 +1,0 @@
-{
-  "plugins": [
-    ["prismjs", {
-        "languages": ["php", "css", "markup"],
-    }]
-  ]
-}

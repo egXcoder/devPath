@@ -114,17 +114,7 @@
 
     <script src={{asset( 'js/app.js')}}></script>
     <script>
-        @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
-        const shared = {api_token: "{{$api_token}}"}
-        shared.install = function () {
-            Object.defineProperty(Vue.prototype, '$shared', {
-                get() { return shared }
-            })
-        }
-        Vue.use(shared);
-        @endif
-
- 
+       
         function toggleDrawer() {
             $('.collapsed-menu').toggleClass('show');
             $('.navigation-drawer').toggleClass('show');
@@ -140,11 +130,7 @@
             modal.find('.modal-body input#category').val(category_name);
             modal.find('.modal-body input#image').val(image);
             modal.find('.modal-body #edit_form').attr("action",document.location.origin+"/admin/categories/edit/"+category_id);
-        });
-        const app = new Vue({
-            el: '#app',
-        });
-        
+        }); 
         
     </script>
 </body>

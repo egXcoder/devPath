@@ -68,7 +68,7 @@ export default {
           "/api/" +
           this.category.name +
           "/panels/create",
-        { api_token: this.$shared.api_token }
+        { api_token: getApiToken() }
       );
       toast("panel Created Successfully");
       this.fetchPanels();
@@ -76,7 +76,7 @@ export default {
     async deletePanel(panel) {
       await this.$http.post(
         document.location.origin + "/api/panels/delete/" + panel.id,
-        { api_token: this.$shared.api_token }
+        { api_token: getApiToken() }
       );
       toast("panel Deleted Successfully");
       this.fetchPanels();
@@ -86,7 +86,7 @@ export default {
         document.location.origin + "/api/panels/edit/" + panel.id,
         {
           name: event.target.innerText,
-          api_token: this.$shared.api_token
+          api_token: getApiToken(),
         }
       );
       toast("panel updated Successfully");
@@ -97,7 +97,7 @@ export default {
         {
           oldIndex: moved.oldIndex,
           newIndex: moved.newIndex,
-          api_token: this.$shared.api_token
+          api_token: getApiToken(),
         }
       );
       toast("panel updated Successfully");

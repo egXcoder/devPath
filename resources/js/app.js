@@ -29,6 +29,15 @@ window.toast = function toast(msg) {
 //import prism
 window.Prism = require('../../public/css/plugins/prism/prism');
 
+//register getApiToken From Cookie
+window.getApiToken = function getCookie() {
+    var token;
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + 'devPathApi' + "=");
+    if (parts.length == 2) token = parts.pop().split(";").shift();
+    return (token === undefined) ? false :  token ;
+}
+
 //Using Vue Plugins
 import vue_resource from '../../node_modules/vue-resource/dist/vue-resource';
 Vue.use(vue_resource);
@@ -37,3 +46,7 @@ Vue.use(vue_resource);
 Vue.component('all_panels_in_admin', require('./admin_components/AllPanels.vue').default);
 Vue.component('all_panels_in_home', require('./home_components/AllPanels.vue').default);
 
+
+const app = new Vue({
+    el: '#app',
+});

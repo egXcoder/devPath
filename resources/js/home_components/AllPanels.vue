@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <div class="row">
+      <loading :active.sync="is_loading" :can-cancel="true" :is-full-page="fullPage"></loading>
+        
       <div class="col-lg-4 col-md-6 head">
           <img width="70px" :src="category.image_url">
         <h1>
@@ -25,29 +27,35 @@
 </template>
 
 <script>
-
+import panel from "./Panel.vue";
+import loading from 'vue-loading-overlay';
 export default {
   data() {
     return {
       showDeleteBox: false,
       panels: [],
+      is_loading: true,
+      fullPage: true
     };
   },
-  created() {
+  mounted() {
     this.fetchPanels();
   },
   props:{
     category:Object
   },
   components: {
-    panel: require("./Panel").default
+    panel,
+    loading,
   },
   methods: {
     fetchPanels() {
+      this.is_loading = true;
       this.$http
         .get(document.location.origin + "/api/" + this.category.name + "/panels")
         .then(response => {
           this.panels = response.body.data;
+          this.is_loading = false;
         });
     },
   }
