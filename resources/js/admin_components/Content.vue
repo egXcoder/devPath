@@ -42,18 +42,36 @@
             Prism.highlightAll();
             },
         methods: {
-            async submitContentEdit() {
+            submitContentEdit() {
+               this.$Progress.start();
                let newText = event.target.innerText;
                this.content = newText;
                Prism.highlightAll();
-               await this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{content:newText,api_token:getApiToken()});
-               toast('Content is updated Successfully');
+               this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{content:newText,api_token:getApiToken()})
+               .then(response=>{
+                    if(response.body==="success"){
+                        this.$Progress.finish();
+                        toast("Content is Updated Successfully","success");
+                    }else{
+                        this.$Progress.fail();
+                        toast("Failed To Update Content","error");
+                    }
+                });
                this.isEditable = false;
             },
-            async deleteContent(){
-                await this.$http.post(document.location.origin+"/api/contents/delete/"+this.item.id,{api_token:getApiToken()});
-                this.$emit("deleteContentEvent",this.index);
-                toast('Content is deleted Successfully');
+            deleteContent(){
+                this.$Progress.start();
+                this.$http.post(document.location.origin+"/api/contents/delete/"+this.item.id,{api_token:getApiToken()})
+                .then(response=>{
+                    if(response.body==="success"){
+                        this.$Progress.finish();
+                        toast("Content is Deleted Successfully","success");
+                        this.$emit("deleteContentEvent",this.index);
+                    }else{
+                        this.$Progress.fail();
+                        toast("Failed To Delete Content","error");
+                    }
+                });
             }
             
         }

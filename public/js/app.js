@@ -1775,17 +1775,9 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.min.js");
-/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Panel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Panel */ "./resources/js/admin_components/Panel.vue");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.min.js");
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Panel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Panel */ "./resources/js/admin_components/Panel.vue");
 //
 //
 //
@@ -1835,8 +1827,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     category: Object
   },
   components: {
-    panel: _Panel__WEBPACK_IMPORTED_MODULE_2__["default"],
-    draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a
+    panel: _Panel__WEBPACK_IMPORTED_MODULE_1__["default"],
+    draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   methods: {
     fetchPanels: function fetchPanels() {
@@ -1844,147 +1836,65 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.$Progress.start();
       this.$http.get(document.location.origin + "/api/" + this.category.name + "/panels").then(function (response) {
-        // this.$Progress.finish()
         _this.panels = response.body.data;
 
         _this.$Progress.finish();
       });
     },
-    addPanel: function () {
-      var _addPanel = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                this.$Progress.start();
-                _context.next = 3;
-                return this.$http.post(document.location.origin + "/api/" + this.category.name + "/panels/create", {
-                  api_token: getApiToken()
-                });
+    addPanel: function addPanel() {
+      var _this2 = this;
 
-              case 3:
-                this.$Progress.finish();
-                toast("panel Created Successfully");
-                this.fetchPanels();
+      this.$Progress.start();
+      this.$http.post(document.location.origin + "/api/" + this.category.name + "/panels/create", {
+        api_token: getApiToken()
+      }).then(function (response) {
+        return _this2.handleResponse(response, "Panel Created Successfully", "Failed to Create Panel");
+      });
+    },
+    deletePanel: function deletePanel(panel) {
+      var _this3 = this;
 
-              case 6:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
+      this.$Progress.start();
+      this.$http.post(document.location.origin + "/api/panels/delete/" + panel.id, {
+        api_token: getApiToken()
+      }).then(function (response) {
+        return _this3.handleResponse(response, "Panel Deleted Successfully", "Failed to Delete Panel");
+      });
+    },
+    editPanel: function editPanel(panel) {
+      var _this4 = this;
 
-      function addPanel() {
-        return _addPanel.apply(this, arguments);
+      this.$Progress.start();
+      this.$http.put(document.location.origin + "/api/panels/edit/" + panel.id, {
+        name: event.target.innerText,
+        api_token: getApiToken()
+      }).then(function (response) {
+        return _this4.handleResponse(response, "Panel Updated Successfully", "Failed to Update Panel");
+      });
+    },
+    onMove: function onMove(_ref) {
+      var _this5 = this;
+
+      var moved = _ref.moved;
+      this.$Progress.start();
+      this.$http.put(document.location.origin + "/api/" + this.category.name + "/panels/editOrder/", {
+        oldIndex: moved.oldIndex,
+        newIndex: moved.newIndex,
+        api_token: getApiToken()
+      }).then(function (response) {
+        return _this5.handleResponse(response, "Panel Moved Successfully", "Failed to Move Panel");
+      });
+    },
+    handleResponse: function handleResponse(response, msgOnSuccess, msgOnFailure) {
+      if (response.body === "success") {
+        this.$Progress.finish();
+        toast(msgOnSuccess, "success");
+        this.fetchPanels();
+      } else {
+        this.$Progress.fail();
+        toast(msgOnFailure, "error");
       }
-
-      return addPanel;
-    }(),
-    deletePanel: function () {
-      var _deletePanel = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(panel) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                this.$Progress.start();
-                _context2.next = 3;
-                return this.$http.post(document.location.origin + "/api/panels/delete/" + panel.id, {
-                  api_token: getApiToken()
-                });
-
-              case 3:
-                this.$Progress.finish();
-                toast("panel Deleted Successfully");
-                this.fetchPanels();
-
-              case 6:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function deletePanel(_x) {
-        return _deletePanel.apply(this, arguments);
-      }
-
-      return deletePanel;
-    }(),
-    editPanel: function () {
-      var _editPanel = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(panel) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                this.$Progress.start();
-                _context3.next = 3;
-                return this.$http.put(document.location.origin + "/api/panels/edit/" + panel.id, {
-                  name: event.target.innerText,
-                  api_token: getApiToken()
-                });
-
-              case 3:
-                this.$Progress.finish();
-                toast("panel updated Successfully");
-
-              case 5:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this);
-      }));
-
-      function editPanel(_x2) {
-        return _editPanel.apply(this, arguments);
-      }
-
-      return editPanel;
-    }(),
-    onMove: function () {
-      var _onMove = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref) {
-        var moved;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                moved = _ref.moved;
-                this.$Progress.start();
-                _context4.next = 4;
-                return this.$http.put(document.location.origin + "/api/" + this.category.name + "/panels/editOrder/", {
-                  oldIndex: moved.oldIndex,
-                  newIndex: moved.newIndex,
-                  api_token: getApiToken()
-                });
-
-              case 4:
-                this.$Progress.finish();
-                toast("panel updated Successfully");
-
-              case 6:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, this);
-      }));
-
-      function onMove(_x3) {
-        return _onMove.apply(this, arguments);
-      }
-
-      return onMove;
-    }()
+    }
   }
 });
 
@@ -2078,73 +1988,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     Prism.highlightAll();
   },
   methods: {
-    submitContentEdit: function () {
-      var _submitContentEdit = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var newText;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                newText = event.target.innerText;
-                this.content = newText;
-                Prism.highlightAll();
-                _context2.next = 5;
-                return this.$http.put(document.location.origin + "/api/contents/edit/" + this.item.id, {
-                  content: newText,
-                  api_token: getApiToken()
-                });
+    submitContentEdit: function submitContentEdit() {
+      var _this = this;
 
-              case 5:
-                toast('Content is updated Successfully');
-                this.isEditable = false;
+      this.$Progress.start();
+      var newText = event.target.innerText;
+      this.content = newText;
+      Prism.highlightAll();
+      this.$http.put(document.location.origin + "/api/contents/edit/" + this.item.id, {
+        content: newText,
+        api_token: getApiToken()
+      }).then(function (response) {
+        if (response.body === "success") {
+          _this.$Progress.finish();
 
-              case 7:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
+          toast("Content is Updated Successfully", "success");
+        } else {
+          _this.$Progress.fail();
 
-      function submitContentEdit() {
-        return _submitContentEdit.apply(this, arguments);
-      }
+          toast("Failed To Update Content", "error");
+        }
+      });
+      this.isEditable = false;
+    },
+    deleteContent: function deleteContent() {
+      var _this2 = this;
 
-      return submitContentEdit;
-    }(),
-    deleteContent: function () {
-      var _deleteContent = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return this.$http.post(document.location.origin + "/api/contents/delete/" + this.item.id, {
-                  api_token: getApiToken()
-                });
+      this.$Progress.start();
+      this.$http.post(document.location.origin + "/api/contents/delete/" + this.item.id, {
+        api_token: getApiToken()
+      }).then(function (response) {
+        if (response.body === "success") {
+          _this2.$Progress.finish();
 
-              case 2:
-                this.$emit("deleteContentEvent", this.index);
-                toast('Content is deleted Successfully');
+          toast("Content is Deleted Successfully", "success");
 
-              case 4:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this);
-      }));
+          _this2.$emit("deleteContentEvent", _this2.index);
+        } else {
+          _this2.$Progress.fail();
 
-      function deleteContent() {
-        return _deleteContent.apply(this, arguments);
-      }
-
-      return deleteContent;
-    }()
+          toast("Failed To Delete Content", "error");
+        }
+      });
+    }
   }
 });
 
@@ -2159,14 +2045,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 //
 //
 //
@@ -2185,68 +2063,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     index: Number
   },
   methods: {
-    submitHeaderEdit: function () {
-      var _submitHeaderEdit = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return this.$http.put(document.location.origin + "/api/headers/edit/" + this.item.id, {
-                  name: event.target.innerText,
-                  api_token: getApiToken()
-                });
+    submitHeaderEdit: function submitHeaderEdit() {
+      var _this = this;
 
-              case 2:
-                toast("Header is editted Successfully");
+      this.$Progress.start();
+      this.$http.put(document.location.origin + "/api/headers/edit/" + this.item.id, {
+        name: event.target.innerText,
+        api_token: getApiToken()
+      }).then(function (response) {
+        console.log(response);
 
-              case 3:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
+        if (response.body === "success") {
+          _this.$Progress.finish();
 
-      function submitHeaderEdit() {
-        return _submitHeaderEdit.apply(this, arguments);
-      }
+          toast("Header is Updated Successfully", "success");
+        } else {
+          _this.$Progress.fail();
 
-      return submitHeaderEdit;
-    }(),
-    deleteHeader: function () {
-      var _deleteHeader = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return this.$http.post(document.location.origin + "/api/headers/delete/" + this.item.id, {
-                  api_token: getApiToken()
-                });
+          toast("Failed To Update Header", "error");
+        }
+      });
+    },
+    deleteHeader: function deleteHeader() {
+      var _this2 = this;
 
-              case 2:
-                toast("Header is deleted Successfully");
-                this.$emit("deleteHeaderEvent", this.index);
+      this.$Progress.start();
+      this.$http.post(document.location.origin + "/api/headers/delete/" + this.item.id, {
+        api_token: getApiToken()
+      }).then(function (response) {
+        if (response.body === "success") {
+          _this2.$Progress.finish();
 
-              case 4:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
+          toast("Header is Deleted Successfully", "success");
 
-      function deleteHeader() {
-        return _deleteHeader.apply(this, arguments);
-      }
+          _this2.$emit("deleteHeaderEvent", _this2.index);
+        } else {
+          _this2.$Progress.fail();
 
-      return deleteHeader;
-    }()
+          toast("Failed To Delete Header", "error");
+        }
+      });
+    }
   }
 });
 
@@ -40444,8 +40301,9 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 window.toastr = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
 
-window.toast = function toast(msg) {
-  toastr.success(msg);
+window.toast = function toast(msg, type) {
+  if (type === "success") toastr.success(msg);
+  if (type === "error") toastr.error(msg);
 }; //import prism
 
 
@@ -40466,9 +40324,9 @@ Vue.use(_node_modules_vue_resource_dist_vue_resource__WEBPACK_IMPORTED_MODULE_0_
 Vue.use(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a);
 
 var options = {
-  color: '#bffaf3',
-  failedColor: '#874b4b',
-  thickness: '5px',
+  color: '#35495e',
+  failedColor: 'red',
+  thickness: '4px',
   transition: {
     speed: '0.2s',
     opacity: '0.6s',

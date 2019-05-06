@@ -77,7 +77,9 @@ export default {
           this.panel.id+
           "/contents/create",
         { api_token: getApiToken() }
-      ).then(response=> {content_id=response.body.id});
+      ).then(response=> {
+        content_id=response.body.id
+        });
 
       let highestOrder = this.headersAndContents.slice(-1).pop().order;
       toast("Content created successfully");

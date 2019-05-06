@@ -62,60 +62,61 @@ export default {
             "/panels"
         )
         .then(response => {
-          // this.$Progress.finish()
           this.panels = response.body.data;
           this.$Progress.finish();
 
         });
     },
-    async addPanel() {
+   addPanel() {
       this.$Progress.start();
 
-      await this.$http.post(
+      this.$http.post(
         document.location.origin +
           "/api/" +
           this.category.name +
           "/panels/create",
         { api_token: getApiToken() }
-      );
-      this.$Progress.finish();
-      toast("panel Created Successfully");
-      this.fetchPanels();
+      ).then(response=>this.handleResponse(response,"Panel Created Successfully","Failed to Create Panel"));
+      
     },
-    async deletePanel(panel) {
+    deletePanel(panel) {
       this.$Progress.start();
-      await this.$http.post(
+      this.$http.post(
         document.location.origin + "/api/panels/delete/" + panel.id,
         { api_token: getApiToken() }
-      );
-      this.$Progress.finish();
-      toast("panel Deleted Successfully");
-      this.fetchPanels();
+      ).then(response=>this.handleResponse(response,"Panel Deleted Successfully","Failed to Delete Panel"));
     },
-    async editPanel(panel) {
+    editPanel(panel) {
       this.$Progress.start();
-      await this.$http.put(
+      this.$http.put(
         document.location.origin + "/api/panels/edit/" + panel.id,
         {
           name: event.target.innerText,
           api_token: getApiToken(),
         }
-      );
-      this.$Progress.finish();
-      toast("panel updated Successfully");
+      ).then(response=>this.handleResponse(response,"Panel Updated Successfully","Failed to Update Panel"));
+      
     },
-    async onMove({moved}){
+    onMove({moved}){
       this.$Progress.start();
-      await this.$http.put(
+      this.$http.put(
         document.location.origin + "/api/"+this.category.name+"/panels/editOrder/",
         {
           oldIndex: moved.oldIndex,
           newIndex: moved.newIndex,
           api_token: getApiToken(),
         }
-      );
-      this.$Progress.finish();
-      toast("panel updated Successfully");
+      ).then(response=>this.handleResponse(response,"Panel Moved Successfully","Failed to Move Panel"));
+    },
+    handleResponse(response,msgOnSuccess,msgOnFailure){
+      if(response.body==="success"){
+            this.$Progress.finish();
+            toast(msgOnSuccess,"success");
+            this.fetchPanels();
+          }else{
+            this.$Progress.fail();
+            toast(msgOnFailure,"error");
+          }
     }
   }
 };

@@ -11250,10 +11250,6 @@ main .head {
   color: #41b883;
 }
 
-main .progress {
-  background-color: #35495e !important;
-}
-
 .panel {
   position: relative;
   padding-top: 1px;

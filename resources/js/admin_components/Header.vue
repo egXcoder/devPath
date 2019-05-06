@@ -17,20 +17,37 @@ export default {
     index: Number
   },
   methods: {
-    async submitHeaderEdit() {
-      await this.$http.put(
+    submitHeaderEdit() {
+      this.$Progress.start();
+      this.$http.put(
         document.location.origin + "/api/headers/edit/" + this.item.id,
         { name: event.target.innerText, api_token: getApiToken() }
-      );
-      toast("Header is editted Successfully");
+      ).then(response=>{
+        console.log(response);
+        if(response.body==="success"){
+            this.$Progress.finish();
+            toast("Header is Updated Successfully","success");
+          }else{
+            this.$Progress.fail();
+            toast("Failed To Update Header","error");
+          }
+      });
     },
-    async deleteHeader() {
-      await this.$http.post(
+    deleteHeader() {
+      this.$Progress.start();
+      this.$http.post(
         document.location.origin + "/api/headers/delete/" + this.item.id,
         { api_token: getApiToken() }
-      );
-      toast("Header is deleted Successfully");
-      this.$emit("deleteHeaderEvent", this.index);
+      ).then(response=>{
+        if(response.body==="success"){
+            this.$Progress.finish();
+            toast("Header is Deleted Successfully","success");
+            this.$emit("deleteHeaderEvent", this.index);
+          }else{
+            this.$Progress.fail();
+            toast("Failed To Delete Header","error");
+          }
+      });
     }
   }
 };

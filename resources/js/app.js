@@ -22,8 +22,9 @@ window.Vue = require('vue');
 
 // importing toastr 
 window.toastr = require('toastr');
-window.toast = function toast(msg) {
-    toastr.success(msg);
+window.toast = function toast(msg,type) {
+    if(type==="success") toastr.success(msg);
+    if(type==="error")   toastr.error(msg);
 }
 
 //import prism
@@ -47,9 +48,9 @@ Vue.use(Loading);
 
 import VueProgressBar from 'vue-progressbar';
 const options = {
-    color: '#bffaf3',
-    failedColor: '#874b4b',
-    thickness: '5px',
+    color:'#35495e',
+    failedColor: 'red',
+    thickness: '4px',
     transition: {
         speed: '0.2s',
         opacity: '0.6s',
