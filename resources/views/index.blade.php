@@ -132,7 +132,17 @@
             modal.find('.modal-body input#image').val(image);
             modal.find('.modal-body #edit_form').attr("action",document.location.origin+"/admin/categories/edit/"+category_id);
         }); 
-        
+       
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138512204-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-138512204-2');
     </script>
 </body>
 

@@ -47,7 +47,7 @@ class LoginController extends Controller
             'api_token' => $hashed,
         ])->save();
         
-        //cookie will be set for two hours as admin session also is set for two hours then he will have to relogin
-        setcookie('devPathApi',$hashed,time() + 7200);
+        //cookie will be set for twelve hours as admin session also is set for two hours then he will have to relogin
+        setcookie('devPathApi',$hashed,time()+2*3600);
     }
 }

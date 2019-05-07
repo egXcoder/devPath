@@ -8,7 +8,7 @@
           {{category.name}} CheatSheet
         </h1>
         <panel class="col-lg-12 col-md-12 mt-5" :panel="panels[0]">
-          <div slot="panelTitle" class="panel-title">
+          <div slot="panel_title" class="panel-title">
               <h1>{{panels[0].name}}</h1>
             </div>
         </panel>
@@ -16,7 +16,7 @@
 
       <template v-for="(panel,index) in panels">
           <panel v-if="index >= 1" :key="panel.id" :panel="panel">
-            <div slot="panelTitle" class="panel-title">
+            <div slot="panel_title" class="panel-title">
               <h1>{{panel.name}}</h1>
             </div>
           </panel>
@@ -40,7 +40,7 @@ export default {
             // Pass props by their camelCased names
             container: this.$refs.loadingContainer,
             canCancel: true, // default false
-            color: '#D5573B',
+            color: '#2f6575',
             loader: 'bars',
             width: 128,
             height: 128,

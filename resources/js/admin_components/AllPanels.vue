@@ -47,7 +47,7 @@ export default {
         // Pass props by their camelCased names
         container: this.$refs.loadingContainer,
         canCancel: true, // default false
-        color: '#D5573B',
+        color: '#2f6575',
         loader: 'bars',
         width: 128,
         height: 128,

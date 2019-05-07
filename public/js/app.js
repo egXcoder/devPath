@@ -1827,7 +1827,7 @@ __webpack_require__.r(__webpack_exports__);
       container: this.$refs.loadingContainer,
       canCancel: true,
       // default false
-      color: '#D5573B',
+      color: '#2f6575',
       loader: 'bars',
       width: 128,
       height: 128,
@@ -2335,7 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
       container: this.$refs.loadingContainer,
       canCancel: true,
       // default false
-      color: '#D5573B',
+      color: '#2f6575',
       loader: 'bars',
       width: 128,
       height: 128,
@@ -25435,8 +25435,8 @@ var render = function() {
                   "div",
                   {
                     staticClass: "panel-title",
-                    attrs: { slot: "panelTitle" },
-                    slot: "panelTitle"
+                    attrs: { slot: "panel_title" },
+                    slot: "panel_title"
                   },
                   [_c("h1", [_vm._v(_vm._s(_vm.panels[0].name))])]
                 )
@@ -25454,8 +25454,8 @@ var render = function() {
                     "div",
                     {
                       staticClass: "panel-title",
-                      attrs: { slot: "panelTitle" },
-                      slot: "panelTitle"
+                      attrs: { slot: "panel_title" },
+                      slot: "panel_title"
                     },
                     [_c("h1", [_vm._v(_vm._s(panel.name))])]
                   )
@@ -25559,7 +25559,7 @@ var render = function() {
         "div",
         { staticClass: "panel" },
         [
-          _vm._t("panelTitle"),
+          _vm._t("panel_title"),
           _vm._v(" "),
           _c(
             "div",
