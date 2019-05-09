@@ -11147,7 +11147,7 @@ nav .menu-toggle span {
   height: 100%;
   -webkit-transform: translateX(100%);
           transform: translateX(100%);
-  width: 25%;
+  width: 30%;
   background: #2f6575;
   transition: -webkit-transform 0.5s ease-in-out;
   transition: transform 0.5s ease-in-out;
@@ -11191,19 +11191,19 @@ nav .menu-toggle span {
 .collapsed-menu .menu-container a#delete {
   position: absolute;
   right: 0;
-  -webkit-transform: translateX(200%);
-          transform: translateX(200%);
+  -webkit-transform: translateX(250%);
+          transform: translateX(250%);
 }
 
 .collapsed-menu .menu-container a#edit {
   position: absolute;
   right: 25px;
-  -webkit-transform: translateX(200%);
-          transform: translateX(200%);
+  -webkit-transform: translateX(250%);
+          transform: translateX(250%);
 }
 
 .collapsed-menu .menu-container li:hover a {
-  color: #77A6B6;
+  color: #c5dcec;
   text-decoration: none;
 }
 
@@ -11226,19 +11226,19 @@ nav .menu-toggle span {
 
 @media (max-width: 992px) {
   .collapsed-menu {
-    width: 30%;
+    width: 40%;
   }
 }
 
 @media (max-width: 768px) {
   .collapsed-menu {
-    width: 40%;
+    width: 50%;
   }
 }
 
 @media (max-width: 576px) {
   .collapsed-menu {
-    width: 50% !important;
+    width: 65% !important;
   }
 }
 
@@ -11261,17 +11261,22 @@ main .head {
   margin: 0.5rem 0rem 0.5rem 0rem;
   background: white;
   border-radius: 10px;
+  border-top: 2px solid #bbb;
+  border-bottom: 2px solid #bbb;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
 }
 
 .panel .panel-title {
   position: absolute;
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  top: -25px;
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  top: -30px;
   left: 10px;
   border-radius: 15px;
-  color: #2f6575;
+  color: black;
   background: white;
   font-weight: bold;
+  border-top: 2px solid #bbb;
 }
 
 .panel .panel-title h1 {
@@ -11287,8 +11292,7 @@ main .head {
 }
 
 .panel .panel-inner .header {
-  font-weight: bold;
-  background: #77A6B6;
+  background: #c5dcec;
   color: white;
   line-height: 1.4rem;
   overflow: hidden;
@@ -11297,7 +11301,7 @@ main .head {
 .panel .panel-inner .header a {
   -webkit-transform: translateX(300%);
           transform: translateX(300%);
-  color: #2f6575;
+  color: white;
   font-weight: bold;
   cursor: pointer;
   margin-right: 1rem;
@@ -11306,9 +11310,11 @@ main .head {
 
 .panel .panel-inner .header p {
   text-transform: capitalize;
-  margin-left: 0.5rem;
+  margin-left: 1rem;
   margin-bottom: 0;
-  flex-grow: 1;
+  color: black;
+  font-size: 0.9rem;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 .panel .panel-inner .header:hover a {
@@ -11351,7 +11357,6 @@ main .head {
   border-left: 0;
   box-shadow: none;
   background-image: none;
-  font-size: 0.9rem;
 }
 
 .panel .panel-inner pre:hover {

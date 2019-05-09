@@ -25172,7 +25172,11 @@ var render = function() {
         "code",
         {
           class: _vm.code_lang,
-          staticStyle: { display: "inline-block", width: "100%" },
+          staticStyle: {
+            display: "inline-block",
+            width: "100%",
+            outline: "none"
+          },
           attrs: { contenteditable: _vm.isEditable },
           on: {
             mouseenter: function($event) {

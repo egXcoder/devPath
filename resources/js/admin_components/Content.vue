@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <pre><code @mouseenter="isEditable = true" :contenteditable="isEditable" @blur="submitContentEdit()" style="display:inline-block;width:100%" :class="code_lang">{{content}}</code></pre>
+        <pre><code @mouseenter="isEditable = true" :contenteditable="isEditable" @blur="submitContentEdit()" style="display:inline-block;width:100%;outline:none;" :class="code_lang">{{content}}</code></pre>
             <div class="form-group">
                 <select v-model="code_lang" class="form-control">
                     <option>language-html</option>
