@@ -30,7 +30,7 @@
         },
         watch:{
             async code_lang(value){
-                await this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{code_lang:value,api_token:getApiToken()});
+                await this.$http.post(document.location.origin+"/api/contents/edit/"+this.item.id,{code_lang:value,api_token:getApiToken()});
                 this.code_lang = value;
                 toast('Code language is updated Successfully');
                 //highlight with prism when code_lang changed
@@ -47,7 +47,7 @@
                let newText = event.target.innerText;
                this.content = newText;
                Prism.highlightAll();
-               this.$http.put(document.location.origin+"/api/contents/edit/"+this.item.id,{content:newText,api_token:getApiToken()})
+               this.$http.post(document.location.origin+"/api/contents/edit/"+this.item.id,{content:newText,api_token:getApiToken()})
                .then(response=>{
                     if(response.body==="success"){
                         this.$Progress.finish();

@@ -3,7 +3,7 @@
     <div class="panel">
       <slot name="panelTitle"></slot>
 
-      <div class="panel-inner my-4">
+      <div class="panel-inner mt-4">
         
           <component
             @deleteContentEvent="deleteContent($event)"

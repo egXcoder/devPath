@@ -19,7 +19,7 @@ export default {
   methods: {
     submitHeaderEdit() {
       this.$Progress.start();
-      this.$http.put(
+      this.$http.post(
         document.location.origin + "/api/headers/edit/" + this.item.id,
         { name: event.target.innerText, api_token: getApiToken() }
       ).then(response=>{

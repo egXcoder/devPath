@@ -87,7 +87,6 @@
                 <div class="modal-body">
                     <form id="edit_form" method="POST">
                         @csrf
-                        {{ method_field('PUT') }}
                         <input id="category" name="name" type="text" class="form-control">
                         <input id="image" name="image" type="text" class="form-control">
                     </form>

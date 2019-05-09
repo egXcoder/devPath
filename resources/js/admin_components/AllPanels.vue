@@ -23,11 +23,10 @@
         </template>
       </draggable>
       
-      <div class="col-md-4 p-2">
-        <div v-on:click="addPanel()" class="add-box">
-          <div class="btn btn-primary">+</div>
+      
+        <div class="add-box" v-on:click="addPanel()">
+          <div class="btn btn-primary rounded-circle"><i class="fas fa-plus"></i></div>
         </div>
-      </div>
     </div>
 </template>
 
@@ -101,7 +100,7 @@ export default {
     },
     editPanel(panel) {
       this.$Progress.start();
-      this.$http.put(
+      this.$http.post(
         document.location.origin + "/api/panels/edit/" + panel.id,
         {
           name: event.target.innerText,
@@ -112,7 +111,7 @@ export default {
     },
     onMove({moved}){
       this.$Progress.start();
-      this.$http.put(
+      this.$http.post(
         document.location.origin + "/api/"+this.category.name+"/panels/editOrder/",
         {
           oldIndex: moved.oldIndex,
