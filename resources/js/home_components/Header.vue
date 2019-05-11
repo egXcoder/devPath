@@ -1,5 +1,6 @@
 <template>
-    <div class="header d-flex justify-content-between">
+    <div class="header d-flex">
+        <span></span>
         <p>{{item.name}}</p>
     </div>
 </template>

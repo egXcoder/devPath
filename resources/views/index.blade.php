@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="theme-color" content="#2f6575">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -37,7 +38,7 @@
         <div class="menu-container">
             <ul class="list-unstyled">
                 @foreach ($categories as $category)
-                <li><img class="img-fluid" width="40px" height="40px" src="{{$category->image_url}}">
+                <li><img class="img-fluid" src="{{$category->image_url}}">
 
                     @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
                     <a href="{{route('admin.show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a>

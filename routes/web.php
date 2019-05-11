@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// dd(DB::table('panels')->get());
 Route::prefix('admin')->group(function () {
     // Authentication Routes...
     Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
