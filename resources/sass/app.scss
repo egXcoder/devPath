@@ -108,6 +108,7 @@ nav {
     margin-top: 1rem;
     font-size: 1.5rem;
     overflow-y: auto;
+    overflow-x:hidden;
   }
   .menu-container::-webkit-scrollbar-track {
     border: 1px solid #000;
@@ -137,7 +138,6 @@ nav {
     line-height: 3.5rem;
     cursor: pointer;
     position: relative;
-    overflow: auto;
   }
 
   .menu-container a {
@@ -287,6 +287,7 @@ main {
       font-size: 0.9rem;
       font-family: Helvetica, Arial, sans-serif;
       outline: none;
+      flex-grow:1;
     }
     .header a {
       transform: translateX(300%);

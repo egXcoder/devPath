@@ -11202,6 +11202,7 @@ nav .menu-toggle span {
   margin-top: 1rem;
   font-size: 1.5rem;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .collapsed-menu .menu-container::-webkit-scrollbar-track {
@@ -11233,7 +11234,6 @@ nav .menu-toggle span {
   line-height: 3.5rem;
   cursor: pointer;
   position: relative;
-  overflow: auto;
 }
 
 .collapsed-menu .menu-container a {
@@ -11399,6 +11399,7 @@ main .head {
   font-size: 0.9rem;
   font-family: Helvetica, Arial, sans-serif;
   outline: none;
+  flex-grow: 1;
 }
 
 .panel .panel-inner .header a {
