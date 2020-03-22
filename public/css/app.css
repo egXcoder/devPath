@@ -34,7 +34,7 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-	background: #364767;
+	background: var(--primary-color);
 }
 
 /* Inline code */
@@ -11382,6 +11382,7 @@ main .head {
   font-family: Helvetica, Arial, sans-serif;
   outline: none;
   flex-grow: 1;
+  text-align: left;
 }
 
 .panel .panel-inner .header a {
