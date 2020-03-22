@@ -3,7 +3,7 @@
         <vue-progress-bar class="progress"></vue-progress-bar>
 
       <div class="col-md-12 head">
-        <img width="70px" :src="category.image_url">
+        <img width="100px" :src="category.image_url">
         <h1>{{category.name}} CheatSheet</h1>
       </div>
       <draggable @change="onMove" v-model="panels" class="row">
@@ -17,7 +17,7 @@
                   @keypress.enter.prevent="editPanel(panel)"
                 >{{panel.name}}</h1>
               </div>
-              <p slot="deletePanel" @click="deletePanel(panel)" class="delete-box">x</p>
+              <p slot="deletePanel" @click="deletePanel(panel)" class="delete-box"><i class="fas fa-times"></i></p>
             </panel>
           </transition>
         </template>
@@ -68,7 +68,7 @@ export default {
       this.$Progress.start();
       this.$http
         .get(
-          document.location.origin +
+          base_path() +
             "/api/" +
             this.category.name +
             "/panels"
@@ -83,25 +83,21 @@ export default {
       this.$Progress.start();
 
       this.$http.post(
-        document.location.origin +
-          "/api/" +
-          this.category.name +
-          "/panels/create",
-        { api_token: getApiToken() }
+        base_path() + "/api/" + this.category.name + "/panels/create", { api_token: getApiToken() }
       ).then(response=>this.handleResponse(response,"Panel Created Successfully","Failed to Create Panel"));
       
     },
     deletePanel(panel) {
       this.$Progress.start();
       this.$http.post(
-        document.location.origin + "/api/panels/delete/" + panel.id,
+        base_path() + "/api/panels/delete/" + panel.id,
         { api_token: getApiToken() }
       ).then(response=>this.handleResponse(response,"Panel Deleted Successfully","Failed to Delete Panel"));
     },
     editPanel(panel) {
       this.$Progress.start();
       this.$http.post(
-        document.location.origin + "/api/panels/edit/" + panel.id,
+        base_path() + "/api/panels/edit/" + panel.id,
         {
           name: event.target.innerText,
           api_token: getApiToken(),
@@ -112,7 +108,7 @@ export default {
     onMove({moved}){
       this.$Progress.start();
       this.$http.post(
-        document.location.origin + "/api/"+this.category.name+"/panels/editOrder/",
+        base_path()  + "/api/"+this.category.name+"/panels/editOrder",
         {
           oldIndex: moved.oldIndex,
           newIndex: moved.newIndex,

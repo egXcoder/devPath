@@ -12,6 +12,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <title>{{$selectedCategory->name}} CheatSheet</title>
     <link rel="shortcut icon" href="{{$selectedCategory->image_url}}" type="image/x-icon">
+    <style>
+        :root{
+            --primary-color : #2e3440;
+            @php
+            echo ($selectedCategory->secondary_color) ? "--secondary-color:$selectedCategory->secondary_color;" : '--secondary-color:#f7f7f7;';
+            echo ($selectedCategory->third_color) ? "--third-color:$selectedCategory->third_color;" : '--third-color:#F7D87C;';
+            @endphp
+        }
+    </style>
 </head>
 
 <body>
@@ -112,7 +121,11 @@
         @endif
 
     </main>
-
+    <script>
+        function base_path(){
+            return '{{url("/")}}';
+        }
+    </script>
     <script src={{asset( 'js/app.js')}}></script>
     <script>
        
@@ -130,20 +143,20 @@
             var modal = $(this);
             modal.find('.modal-body input#category').val(category_name);
             modal.find('.modal-body input#image').val(image);
-            modal.find('.modal-body #edit_form').attr("action",document.location.origin+"/admin/categories/edit/"+category_id);
+            modal.find('.modal-body #edit_form').attr("action",base_path()+"/admin/categories/edit/"+category_id);
         }); 
        
     </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138512204-2"></script>
+    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138512204-2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
     
       gtag('config', 'UA-138512204-2');
-    </script>
+    </script> --}}
 </body>
 
 </html>

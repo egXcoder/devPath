@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,5 +23,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/categories/delete/{id}', 'AdminController@deleteCategory')->name('categories.delete');
     });
 });
+
+
 Route::get('/', 'HomeController@index')->name('guest.index');
 Route::get('/{category}', 'HomeController@showSpecificCategory')->name('guest.show');

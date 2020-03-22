@@ -8,7 +8,7 @@
           <component
             @deleteContentEvent="deleteContent($event)"
             @deleteHeaderEvent="deleteHeader($event)"
-            v-for="(item,index) in headersAndContents"
+            v-for="(item,index) in panel.headersAndContents"
             :item="item"
             :key="index"
             :index="index"
@@ -31,11 +31,6 @@ import panel_header from "./Header.vue";
 import panel_content from "./Content.vue";
 
 export default {
-  data() {
-    return {
-      headersAndContents: []
-    };
-  },
   props: {
     panel: Object
   },
@@ -43,25 +38,21 @@ export default {
     panel_header,
     panel_content,
   },
-  created() {
-    this.headersAndContents = this.panel.headersAndContents; 
-     },
-
   methods: {
     async createHeader() {
       var header_id;
 
       await this.$http.post(
-        document.location.origin +
+        base_path() +
           "/api/" +
           this.panel.id+
           "/headers/create",
         { api_token: getApiToken() }
       ).then(response=> {header_id=response.body.id});
       
-      let highestOrder = this.headersAndContents.slice(-1).pop().order;
+      let highestOrder = this.panel.headersAndContents.slice(-1).pop().order;
       toast("Header created successfully");
-      this.headersAndContents.push({
+      this.panel.headersAndContents.push({
         id:header_id,
         name: "default Header Name",
         order: highestOrder + 1,
@@ -71,19 +62,15 @@ export default {
     async createContent() {
       var content_id;
 
-      await this.$http.post(
-        document.location.origin +
-          "/api/" +
-          this.panel.id+
-          "/contents/create",
+      await this.$http.post(base_path() + "/api/" + this.panel.id + "/contents/create",
         { api_token: getApiToken() }
       ).then(response=> {
         content_id=response.body.id
         });
 
-      let highestOrder = this.headersAndContents.slice(-1).pop().order;
+      let highestOrder = this.panel.headersAndContents.slice(-1).pop().order;
       toast("Content created successfully");
-      this.headersAndContents.push({
+      this.panel.headersAndContents.push({
         id:content_id,
         name: "default content",
         order: highestOrder + 1,
@@ -92,10 +79,10 @@ export default {
       });
     },
     deleteHeader(index) {
-      this.headersAndContents.splice(index, 1);
+      this.panel.headersAndContents.splice(index, 1);
     },
     deleteContent(index) {
-      this.headersAndContents.splice(index, 1);
+      this.panel.headersAndContents.splice(index, 1);
     }
   }
 };

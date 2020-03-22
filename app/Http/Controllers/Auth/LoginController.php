@@ -41,13 +41,6 @@ class LoginController extends Controller
     protected function authenticated($request, $user)
     {
         //create a fresh api token for admin
-        $token = Str::random(60);
-        $hashed = hash('sha256', $token);
-        $request->user()->forceFill([
-            'api_token' => $hashed,
-        ])->save();
-        
-        //cookie will be set for twelve hours as admin session also is set for two hours then he will have to relogin
-        setcookie('devPathApi',$hashed,time()+2*3600);
+        generateTokenAndSetInDatabase();
     }
 }

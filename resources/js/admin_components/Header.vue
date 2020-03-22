@@ -7,7 +7,7 @@
       contenteditable="true"
     >{{item.name}}</p>
     
-    <a @click="deleteHeader()">x</a>
+    <a @click="deleteHeader()" class="x"><i class="fas fa-times"></i></a>
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
     submitHeaderEdit() {
       this.$Progress.start();
       this.$http.post(
-        document.location.origin + "/api/headers/edit/" + this.item.id,
+        base_path() + "/api/headers/edit/" + this.item.id,
         { name: event.target.innerText, api_token: getApiToken() }
       ).then(response=>{
         console.log(response);
@@ -37,7 +37,7 @@ export default {
     deleteHeader() {
       this.$Progress.start();
       this.$http.post(
-        document.location.origin + "/api/headers/delete/" + this.item.id,
+        base_path() + "/api/headers/delete/" + this.item.id,
         { api_token: getApiToken() }
       ).then(response=>{
         if(response.body==="success"){

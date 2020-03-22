@@ -1848,7 +1848,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$Progress.start();
-      this.$http.get(document.location.origin + "/api/" + this.category.name + "/panels").then(function (response) {
+      this.$http.get(base_path() + "/api/" + this.category.name + "/panels").then(function (response) {
         _this.panels = response.body.data;
 
         _this.$Progress.finish();
@@ -1860,7 +1860,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$Progress.start();
-      this.$http.post(document.location.origin + "/api/" + this.category.name + "/panels/create", {
+      this.$http.post(base_path() + "/api/" + this.category.name + "/panels/create", {
         api_token: getApiToken()
       }).then(function (response) {
         return _this2.handleResponse(response, "Panel Created Successfully", "Failed to Create Panel");
@@ -1870,7 +1870,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.$Progress.start();
-      this.$http.post(document.location.origin + "/api/panels/delete/" + panel.id, {
+      this.$http.post(base_path() + "/api/panels/delete/" + panel.id, {
         api_token: getApiToken()
       }).then(function (response) {
         return _this3.handleResponse(response, "Panel Deleted Successfully", "Failed to Delete Panel");
@@ -1880,7 +1880,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.$Progress.start();
-      this.$http.post(document.location.origin + "/api/panels/edit/" + panel.id, {
+      this.$http.post(base_path() + "/api/panels/edit/" + panel.id, {
         name: event.target.innerText,
         api_token: getApiToken()
       }).then(function (response) {
@@ -1892,7 +1892,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var moved = _ref.moved;
       this.$Progress.start();
-      this.$http.post(document.location.origin + "/api/" + this.category.name + "/panels/editOrder/", {
+      this.$http.post(base_path() + "/api/" + this.category.name + "/panels/editOrder", {
         oldIndex: moved.oldIndex,
         newIndex: moved.newIndex,
         api_token: getApiToken()
@@ -1949,6 +1949,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1972,7 +1973,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return this.$http.post(document.location.origin + "/api/contents/edit/" + this.item.id, {
+                return this.$http.post(base_path() + "/api/contents/edit/" + this.item.id, {
                   code_lang: value,
                   api_token: getApiToken()
                 });
@@ -2010,7 +2011,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var newText = event.target.innerText;
       this.content = newText;
       Prism.highlightAll();
-      this.$http.post(document.location.origin + "/api/contents/edit/" + this.item.id, {
+      this.$http.post(base_path() + "/api/contents/edit/" + this.item.id, {
         content: newText,
         api_token: getApiToken()
       }).then(function (response) {
@@ -2030,7 +2031,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.$Progress.start();
-      this.$http.post(document.location.origin + "/api/contents/delete/" + this.item.id, {
+      this.$http.post(base_path() + "/api/contents/delete/" + this.item.id, {
         api_token: getApiToken()
       }).then(function (response) {
         if (response.body === "success") {
@@ -2083,7 +2084,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$Progress.start();
-      this.$http.post(document.location.origin + "/api/headers/edit/" + this.item.id, {
+      this.$http.post(base_path() + "/api/headers/edit/" + this.item.id, {
         name: event.target.innerText,
         api_token: getApiToken()
       }).then(function (response) {
@@ -2104,7 +2105,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$Progress.start();
-      this.$http.post(document.location.origin + "/api/headers/delete/" + this.item.id, {
+      this.$http.post(base_path() + "/api/headers/delete/" + this.item.id, {
         api_token: getApiToken()
       }).then(function (response) {
         if (response.body === "success") {
@@ -2175,20 +2176,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      headersAndContents: []
-    };
-  },
   props: {
     panel: Object
   },
   components: {
     panel_header: _Header_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     panel_content: _Content_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
-  },
-  created: function created() {
-    this.headersAndContents = this.panel.headersAndContents;
   },
   methods: {
     createHeader: function () {
@@ -2201,16 +2194,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return this.$http.post(document.location.origin + "/api/" + this.panel.id + "/headers/create", {
+                return this.$http.post(base_path() + "/api/" + this.panel.id + "/headers/create", {
                   api_token: getApiToken()
                 }).then(function (response) {
                   header_id = response.body.id;
                 });
 
               case 2:
-                highestOrder = this.headersAndContents.slice(-1).pop().order;
+                highestOrder = this.panel.headersAndContents.slice(-1).pop().order;
                 toast("Header created successfully");
-                this.headersAndContents.push({
+                this.panel.headersAndContents.push({
                   id: header_id,
                   name: "default Header Name",
                   order: highestOrder + 1,
@@ -2241,16 +2234,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return this.$http.post(document.location.origin + "/api/" + this.panel.id + "/contents/create", {
+                return this.$http.post(base_path() + "/api/" + this.panel.id + "/contents/create", {
                   api_token: getApiToken()
                 }).then(function (response) {
                   content_id = response.body.id;
                 });
 
               case 2:
-                highestOrder = this.headersAndContents.slice(-1).pop().order;
+                highestOrder = this.panel.headersAndContents.slice(-1).pop().order;
                 toast("Content created successfully");
-                this.headersAndContents.push({
+                this.panel.headersAndContents.push({
                   id: content_id,
                   name: "default content",
                   order: highestOrder + 1,
@@ -2273,10 +2266,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return createContent;
     }(),
     deleteHeader: function deleteHeader(index) {
-      this.headersAndContents.splice(index, 1);
+      this.panel.headersAndContents.splice(index, 1);
     },
     deleteContent: function deleteContent(index) {
-      this.headersAndContents.splice(index, 1);
+      this.panel.headersAndContents.splice(index, 1);
     }
   }
 });
@@ -2355,7 +2348,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchPanels: function fetchPanels() {
       var _this = this;
 
-      this.$http.get(document.location.origin + "/api/" + this.category.name + "/panels").then(function (response) {
+      this.$http.get(base_path() + "/api/" + this.category.name + "/panels").then(function (response) {
         _this.panels = response.body.data;
 
         _this.loader.hide();
@@ -2449,23 +2442,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      headersAndContents: []
-    };
-  },
   props: {
     panel: Object
   },
   components: {
     panel_header: _Header_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     panel_content: _Content_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  created: function created() {
-    this.headersAndContents = this.panel.headersAndContents;
   }
 });
 
@@ -25038,7 +25029,7 @@ var render = function() {
       _c("vue-progress-bar", { staticClass: "progress" }),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-12 head" }, [
-        _c("img", { attrs: { width: "70px", src: _vm.category.image_url } }),
+        _c("img", { attrs: { width: "100px", src: _vm.category.image_url } }),
         _vm._v(" "),
         _c("h1", [_vm._v(_vm._s(_vm.category.name) + " CheatSheet")])
       ]),
@@ -25115,7 +25106,7 @@ var render = function() {
                         },
                         slot: "deletePanel"
                       },
-                      [_vm._v("x")]
+                      [_c("i", { staticClass: "fas fa-times" })]
                     )
                   ])
                 ],
@@ -25199,6 +25190,10 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
+    _c("a", { staticClass: "x", on: { click: _vm.deleteContent } }, [
+      _c("i", { staticClass: "fas fa-times" })
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c(
         "select",
@@ -25240,9 +25235,7 @@ var render = function() {
           _c("option", [_vm._v("language-sql")])
         ]
       )
-    ]),
-    _vm._v(" "),
-    _c("a", { on: { click: _vm.deleteContent } }, [_vm._v("x")])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -25296,13 +25289,14 @@ var render = function() {
     _c(
       "a",
       {
+        staticClass: "x",
         on: {
           click: function($event) {
             return _vm.deleteHeader()
           }
         }
       },
-      [_vm._v("x")]
+      [_c("i", { staticClass: "fas fa-times" })]
     )
   ])
 }
@@ -25342,7 +25336,7 @@ var render = function() {
             "div",
             { staticClass: "panel-inner mt-4" },
             [
-              _vm._l(_vm.headersAndContents, function(item, index) {
+              _vm._l(_vm.panel.headersAndContents, function(item, index) {
                 return _c(item.type, {
                   key: index,
                   tag: "component",
@@ -25429,7 +25423,7 @@ var render = function() {
           { staticClass: "col-lg-4 col-md-6 head" },
           [
             _c("img", {
-              attrs: { width: "70px", src: _vm.category.image_url }
+              attrs: { width: "100px", src: _vm.category.image_url }
             }),
             _vm._v(" "),
             _c("h1", [
@@ -25438,24 +25432,26 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c(
-              "panel",
-              {
-                staticClass: "col-lg-12 col-md-12 mt-5",
-                attrs: { panel: _vm.panels[0] }
-              },
-              [
-                _c(
-                  "div",
+            _vm.panels[0]
+              ? _c(
+                  "panel",
                   {
-                    staticClass: "panel-title",
-                    attrs: { slot: "panel_title" },
-                    slot: "panel_title"
+                    staticClass: "col-lg-12 col-md-12 mt-5",
+                    attrs: { panel: _vm.panels[0] }
                   },
-                  [_c("h1", [_vm._v(_vm._s(_vm.panels[0].name))])]
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "panel-title",
+                        attrs: { slot: "panel_title" },
+                        slot: "panel_title"
+                      },
+                      [_c("h1", [_vm._v(_vm._s(_vm.panels[0].name))])]
+                    )
+                  ]
                 )
-              ]
-            )
+              : _vm._e()
           ],
           1
         ),
@@ -25580,19 +25576,11 @@ var render = function() {
           _c(
             "div",
             { staticClass: "panel-inner my-4" },
-            _vm._l(_vm.headersAndContents, function(item, index) {
+            _vm._l(_vm.panel.headersAndContents, function(item, index) {
               return _c(item.type, {
                 key: index,
                 tag: "component",
-                attrs: { item: item, index: index },
-                on: {
-                  deleteContentEvent: function($event) {
-                    return _vm.deleteContent($event)
-                  },
-                  deleteHeaderEvent: function($event) {
-                    return _vm.deleteHeader($event)
-                  }
-                }
+                attrs: { item: item, index: index }
               })
             }),
             1

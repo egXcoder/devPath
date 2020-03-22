@@ -1,6 +1,8 @@
 <template>
     <div class="content">
         <pre><code @mouseenter="isEditable = true" :contenteditable="isEditable" @blur="submitContentEdit()" style="display:inline-block;width:100%;outline:none;" :class="code_lang">{{content}}</code></pre>
+            
+            <a @click="deleteContent" class="x"><i class="fas fa-times"></i></a>
             <div class="form-group">
                 <select v-model="code_lang" class="form-control">
                     <option>language-html</option>
@@ -10,7 +12,6 @@
                     <option>language-sql</option>
                 </select>
             </div>
-        <a @click="deleteContent">x</a>
     </div>
 </template>
 
@@ -30,7 +31,7 @@
         },
         watch:{
             async code_lang(value){
-                await this.$http.post(document.location.origin+"/api/contents/edit/"+this.item.id,{code_lang:value,api_token:getApiToken()});
+                await this.$http.post(base_path()+"/api/contents/edit/"+this.item.id,{code_lang:value,api_token:getApiToken()});
                 this.code_lang = value;
                 toast('Code language is updated Successfully');
                 //highlight with prism when code_lang changed
@@ -40,14 +41,14 @@
         mounted() {
             //highlight with prism when content visible to screen
             Prism.highlightAll();
-            },
+        },
         methods: {
             submitContentEdit() {
                this.$Progress.start();
                let newText = event.target.innerText;
                this.content = newText;
                Prism.highlightAll();
-               this.$http.post(document.location.origin+"/api/contents/edit/"+this.item.id,{content:newText,api_token:getApiToken()})
+               this.$http.post(base_path()+"/api/contents/edit/"+this.item.id,{content:newText,api_token:getApiToken()})
                .then(response=>{
                     if(response.body==="success"){
                         this.$Progress.finish();
@@ -61,7 +62,7 @@
             },
             deleteContent(){
                 this.$Progress.start();
-                this.$http.post(document.location.origin+"/api/contents/delete/"+this.item.id,{api_token:getApiToken()})
+                this.$http.post(base_path()+"/api/contents/delete/"+this.item.id,{api_token:getApiToken()})
                 .then(response=>{
                     if(response.body==="success"){
                         this.$Progress.finish();

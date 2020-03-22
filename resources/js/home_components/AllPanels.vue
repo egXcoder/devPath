@@ -3,11 +3,11 @@
     <div class="row">
         
       <div class="col-lg-4 col-md-6 head">
-          <img width="70px" :src="category.image_url">
+          <img width="100px" :src="category.image_url">
         <h1>
           {{category.name}} CheatSheet
         </h1>
-        <panel class="col-lg-12 col-md-12 mt-5" :panel="panels[0]">
+        <panel class="col-lg-12 col-md-12 mt-5" v-if="panels[0]" :panel="panels[0]">
           <div slot="panel_title" class="panel-title">
               <h1>{{panels[0].name}}</h1>
             </div>
@@ -59,7 +59,7 @@ export default {
   methods: {
     fetchPanels() {
       this.$http
-        .get(document.location.origin + "/api/" + this.category.name + "/panels")
+        .get(base_path() + "/api/" + this.category.name + "/panels")
         .then(response => {
           this.panels = response.body.data;
           this.loader.hide();
