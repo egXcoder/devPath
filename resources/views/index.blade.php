@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="{{$selectedCategory->image_url}}" type="image/x-icon">
     <style>
         :root{
-            --primary-color : #2e3440;
+            --primary-color : #364767;
             @php
             echo ($selectedCategory->secondary_color) ? "--secondary-color:$selectedCategory->secondary_color;" : '--secondary-color:#f7f7f7;';
             echo ($selectedCategory->third_color) ? "--third-color:$selectedCategory->third_color;" : '--third-color:#F7D87C;';

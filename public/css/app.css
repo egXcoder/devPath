@@ -34,7 +34,7 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-	background: #2E3440;
+	background: #364767;
 }
 
 /* Inline code */
@@ -11413,16 +11413,6 @@ main .head {
   overflow: hidden;
   margin-top: 1rem;
   margin-bottom: 1rem;
-}
-
-.panel .panel-inner .content:hover {
-  background: var(--third-color);
-  cursor: pointer;
-}
-
-.panel .panel-inner .content:hover pre {
-  background: var(--third-color);
-  cursor: pointer;
 }
 
 .panel .panel-inner .content a {
