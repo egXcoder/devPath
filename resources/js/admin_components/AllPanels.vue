@@ -4,7 +4,7 @@
 
       <div class="col-md-12 head">
         <img width="100px" :src="category.image_url">
-        <h1>{{category.name}} CheatSheet</h1>
+        <h1>{{category.name}} Path</h1>
       </div>
       <draggable @change="onMove" v-model="panels" class="row">
         <template v-for="panel in panels">

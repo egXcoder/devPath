@@ -25031,7 +25031,7 @@ var render = function() {
       _c("div", { staticClass: "col-md-12 head" }, [
         _c("img", { attrs: { width: "100px", src: _vm.category.image_url } }),
         _vm._v(" "),
-        _c("h1", [_vm._v(_vm._s(_vm.category.name) + " CheatSheet")])
+        _c("h1", [_vm._v(_vm._s(_vm.category.name) + " Path")])
       ]),
       _vm._v(" "),
       _c(
@@ -25427,9 +25427,7 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("h1", [
-              _vm._v(
-                "\n        " + _vm._s(_vm.category.name) + " CheatSheet\n      "
-              )
+              _vm._v("\n        " + _vm._s(_vm.category.name) + " Path\n      ")
             ]),
             _vm._v(" "),
             _vm.panels[0]
