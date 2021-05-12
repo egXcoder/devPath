@@ -8,7 +8,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="theme-color" content="#19253c">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <title>{{$selectedCategory->name}} Path</title>
     <link rel="shortcut icon" href="{{$selectedCategory->image_url}}" type="image/x-icon">
