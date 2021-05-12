@@ -3,8 +3,8 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Str;
 
 class User extends Authenticatable
 {
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','api_token'
     ];
 
     /**
@@ -36,4 +36,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function generateApiToken()
+    {
+        $token = Str::random(60);
+        if (self::where('api_token', $token)->first()) {
+            return $this->generateApiToken();
+        }
+
+        $this->update(['api_token'=>$token]);
+        
+        return $token;
+    }
 }

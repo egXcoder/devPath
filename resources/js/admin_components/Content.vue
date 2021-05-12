@@ -31,7 +31,7 @@
         },
         watch:{
             async code_lang(value){
-                await this.$http.post(base_path()+"/api/contents/edit/"+this.item.id,{code_lang:value,api_token:getApiToken()});
+                await this.$http.post(base_path()+"/api/contents/edit/"+this.item.id,{code_lang:value});
                 this.code_lang = value;
                 toast('Code language is updated Successfully');
                 //highlight with prism when code_lang changed
@@ -48,7 +48,7 @@
                let newText = event.target.innerText;
                this.content = newText;
                Prism.highlightAll();
-               this.$http.post(base_path()+"/api/contents/edit/"+this.item.id,{content:newText,api_token:getApiToken()})
+               this.$http.post(base_path()+"/api/contents/edit/"+this.item.id,{content:newText})
                .then(response=>{
                     if(response.body==="success"){
                         this.$Progress.finish();
@@ -62,7 +62,7 @@
             },
             deleteContent(){
                 this.$Progress.start();
-                this.$http.post(base_path()+"/api/contents/delete/"+this.item.id,{api_token:getApiToken()})
+                this.$http.post(base_path()+"/api/contents/delete/"+this.item.id,{})
                 .then(response=>{
                     if(response.body==="success"){
                         this.$Progress.finish();

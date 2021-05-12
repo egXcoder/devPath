@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Cookie;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -40,7 +40,10 @@ class LoginController extends Controller
 
     protected function authenticated($request, $user)
     {
-        //create a fresh api token for admin
-        generateTokenAndSetInDatabase();
+        $token = $user->generateApiToken();
+
+        $cookie = Cookie::forever('api_token', $token, null, null, null, false);
+        
+        Cookie::queue($cookie);
     }
 }

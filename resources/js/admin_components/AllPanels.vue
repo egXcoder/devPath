@@ -1,33 +1,36 @@
 <template>
   <div class="container-fluid">
-        <vue-progress-bar class="progress"></vue-progress-bar>
+    <vue-progress-bar class="progress"></vue-progress-bar>
 
-      <div class="col-md-12 head">
-        <img width="100px" :src="category.image_url">
-        <h1>{{category.name}} Path</h1>
-      </div>
-      <draggable @change="onMove" v-model="panels" class="row">
-        <template v-for="panel in panels">
-          <transition :key="panel.id" name="fade">
-            <panel :key="panel.id" :panel="panel">
-              <div slot="panelTitle" class="panel-title">
-                <h1
-                  contenteditable="true"
-                  @blur="editPanel(panel)"
-                  @keypress.enter.prevent="editPanel(panel)"
-                >{{panel.name}}</h1>
-              </div>
-              <p slot="deletePanel" @click="deletePanel(panel)" class="delete-box"><i class="fas fa-times"></i></p>
-            </panel>
-          </transition>
-        </template>
-      </draggable>
-      
-      
-        <div class="add-box" v-on:click="addPanel()">
-          <div class="btn btn-primary rounded-circle"><i class="fas fa-plus"></i></div>
-        </div>
+    <div class="col-md-12 head">
+      <img width="100px" :src="category.image_url" />
+      <h1>{{ category.name }} Path</h1>
     </div>
+    <draggable @change="onMove" v-model="panels" class="row">
+      <template v-for="panel in panels">
+        <transition :key="panel.id" name="fade">
+          <panel :key="panel.id" :panel="panel">
+            <div slot="panelTitle" class="panel-title">
+              <h1
+                contenteditable="true"
+                @blur="editPanel(panel)"
+                @keypress.enter.prevent="editPanel(panel)"
+              >
+                {{ panel.name }}
+              </h1>
+            </div>
+            <p slot="deletePanel" @click="deletePanel(panel)" class="delete-box">
+              <i class="fas fa-times"></i>
+            </p>
+          </panel>
+        </transition>
+      </template>
+    </draggable>
+
+    <div class="add-box" v-on:click="addPanel()">
+      <div class="btn btn-primary rounded-circle"><i class="fas fa-plus"></i></div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -83,15 +86,14 @@ export default {
       this.$Progress.start();
 
       this.$http.post(
-        base_path() + "/api/" + this.category.name + "/panels/create", { api_token: getApiToken() }
+        base_path() + "/api/" + this.category.name + "/panels/create"
       ).then(response=>this.handleResponse(response,"Panel Created Successfully","Failed to Create Panel"));
       
     },
     deletePanel(panel) {
       this.$Progress.start();
       this.$http.post(
-        base_path() + "/api/panels/delete/" + panel.id,
-        { api_token: getApiToken() }
+        base_path() + "/api/panels/delete/" + panel.id
       ).then(response=>this.handleResponse(response,"Panel Deleted Successfully","Failed to Delete Panel"));
     },
     editPanel(panel) {
@@ -100,7 +102,6 @@ export default {
         base_path() + "/api/panels/edit/" + panel.id,
         {
           name: event.target.innerText,
-          api_token: getApiToken(),
         }
       ).then(response=>this.handleResponse(response,"Panel Updated Successfully","Failed to Update Panel"));
       
@@ -112,7 +113,6 @@ export default {
         {
           oldIndex: moved.oldIndex,
           newIndex: moved.newIndex,
-          api_token: getApiToken(),
         }
       ).then(response=>this.handleResponse(response,"Panel Moved Successfully","Failed to Move Panel"));
     },
@@ -131,5 +131,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 </style>

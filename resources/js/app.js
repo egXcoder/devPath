@@ -4,6 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+require('./_helpers');
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -29,13 +30,6 @@ window.toast = function toast(msg,type) {
 
 //import prism
 window.Prism = require('../../public/css/plugins/prism/prism');
-
-//register getApiToken From Cookie
-window.getApiToken = function getCookie() {
-    var match = document.cookie.match(new RegExp('(^| )' + 'devPathApi' + '=([^;]+)'));
-    if (match) return match[2];
-    return (match) ? match[2] : false;
-}
 
 //Using Vue Plugins
 import vue_resource from '../../node_modules/vue-resource/dist/vue-resource';

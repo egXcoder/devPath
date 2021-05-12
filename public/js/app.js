@@ -1810,6 +1810,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1860,9 +1863,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$Progress.start();
-      this.$http.post(base_path() + "/api/" + this.category.name + "/panels/create", {
-        api_token: getApiToken()
-      }).then(function (response) {
+      this.$http.post(base_path() + "/api/" + this.category.name + "/panels/create").then(function (response) {
         return _this2.handleResponse(response, "Panel Created Successfully", "Failed to Create Panel");
       });
     },
@@ -1870,9 +1871,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.$Progress.start();
-      this.$http.post(base_path() + "/api/panels/delete/" + panel.id, {
-        api_token: getApiToken()
-      }).then(function (response) {
+      this.$http.post(base_path() + "/api/panels/delete/" + panel.id).then(function (response) {
         return _this3.handleResponse(response, "Panel Deleted Successfully", "Failed to Delete Panel");
       });
     },
@@ -1881,8 +1880,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$Progress.start();
       this.$http.post(base_path() + "/api/panels/edit/" + panel.id, {
-        name: event.target.innerText,
-        api_token: getApiToken()
+        name: event.target.innerText
       }).then(function (response) {
         return _this4.handleResponse(response, "Panel Updated Successfully", "Failed to Update Panel");
       });
@@ -1894,8 +1892,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start();
       this.$http.post(base_path() + "/api/" + this.category.name + "/panels/editOrder", {
         oldIndex: moved.oldIndex,
-        newIndex: moved.newIndex,
-        api_token: getApiToken()
+        newIndex: moved.newIndex
       }).then(function (response) {
         return _this5.handleResponse(response, "Panel Moved Successfully", "Failed to Move Panel");
       });
@@ -1974,8 +1971,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return this.$http.post(base_path() + "/api/contents/edit/" + this.item.id, {
-                  code_lang: value,
-                  api_token: getApiToken()
+                  code_lang: value
                 });
 
               case 2:
@@ -2012,8 +2008,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.content = newText;
       Prism.highlightAll();
       this.$http.post(base_path() + "/api/contents/edit/" + this.item.id, {
-        content: newText,
-        api_token: getApiToken()
+        content: newText
       }).then(function (response) {
         if (response.body === "success") {
           _this.$Progress.finish();
@@ -2031,9 +2026,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.$Progress.start();
-      this.$http.post(base_path() + "/api/contents/delete/" + this.item.id, {
-        api_token: getApiToken()
-      }).then(function (response) {
+      this.$http.post(base_path() + "/api/contents/delete/" + this.item.id, {}).then(function (response) {
         if (response.body === "success") {
           _this2.$Progress.finish();
 
@@ -2085,8 +2078,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$Progress.start();
       this.$http.post(base_path() + "/api/headers/edit/" + this.item.id, {
-        name: event.target.innerText,
-        api_token: getApiToken()
+        name: event.target.innerText
       }).then(function (response) {
         console.log(response);
 
@@ -2105,9 +2097,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$Progress.start();
-      this.$http.post(base_path() + "/api/headers/delete/" + this.item.id, {
-        api_token: getApiToken()
-      }).then(function (response) {
+      this.$http.post(base_path() + "/api/headers/delete/" + this.item.id, {}).then(function (response) {
         if (response.body === "success") {
           _this2.$Progress.finish();
 
@@ -2194,9 +2184,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return this.$http.post(base_path() + "/api/" + this.panel.id + "/headers/create", {
-                  api_token: getApiToken()
-                }).then(function (response) {
+                return this.$http.post(base_path() + "/api/" + this.panel.id + "/headers/create", {}).then(function (response) {
                   header_id = response.body.id;
                 });
 
@@ -2234,9 +2222,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return this.$http.post(base_path() + "/api/" + this.panel.id + "/contents/create", {
-                  api_token: getApiToken()
-                }).then(function (response) {
+                return this.$http.post(base_path() + "/api/" + this.panel.id + "/contents/create", {}).then(function (response) {
                   content_id = response.body.id;
                 });
 
@@ -25040,7 +25026,13 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v(_vm._s(panel.name))]
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(panel.name) +
+                                "\n            "
+                            )
+                          ]
                         )
                       ]
                     ),
@@ -39922,6 +39914,21 @@ Prism.languages.sql = {
 
 /***/ }),
 
+/***/ "./resources/js/_helpers.js":
+/*!**********************************!*\
+  !*** ./resources/js/_helpers.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.getCookie = function (cookie) {
+  var match = document.cookie.match(new RegExp('(^| )' + cookie + '=([^;]+)'));
+  if (match) return match[2];
+  return match ? match[2] : false;
+};
+
+/***/ }),
+
 /***/ "./resources/js/admin_components/AllPanels.vue":
 /*!*****************************************************!*\
   !*** ./resources/js/admin_components/AllPanels.vue ***!
@@ -40236,6 +40243,8 @@ __webpack_require__.r(__webpack_exports__);
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+__webpack_require__(/*! ./_helpers */ "./resources/js/_helpers.js");
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -40258,14 +40267,7 @@ window.toast = function toast(msg, type) {
 }; //import prism
 
 
-window.Prism = __webpack_require__(/*! ../../public/css/plugins/prism/prism */ "./public/css/plugins/prism/prism.js"); //register getApiToken From Cookie
-
-window.getApiToken = function getCookie() {
-  var match = document.cookie.match(new RegExp('(^| )' + 'devPathApi' + '=([^;]+)'));
-  if (match) return match[2];
-  return match ? match[2] : false;
-}; //Using Vue Plugins
-
+window.Prism = __webpack_require__(/*! ../../public/css/plugins/prism/prism */ "./public/css/plugins/prism/prism.js"); //Using Vue Plugins
 
 
 Vue.use(_node_modules_vue_resource_dist_vue_resource__WEBPACK_IMPORTED_MODULE_0___default.a);
@@ -40325,6 +40327,7 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['Authorization'] = "Bearer ".concat(window.getCookie('api_token'));
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just

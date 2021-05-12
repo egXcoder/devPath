@@ -47,7 +47,7 @@ export default {
           "/api/" +
           this.panel.id+
           "/headers/create",
-        { api_token: getApiToken() }
+        {  }
       ).then(response=> {header_id=response.body.id});
       
       let highestOrder = this.panel.headersAndContents.slice(-1).pop().order;
@@ -63,7 +63,7 @@ export default {
       var content_id;
 
       await this.$http.post(base_path() + "/api/" + this.panel.id + "/contents/create",
-        { api_token: getApiToken() }
+        {  }
       ).then(response=> {
         content_id=response.body.id
         });
