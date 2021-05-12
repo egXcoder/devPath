@@ -13,11 +13,10 @@
     <title>{{$selectedCategory->name}} Path</title>
     <link rel="shortcut icon" href="{{$selectedCategory->image_url}}" type="image/x-icon">
     <style>
-        :root{
-            --primary-color : #19253c;
-            @php
-            echo ($selectedCategory->secondary_color) ? "--secondary-color:$selectedCategory->secondary_color;" : '--secondary-color:#f7f7f7;';
-            echo ($selectedCategory->third_color) ? "--third-color:$selectedCategory->third_color;" : '--third-color:#F7D87C;';
+        :root {
+            --primary-color: #19253c;
+            @php echo ($selectedCategory->secondary_color) ? "--secondary-color:$selectedCategory->secondary_color;": '--secondary-color:#f7f7f7;';
+            echo ($selectedCategory->third_color) ? "--third-color:$selectedCategory->third_color;": '--third-color:#F7D87C;';
             @endphp
         }
     </style>
@@ -25,10 +24,8 @@
 
 <body>
     <nav class="nav">
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="brand"><img class="img-fluid" width="250px" src="{{asset('images/brand.png')}}" alt="">
-                </div>
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between">
                 <div class="menu-toggle my-auto" onclick="toggleDrawer();">
                     <span></span>
                     <span></span>
@@ -41,8 +38,10 @@
     <div class="navigation-drawer" onclick="toggleDrawer()"></div>
 
     <div class="collapsed-menu">
-        <div onclick="toggleDrawer()" class="closeButton">
-            <a>X</a>
+        <div class="header">
+            <div onclick="toggleDrawer()" class="closeButton">
+                <a>X</a>
+            </div>
         </div>
         <div class="menu-container">
             <ul class="list-unstyled">
@@ -128,7 +127,6 @@
     </script>
     <script src={{asset( 'js/app.js')}}></script>
     <script>
-       
         function toggleDrawer() {
             $('.collapsed-menu').toggleClass('show');
             $('.navigation-drawer').toggleClass('show');

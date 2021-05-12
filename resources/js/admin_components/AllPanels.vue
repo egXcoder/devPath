@@ -129,8 +129,7 @@ export default {
   }
 };
 </script>
-<style scoped>
-.panel-title{
-  cursor:auto;
-}
+
+<style scoped lang="scss">
+
 </style>
