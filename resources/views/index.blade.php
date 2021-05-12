@@ -41,7 +41,7 @@
                 <p>DevBooster</p>
             </div>
             <div onclick="toggleDrawer()" class="closeButton">
-                <a>Close</a>
+                <a><i class="fas fa-sign-out-alt fa-2x"></i></a>
             </div>
         </div>
         <div class="menu-container">

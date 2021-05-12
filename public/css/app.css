@@ -17376,18 +17376,26 @@ nav .menu-toggle span {
 }
 
 .collapsed-menu .header .closeButton {
-  cursor: pointer;
   text-align: left;
   padding: 1rem 2rem 1rem 2rem;
 }
 
 .collapsed-menu .header .closeButton a {
-  color: white;
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+.collapsed-menu .header .closeButton a i {
+  transition: all 0.3s;
+}
+
+.collapsed-menu .header .closeButton a i:hover {
+  -webkit-transform: translateX(5px);
+          transform: translateX(5px);
 }
 
 .collapsed-menu .menu-container {
   height: 80%;
-  margin-left: 2rem;
   font-size: 1.5rem;
   overflow-y: auto;
   overflow-x: hidden;
@@ -17412,10 +17420,15 @@ nav .menu-toggle span {
 
 .collapsed-menu .menu-container .list-unstyled li {
   font-size: 1.3rem;
-  margin-right: 0.5rem;
-  line-height: 3.5rem;
   cursor: pointer;
   position: relative;
+  transition: all 0.2s;
+  padding: 0.5rem 1rem;
+}
+
+.collapsed-menu .menu-container .list-unstyled li:hover {
+  background-color: var(--third-color);
+  color: var(--primary-color);
 }
 
 @media (max-width: 992px) {
