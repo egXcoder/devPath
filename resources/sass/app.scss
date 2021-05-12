@@ -90,6 +90,45 @@ nav {
   }
 
   .header {
+    background-color: var(--third-color);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .brand {
+      text-align: center;
+      p {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 0px;
+        @media (max-width: 992px) {
+          font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+          font-size: 1.1rem;
+        }
+
+        @media (max-width: 576px) {
+          font-size: 1rem;
+        }
+      }
+      img {
+        height: 60px;
+        @media (max-width: 992px) {
+          height: 50px;
+        }
+
+        @media (max-width: 768px) {
+          height: 45px;
+        }
+
+        @media (max-width: 576px) {
+          height: 40px !important;
+        }
+      }
+    }
     .closeButton {
       cursor: pointer;
       text-align: left;
@@ -102,9 +141,8 @@ nav {
   }
 
   .menu-container {
-    height: 90%;
+    height: 80%;
     margin-left: 2rem;
-    margin-top: 1rem;
     font-size: 1.5rem;
     overflow-y: auto;
     overflow-x: hidden;
@@ -170,27 +208,10 @@ nav {
           color: white;
           text-decoration: none;
           transition: ease-in-out 0.3s;
-          &#delete {
-            position: absolute;
-            right: 0;
-            transform: translateX(250%);
-          }
-          &#edit {
-            position: absolute;
-            right: 25px;
-            transform: translateX(250%);
-          }
+
           &:hover a {
             color: var(--secondary-color);
             text-decoration: none;
-          }
-
-          &:hover a#delete {
-            transform: translateX(0);
-          }
-
-          &:hover a#edit {
-            transform: translateX(0);
           }
         }
       }

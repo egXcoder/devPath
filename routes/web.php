@@ -17,13 +17,10 @@ Route::prefix('admin')->group(function () {
 
     Route::middleware('auth')->group(function(){
         Route::get('/', 'AdminController@index')->name('admin.index');
-        Route::get('/{category}', 'AdminController@showSpecificCategory')->name('admin.show');
-        Route::post('/categories/create', 'AdminController@createCategory')->name('categories.create');
-        Route::post('/categories/edit/{id}', 'AdminController@editCategory')->name('categories.edit');
-        Route::get('/categories/delete/{id}', 'AdminController@deleteCategory')->name('categories.delete');
+        Route::get('/{category}', 'AdminController@showCategory')->name('admin.show');
     });
 });
 
 
 Route::get('/', 'HomeController@index')->name('guest.index');
-Route::get('/{category}', 'HomeController@showSpecificCategory')->name('guest.show');
+Route::get('/{category}', 'HomeController@showCategory')->name('guest.show');

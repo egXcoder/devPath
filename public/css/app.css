@@ -11176,6 +11176,65 @@ nav .menu-toggle span {
   }
 }
 
+.collapsed-menu .header {
+  background-color: var(--third-color);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.collapsed-menu .header .brand {
+  text-align: center;
+}
+
+.collapsed-menu .header .brand p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 0px;
+}
+
+@media (max-width: 992px) {
+  .collapsed-menu .header .brand p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .collapsed-menu .header .brand p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .collapsed-menu .header .brand p {
+    font-size: 1rem;
+  }
+}
+
+.collapsed-menu .header .brand img {
+  height: 60px;
+}
+
+@media (max-width: 992px) {
+  .collapsed-menu .header .brand img {
+    height: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .collapsed-menu .header .brand img {
+    height: 45px;
+  }
+}
+
+@media (max-width: 576px) {
+  .collapsed-menu .header .brand img {
+    height: 40px !important;
+  }
+}
+
 .collapsed-menu .header .closeButton {
   cursor: pointer;
   text-align: left;
@@ -11187,9 +11246,8 @@ nav .menu-toggle span {
 }
 
 .collapsed-menu .menu-container {
-  height: 90%;
+  height: 80%;
   margin-left: 2rem;
-  margin-top: 1rem;
   font-size: 1.5rem;
   overflow-y: auto;
   overflow-x: hidden;
@@ -11271,33 +11329,9 @@ nav .menu-toggle span {
   transition: ease-in-out 0.3s;
 }
 
-.collapsed-menu .menu-container .list-unstyled li a#delete {
-  position: absolute;
-  right: 0;
-  -webkit-transform: translateX(250%);
-          transform: translateX(250%);
-}
-
-.collapsed-menu .menu-container .list-unstyled li a#edit {
-  position: absolute;
-  right: 25px;
-  -webkit-transform: translateX(250%);
-          transform: translateX(250%);
-}
-
 .collapsed-menu .menu-container .list-unstyled li a:hover a {
   color: var(--secondary-color);
   text-decoration: none;
-}
-
-.collapsed-menu .menu-container .list-unstyled li a:hover a#delete {
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
-}
-
-.collapsed-menu .menu-container .list-unstyled li a:hover a#edit {
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
 }
 
 .collapsed-menu #logout-form {

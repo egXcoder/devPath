@@ -8,12 +8,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $selectedCategory = Category::findOrFail(1);
-        $categories = Category::all();
-        return view('index', ['categories' => $categories, 'selectedCategory' => $selectedCategory]);
+        return $this->showCategory(Category::first());
     }
 
-    public function showSpecificCategory(Category $category)
+    public function showCategory(Category $category)
     {
         return view('index', ['categories' => Category::all(), 'selectedCategory' => $category]);
     }

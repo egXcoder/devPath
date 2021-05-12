@@ -8,11 +8,10 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $selectedCategory = Category::findOrFail(1);
-        return view('index', ['categories' => Category::all(), 'selectedCategory' => $selectedCategory, 'api_token' => $this->getAdminApiToken()]);
+        return $this->showCategory(Category::first());
     }
 
-    public function showSpecificCategory(Category $category)
+    public function showCategory(Category $category)
     {
         return view('index', ['categories' => Category::all(), 'selectedCategory' => $category, 'api_token' => $this->getAdminApiToken()]);
     }
@@ -20,39 +19,5 @@ class AdminController extends Controller
     public function getAdminApiToken()
     {
         return \App\User::find(1)->api_token;
-    }
-
-    public function createCategory()
-    {
-        request()->validate([
-            'name' => 'required|max:255|string'
-        ]);
-
-        Category::create([
-            'name' => request('name'),
-        ]);
-        
-        return redirect()->back();
-    }
-
-    public function deleteCategory($category_id)
-    {
-        $category = Category::findOrFail($category_id);
-        $category->delete();
-        return redirect()->back();
-    }
-
-    public function editCategory($category_id)
-    {
-        $category = Category::findOrFail($category_id);
-        request()->validate([
-            'name' => 'required|max:255|string',
-            'image' => 'required|max:255|string'
-        ]);
-        $category->update([
-            'name' => request('name'),
-            'image_url' => request('image')
-        ]);
-        return redirect()->back();
     }
 }

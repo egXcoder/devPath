@@ -23,6 +23,12 @@
                     <span></span>
                     <span></span>
                 </div>
+                @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-link d-block mx-auto">Logout</button>
+                </form>
+                @endif
             </div>
         </div>
     </nav>
@@ -31,25 +37,23 @@
 
     <div class="collapsed-menu">
         <div class="header">
+            <div class="brand">
+                <img src="{{asset('images/brand.png')}}" alt="">
+                <p>DevBooster</p>
+            </div>
             <div onclick="toggleDrawer()" class="closeButton">
-                <a>X</a>
+                <a>Close</a>
             </div>
         </div>
         <div class="menu-container">
             <ul class="list-unstyled">
                 @foreach ($categories as $category)
-                <li><img class="img-fluid" src="{{$category->image_url}}">
+                <li>
+                    <img class="img-fluid" src="{{$category->image_url}}">
 
                     @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
                     <a href="{{route('admin.show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a>
-
-                    <a id="edit" data-toggle="modal" data-target="#modal" data-category_id="{{$category->id}}"
-                        data-category_name="{{$category->name}}"
-                        data-category_image="{{$category->getAttributes()['image_url']}}"><i
-                            class="fas fa-edit"></i></a>
-                    <a id="delete" href="{{route('categories.delete',['id'=>$category->id])}}">x</a>
                     @endif
-
 
                     @if (Route::currentRouteName()==='guest.index'||Route::currentRouteName()==='guest.show')
                     <a href="{{route('guest.show',['categoryTitle'=>$category->name])}}">{{$category->name}}</a>
@@ -58,19 +62,6 @@
                 </li>
                 @endforeach
             </ul>
-            @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
-            <form id="new-category" action="{{route('categories.create')}}" method="POST">
-                @csrf
-                <div class="form-group">
-                    <input placeholder="New Category" id="category_name" name="name" type="text" class="form-control">
-                </div>
-            </form>
-
-            <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-primary d-block mx-auto">Logout</button>
-            </form>
-            @endif
         </div>
     </div>
 
