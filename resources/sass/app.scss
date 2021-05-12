@@ -243,8 +243,8 @@ main {
       top: -32px;
       left: 10px;
       border-radius: 15px;
-      color: white;
-      background: var(--primary-color);
+      color: var(--primary-color);
+      background: var(--third-color);
       font-weight: bold;
       border-top: 2px solid #eee;
       h1 {
@@ -327,21 +327,21 @@ main {
             color: #e03535 !important;
           }
         }
-      }
 
-      pre {
-        border: none;
-        padding-top: 0;
-        padding-bottom: 5px;
-        code {
-          font-size: 0.85rem;
-          font-weight: 500;
-          border-left: 0;
-          box-shadow: none;
-          background-image: none;
-        }
-        &:hover {
-          cursor: pointer;
+        pre {
+          border: none;
+          padding-top: 0;
+          padding-bottom: 5px;
+          code {
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-left: 0;
+            box-shadow: none;
+            background-image: none;
+          }
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
 

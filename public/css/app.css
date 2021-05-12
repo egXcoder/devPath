@@ -158,6 +158,12 @@ pre[class*="language-"] {
 
 @charset "UTF-8";
 
+:root {
+  --primary-color: #19253c;
+  --secondary-color: #f7f7f7;
+  --third-color: #F7D87C;
+}
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -11341,8 +11347,8 @@ main .head {
   top: -32px;
   left: 10px;
   border-radius: 15px;
-  color: white;
-  background: var(--primary-color);
+  color: var(--primary-color);
+  background: var(--third-color);
   font-weight: bold;
   border-top: 2px solid #eee;
 }
@@ -11441,13 +11447,13 @@ main .head {
   color: #e03535 !important;
 }
 
-#panel .panel .panel-inner pre {
+#panel .panel .panel-inner .content pre {
   border: none;
   padding-top: 0;
   padding-bottom: 5px;
 }
 
-#panel .panel .panel-inner pre code {
+#panel .panel .panel-inner .content pre code {
   font-size: 0.85rem;
   font-weight: 500;
   border-left: 0;
@@ -11455,7 +11461,7 @@ main .head {
   background-image: none;
 }
 
-#panel .panel .panel-inner pre:hover {
+#panel .panel .panel-inner .content pre:hover {
   cursor: pointer;
 }
 
