@@ -19,7 +19,7 @@ export default new Vuex.Store({
             Vue.set(state.categoryPanels, category_name, panels);
         },
         setCategories(state, payload) {
-            Vue.set(state.categories, payload);
+            state.categories = payload;
         }
     },
     actions: {

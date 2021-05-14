@@ -27,7 +27,6 @@ import store from './store';
 // importing toastr 
 window.toastr = require('toastr');
 
-
 import Loading from 'vue-loading-overlay';
 Vue.use(Loading);
 
@@ -50,6 +49,7 @@ Vue.use(VueProgressBar, options);
 
 
 // registering global components
+Vue.component('sidebar', require('./global_components/Sidebar.vue').default);
 Vue.component('all_panels_in_admin', require('./admin_components/AllPanels.vue').default);
 Vue.component('all_panels_in_home', require('./home_components/AllPanels.vue').default);
 
