@@ -5,9 +5,9 @@
 
       <div class="panel-inner mt-4">
         <component
-          @deleteContentEvent="deleteContent($event)"
-          @deleteHeaderEvent="deleteHeader($event)"
-          v-for="(item, index) in panel.headersAndContents"
+          @deleteContentEvent="deleteHeaderOrContent($event)"
+          @deleteHeaderEvent="deleteHeaderOrContent($event)"
+          v-for="(item, index) in headersAndContents"
           :item="item"
           :key="index"
           :index="index"
@@ -30,53 +30,58 @@ import panel_content from "./Content.vue";
 
 export default {
   props: {
-    panel: Object,
+    headersAndContents: {
+      type: Array,
+      required: true,
+    },
+    id: {
+      type: Number,
+      required: true,
+    },
   },
   components: {
     panel_header,
     panel_content,
   },
   methods: {
-    async createHeader() {
-      var header_id;
+    createHeader() {
+      window.axios.post(`/api/${this.id}/headers/create`).then((response) => {
+        let highestOrder = this.headersAndContents.slice(-1).pop().order;
+        let newHeadersAndContents = this.headersAndContents.concat([
+          {
+            id: response.data.id,
+            name: "default Header Name",
+            order: highestOrder + 1,
+            type: "panel_header",
+          },
+        ]);
 
-      await window.axios.post(`/api/${this.panel.id}/headers/create`).then((response) => {
-        header_id = response.body.id;
-      });
-
-      let highestOrder = this.panel.headersAndContents.slice(-1).pop().order;
-      window.toastr.success("Header created successfully");
-      this.panel.headersAndContents.push({
-        id: header_id,
-        name: "default Header Name",
-        order: highestOrder + 1,
-        type: "panel_header",
-      });
-    },
-    async createContent() {
-      var content_id;
-
-      await window.axios
-        .post(base_path() + "/api/" + this.panel.id + "/contents/create", {})
-        .then((response) => {
-          content_id = response.body.id;
-        });
-
-      let highestOrder = this.panel.headersAndContents.slice(-1).pop().order;
-      window.toastr.success("Content created successfully");
-      this.panel.headersAndContents.push({
-        id: content_id,
-        name: "default content",
-        order: highestOrder + 1,
-        type: "panel_content",
-        code_lang: "language-css",
+        this.$emit("update:headersAndContents", newHeadersAndContents);
+        window.toastr.success("Header created successfully");
       });
     },
-    deleteHeader(index) {
-      this.panel.headersAndContents.splice(index, 1);
+    createContent() {
+      window.axios.post(`/api/${this.id}/contents/create`).then((response) => {
+        let highestOrder = this.headersAndContents.slice(-1).pop().order;
+        let newHeadersAndContents = this.headersAndContents.concat([
+          {
+            id: response.data.id,
+            name: "default content",
+            order: highestOrder + 1,
+            type: "panel_content",
+            code_lang: "language-css",
+          },
+        ]);
+
+        this.$emit("update:headersAndContents", newHeadersAndContents);
+
+        window.toastr.success("Content created successfully");
+      });
     },
-    deleteContent(index) {
-      this.panel.headersAndContents.splice(index, 1);
+    deleteHeaderOrContent(index) {
+      let newHeadersAndContents = [...this.headersAndContents];
+      newHeadersAndContents.splice(index, 1);
+      this.$emit("update:headersAndContents", newHeadersAndContents);
     },
   },
 };

@@ -8,22 +8,20 @@
     </div>
     <draggable @change="onMove" v-model="$store.state.categoryPanels[category.name]" class="row">
       <template v-for="panel in $store.getters.panels(category.name)">
-        <transition :key="panel.id" name="fade">
-          <panel :key="panel.id" :panel="panel">
-            <div slot="panelTitle" class="panel-title">
-              <h1
-                contenteditable="true"
-                @blur="editPanel(panel)"
-                @keypress.enter.prevent="editPanel(panel)"
-              >
-                {{ panel.name }}
-              </h1>
-            </div>
-            <p slot="deletePanel" @click="deletePanel(panel)" class="delete-box">
-              <i class="fas fa-times"></i>
-            </p>
-          </panel>
-        </transition>
+        <panel :key="panel.id" :headersAndContents.sync="panel.headersAndContents" :id="panel.id">
+          <div slot="panelTitle" class="panel-title">
+            <h1
+              contenteditable="true"
+              @blur="editPanel(panel)"
+              @keypress.enter.prevent="editPanel(panel)"
+            >
+              {{ panel.name }}
+            </h1>
+          </div>
+          <p slot="deletePanel" @click="deletePanel(panel)" class="delete-box">
+            <i class="fas fa-times"></i>
+          </p>
+        </panel>
       </template>
     </draggable>
 
@@ -36,11 +34,11 @@
 <script>
 import draggable from "vuedraggable";
 import panel from "./Panel";
+
 export default {
   data() {
     return {
       showDeleteBox: false,
-      panels: [],
       loader: {},
     };
   },
@@ -105,11 +103,11 @@ export default {
     handleResponse(response, msgOnSuccess, msgOnFailure) {
       if (response.data === "success") {
         this.hideProgress();
-        toast.success(msgOnSuccess);
+        window.toastr.success(msgOnSuccess);
         this.$store.dispatch("fetchPanels", this.category.name);
       } else {
         this.$Progress.fail();
-        toast.error(msgOnFailure);
+        window.toastr.error(msgOnFailure);
       }
     },
     showProgress() {

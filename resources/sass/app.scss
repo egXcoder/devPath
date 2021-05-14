@@ -1,11 +1,11 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Quicksand");
 
-// Variables
 @import "variables";
-
-//keyframes
 @import "keyframes";
+@import "vue_transitions";
+
+//
 
 // import plugins
 @import "plugins/bootstrap";

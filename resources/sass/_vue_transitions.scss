@@ -1,0 +1,25 @@
+.fade-enter-active,
+.fade-leave-active {
+    // applied during vue transition from start to end on both adding item and removing item
+    transition: opacity 0.5s;
+}
+
+.fade-enter {
+    //applied on adding item on starting fade
+    opacity: 0;
+}
+
+.fade-enter-to {
+    //applied on adding item on finish fade
+    opacity: 1;
+}
+
+.fade-leave {
+    //applied on removing item on start fading
+    opacity: 1;
+}
+
+.fade-leave-to {
+    //applied on removing item on finish fading
+    opacity: 0;
+}
