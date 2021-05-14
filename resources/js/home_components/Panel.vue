@@ -1,9 +1,9 @@
 <template>
-  <div id="panel" class="col-lg-4 col-md-6 p-3">
+  <div id="panel" class="col-md-6 col-lg-4 mb-2 p-1">
     <div class="panel">
       <slot name="panel_title"></slot>
 
-      <div class="panel-inner my-4">
+      <div class="panel-inner">
         <component
           v-for="(item, index) in panel.headersAndContents"
           :item="item"

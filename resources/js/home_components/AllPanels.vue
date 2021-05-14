@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid">
-    <div class="text-center">
+    <div class="col-md-12 head">
       <img width="100px" :src="category.image_url" />
       <h1>{{ category.name }} Path</h1>
     </div>
-    <div class="row">
+    <div class="grid">
       <template v-for="panel in $store.getters.panels(category.name)">
         <panel :key="panel.id" :panel="panel">
           <div slot="panel_title" class="panel-title">
@@ -18,7 +18,15 @@
 
 <script>
 import panel from "./Panel.vue";
+import Masonry from "masonry-layout";
+
 export default {
+  components: {
+    panel,
+  },
+  props: {
+    category: Object,
+  },
   data() {
     return {
       showDeleteBox: false,
@@ -41,14 +49,15 @@ export default {
 
     this.$store.dispatch("fetchPanels", this.category.name).then(() => {
       this.loader.hide();
+      this.$nextTick(() => {
+        new Masonry(".grid", {
+          // options...
+          itemSelector: "#panel",
+        });
+      });
     });
   },
-  props: {
-    category: Object,
-  },
-  components: {
-    panel,
-  },
+  mounted() {},
   methods: {},
 };
 </script>

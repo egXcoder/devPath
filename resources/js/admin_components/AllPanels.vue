@@ -6,7 +6,7 @@
       <img width="100px" :src="category.image_url" />
       <h1>{{ category.name }} Path</h1>
     </div>
-    <draggable @change="onMove" v-model="$store.state.categoryPanels[category.name]" class="row">
+    <draggable @change="onMove" v-model="$store.state.categoryPanels[category.name]" class="grid">
       <template v-for="panel in $store.getters.panels(category.name)">
         <panel :key="panel.id" :headersAndContents.sync="panel.headersAndContents" :id="panel.id">
           <div slot="panelTitle" class="panel-title">
@@ -34,6 +34,7 @@
 <script>
 import draggable from "vuedraggable";
 import panel from "./Panel";
+import Masonry from "masonry-layout";
 
 export default {
   data() {
@@ -60,6 +61,12 @@ export default {
         this.$store.dispatch("fetchPanels", this.category.name).then(() => {
           this.hideProgress();
           this.hideLoader();
+          this.$nextTick(() => {
+            new Masonry(".grid", {
+              // options...
+              itemSelector: "#panel",
+            });
+          });
         });
       }
     },
