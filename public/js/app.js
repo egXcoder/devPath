@@ -1889,11 +1889,11 @@ __webpack_require__.r(__webpack_exports__);
     handleResponse: function handleResponse(response, msgOnSuccess, msgOnFailure) {
       if (response.data === "success") {
         this.hideProgress();
-        toast(msgOnSuccess, "success");
+        toast.success(msgOnSuccess);
         this.$store.dispatch("fetchPanels", this.category.name);
       } else {
         this.$Progress.fail();
-        toast(msgOnFailure, "error");
+        toast.error(msgOnFailure);
       }
     },
     showProgress: function showProgress() {
@@ -1976,7 +1976,7 @@ __webpack_require__.r(__webpack_exports__);
         code_lang: value
       }).then(function (response) {
         _this.code_lang = value;
-        toast("Code language is updated Successfully", "success"); //highlight with prism when code_lang changed
+        window.toastr.success("Code language is updated Successfully"); //highlight with prism when code_lang changed
 
         _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_0___default.a.highlightAll();
       });
@@ -2000,11 +2000,11 @@ __webpack_require__.r(__webpack_exports__);
         if (response.data === "success") {
           _this2.$Progress.finish();
 
-          toast("Content is Updated Successfully", "success");
+          window.toastr.success("Content is Updated Successfully");
         } else {
           _this2.$Progress.fail();
 
-          toast("Failed To Update Content", "error");
+          window.toastr.error("Failed To Update Content");
         }
       });
       this.isEditable = false;
@@ -2017,13 +2017,13 @@ __webpack_require__.r(__webpack_exports__);
         if (response.data === "success") {
           _this3.$Progress.finish();
 
-          toast("Content is Deleted Successfully", "success");
+          window.toastr.success("Content is Deleted Successfully");
 
           _this3.$emit("deleteContentEvent", _this3.index);
         } else {
           _this3.$Progress.fail();
 
-          toast("Failed To Delete Content", "error");
+          window.toastr.error("Failed To Delete Content");
         }
       });
     }
@@ -2072,11 +2072,11 @@ __webpack_require__.r(__webpack_exports__);
         if (response.data === "success") {
           _this.$Progress.finish();
 
-          toast("Header is Updated Successfully", "success");
+          window.toastr.success("Header is Updated Successfully");
         } else {
           _this.$Progress.fail();
 
-          toast("Failed To Update Header", "error");
+          window.toastr.error("Failed To Update Header");
         }
       });
     },
@@ -2088,13 +2088,13 @@ __webpack_require__.r(__webpack_exports__);
         if (response.data === "success") {
           _this2.$Progress.finish();
 
-          toast("Header is Deleted Successfully", "success");
+          window.toastr.success("Header is Deleted Successfully");
 
           _this2.$emit("deleteHeaderEvent", _this2.index);
         } else {
           _this2.$Progress.fail();
 
-          toast("Failed To Delete Header", "error");
+          window.toastr.error("Failed To Delete Header");
         }
       });
     }
@@ -2175,7 +2175,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 highestOrder = this.panel.headersAndContents.slice(-1).pop().order;
-                toast("Header created successfully");
+                window.toastr.success("Header created successfully");
                 this.panel.headersAndContents.push({
                   id: header_id,
                   name: "default Header Name",
@@ -2213,7 +2213,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 highestOrder = this.panel.headersAndContents.slice(-1).pop().order;
-                toast("Content created successfully");
+                window.toastr.success("Content created successfully");
                 this.panel.headersAndContents.push({
                   id: content_id,
                   name: "default content",
@@ -39936,12 +39936,6 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // importing toastr 
 
 window.toastr = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
-
-window.toast = function toast(msg, type) {
-  if (type === "success") toastr.success(msg);
-  if (type === "error") toastr.error(msg);
-};
-
 
 Vue.use(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a);
 

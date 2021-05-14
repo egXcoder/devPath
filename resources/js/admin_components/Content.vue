@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Prism from '../../../public/css/plugins/prism/prism';
+import Prism from "../../../public/css/plugins/prism/prism";
 import panel_header from "./Header.vue";
 export default {
   data() {
@@ -36,7 +36,7 @@ export default {
         .post(`/api/contents/edit/${this.item.id}`, { code_lang: value })
         .then((response) => {
           this.code_lang = value;
-          toast("Code language is updated Successfully","success");
+          window.toastr.success("Code language is updated Successfully");
           //highlight with prism when code_lang changed
           Prism.highlightAll();
         });
@@ -57,10 +57,10 @@ export default {
         .then((response) => {
           if (response.data === "success") {
             this.$Progress.finish();
-            toast("Content is Updated Successfully", "success");
+            window.toastr.success("Content is Updated Successfully");
           } else {
             this.$Progress.fail();
-            toast("Failed To Update Content", "error");
+            window.toastr.error("Failed To Update Content");
           }
         });
       this.isEditable = false;
@@ -70,11 +70,11 @@ export default {
       window.axios.post(`/api/contents/delete/${this.item.id}`, {}).then((response) => {
         if (response.data === "success") {
           this.$Progress.finish();
-          toast("Content is Deleted Successfully", "success");
+          window.toastr.success("Content is Deleted Successfully");
           this.$emit("deleteContentEvent", this.index);
         } else {
           this.$Progress.fail();
-          toast("Failed To Delete Content", "error");
+          window.toastr.error("Failed To Delete Content");
         }
       });
     },

@@ -26,10 +26,7 @@ import store from './store';
 
 // importing toastr 
 window.toastr = require('toastr');
-window.toast = function toast(msg, type) {
-    if (type === "success") toastr.success(msg);
-    if (type === "error") toastr.error(msg);
-}
+
 
 import Loading from 'vue-loading-overlay';
 Vue.use(Loading);

@@ -27,10 +27,10 @@ export default {
         .then((response) => {
           if (response.data === "success") {
             this.$Progress.finish();
-            toast("Header is Updated Successfully", "success");
+            window.toastr.success("Header is Updated Successfully");
           } else {
             this.$Progress.fail();
-            toast("Failed To Update Header", "error");
+            window.toastr.error("Failed To Update Header");
           }
         });
     },
@@ -39,11 +39,11 @@ export default {
       window.axios.post(`/api/headers/delete/${this.item.id}`).then((response) => {
         if (response.data === "success") {
           this.$Progress.finish();
-          toast("Header is Deleted Successfully", "success");
+          window.toastr.success("Header is Deleted Successfully");
           this.$emit("deleteHeaderEvent", this.index);
         } else {
           this.$Progress.fail();
-          toast("Failed To Delete Header", "error");
+          window.toastr.error("Failed To Delete Header");
         }
       });
     },

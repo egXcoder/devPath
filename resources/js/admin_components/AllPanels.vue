@@ -105,11 +105,11 @@ export default {
     handleResponse(response, msgOnSuccess, msgOnFailure) {
       if (response.data === "success") {
         this.hideProgress();
-        toast(msgOnSuccess, "success");
+        toast.success(msgOnSuccess);
         this.$store.dispatch("fetchPanels", this.category.name);
       } else {
         this.$Progress.fail();
-        toast(msgOnFailure, "error");
+        toast.error(msgOnFailure);
       }
     },
     showProgress() {

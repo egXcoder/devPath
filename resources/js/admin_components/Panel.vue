@@ -45,7 +45,7 @@ export default {
       });
 
       let highestOrder = this.panel.headersAndContents.slice(-1).pop().order;
-      toast("Header created successfully");
+      window.toastr.success("Header created successfully");
       this.panel.headersAndContents.push({
         id: header_id,
         name: "default Header Name",
@@ -63,7 +63,7 @@ export default {
         });
 
       let highestOrder = this.panel.headersAndContents.slice(-1).pop().order;
-      toast("Content created successfully");
+      window.toastr.success("Content created successfully");
       this.panel.headersAndContents.push({
         id: content_id,
         name: "default content",
