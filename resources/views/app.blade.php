@@ -13,12 +13,17 @@
 </head>
 
 <body>
-   
 
-    @yield('main')
+    <div id="app">
+        <sidebar></sidebar>
+        <div class="loader" ref="loadingContainer"></div>
+        <main class="main">
+            <router-view></router-view>
+        </main>
+    </div>
 
     <script src={{asset( 'js/app.js')}}></script>
-   
+
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138512204-2"></script>

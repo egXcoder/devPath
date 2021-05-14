@@ -15,12 +15,9 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', 'Auth\LoginController@login');
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-    Route::middleware('auth')->group(function(){
-        Route::get('/', 'AdminController@index')->name('admin.index');
-        Route::get('/{category}', 'AdminController@showCategory')->name('admin.show');
+    Route::middleware('auth')->group(function () {
+        Route::get('/{any}', 'AdminController@index')->where('any', '.*');
     });
 });
 
-
-Route::get('/', 'HomeController@index')->name('guest.index');
-Route::get('/{category}', 'HomeController@showCategory')->name('guest.show');
+Route::get('/{any}', 'HomeController@index')->where('any', '.*');

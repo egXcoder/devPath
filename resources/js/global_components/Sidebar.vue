@@ -8,12 +8,6 @@
             <span></span>
             <span></span>
           </div>
-          <!-- @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')
-        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-          @csrf
-          <button type="submit" class="btn btn-link d-block mx-auto">Logout</button>
-        </form>
-        @endif -->
         </div>
       </div>
     </nav>
@@ -33,8 +27,10 @@
       <div class="menu-container">
         <ul class="list-unstyled">
           <li v-for="(category, index) in $store.state.categories" :key="index">
-            <img class="img-fluid" :src="category.image_url" />
-            <a :href="category.name">{{ category.name }}</a>
+            <router-link :to="category.name" @click.native="toggleDrawer()">
+              <img class="img-fluid" :src="category.image_url" />
+              {{ category.name }}
+            </router-link>
           </li>
         </ul>
       </div>
@@ -48,9 +44,6 @@ export default {
     return {
       isDrawerOn: false,
     };
-  },
-  created() {
-    this.fetchCategories();
   },
   methods: {
     toggleDrawer() {

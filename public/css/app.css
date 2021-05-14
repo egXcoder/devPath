@@ -17502,6 +17502,7 @@ nav .menu-toggle span {
 }
 
 .collapsed-menu .menu-container .list-unstyled li a {
+  display: block;
   color: white;
   text-decoration: none;
   transition: ease-in-out 0.3s;

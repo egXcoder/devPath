@@ -11,6 +11,7 @@ window.Vue = require('vue');
 
 // vuex dependecy
 import store from './store';
+import router from './router';
 
 /**
  * The following block of code may be used to automatically register your
@@ -50,11 +51,13 @@ Vue.use(VueProgressBar, options);
 
 // registering global components
 Vue.component('sidebar', require('./global_components/Sidebar.vue').default);
-Vue.component('all_panels_in_admin', require('./admin_components/AllPanels.vue').default);
-Vue.component('all_panels_in_home', require('./home_components/AllPanels.vue').default);
 
 
 const app = new Vue({
     el: '#app',
     store,
+    router,
+    created() {
+        this.$store.dispatch('fetchCategories');
+    }
 });

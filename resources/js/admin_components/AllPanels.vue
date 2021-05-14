@@ -37,22 +37,46 @@ import panel from "./Panel";
 import Masonry from "masonry-layout";
 
 export default {
+  components: {
+    panel,
+    draggable,
+  },
   data() {
     return {
       showDeleteBox: false,
       loader: {},
     };
   },
-  created() {
-    this.fetchPanels();
+  computed: {
+    category() {
+      let category_name = this.$route.params.category;
+      let category = this.$store.state.categories.find((cat) => cat.name == category_name);
+      return category ? category : {};
+    },
   },
-  props: {
-    category: Object,
+  watch: {
+    $route: {
+      immediate: true,
+      handler() {
+        this.showLoader();
+      },
+    },
+    category: {
+      handler() {
+        this.$store.dispatch("fetchPanels", this.category.name).then(() => {
+          this.loader.hide();
+          this.loader = null;
+          this.$nextTick(() => {
+            new Masonry(".grid", {
+              // options...
+              itemSelector: "#panel",
+            });
+          });
+        });
+      },
+    },
   },
-  components: {
-    panel,
-    draggable,
-  },
+  created() {},
   methods: {
     fetchPanels() {
       this.showProgress();
