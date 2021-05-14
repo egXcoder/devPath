@@ -34,33 +34,33 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable';
-import panel from './Panel';
+import draggable from "vuedraggable";
+import panel from "./Panel";
 export default {
   data() {
     return {
       showDeleteBox: false,
       panels: [],
-      loader:{},
+      loader: {},
     };
   },
   created() {
     this.loader = Vue.$loading.show({
-        // Pass props by their camelCased names
-        container: this.$refs.loadingContainer,
-        canCancel: true, // default false
-        color: '#2f6575',
-        loader: 'bars',
-        width: 128,
-        height: 128,
-        backgroundColor: '#ffffff',
-        opacity: 0.5,
-        zIndex: 999,
+      // Pass props by their camelCased names
+      container: this.$refs.loadingContainer,
+      canCancel: true, // default false
+      color: "#2f6575",
+      loader: "bars",
+      width: 128,
+      height: 128,
+      backgroundColor: "#ffffff",
+      opacity: 0.5,
+      zIndex: 999,
     });
     this.fetchPanels();
   },
-  props:{
-    category:Object
+  props: {
+    category: Object,
   },
   components: {
     panel,
@@ -69,64 +69,61 @@ export default {
   methods: {
     fetchPanels() {
       this.$Progress.start();
-      this.$http
-        .get(
-          base_path() +
-            "/api/" +
-            this.category.name +
-            "/panels"
-        )
-        .then(response => {
-          this.panels = response.body.data;
-          this.$Progress.finish();
-          this.loader.hide();
-        });
+      this.$http.get(base_path() + "/api/" + this.category.name + "/panels").then((response) => {
+        this.panels = response.body.data;
+        this.$Progress.finish();
+        this.loader.hide();
+      });
     },
-   addPanel() {
+    addPanel() {
       this.$Progress.start();
 
-      this.$http.post(
-        base_path() + "/api/" + this.category.name + "/panels/create"
-      ).then(response=>this.handleResponse(response,"Panel Created Successfully","Failed to Create Panel"));
-      
+      this.$http
+        .post(base_path() + "/api/" + this.category.name + "/panels/create")
+        .then((response) =>
+          this.handleResponse(response, "Panel Created Successfully", "Failed to Create Panel")
+        );
     },
     deletePanel(panel) {
       this.$Progress.start();
-      this.$http.post(
-        base_path() + "/api/panels/delete/" + panel.id
-      ).then(response=>this.handleResponse(response,"Panel Deleted Successfully","Failed to Delete Panel"));
+      this.$http
+        .post(base_path() + "/api/panels/delete/" + panel.id)
+        .then((response) =>
+          this.handleResponse(response, "Panel Deleted Successfully", "Failed to Delete Panel")
+        );
     },
     editPanel(panel) {
       this.$Progress.start();
-      this.$http.post(
-        base_path() + "/api/panels/edit/" + panel.id,
-        {
+      this.$http
+        .post(base_path() + "/api/panels/edit/" + panel.id, {
           name: event.target.innerText,
-        }
-      ).then(response=>this.handleResponse(response,"Panel Updated Successfully","Failed to Update Panel"));
-      
+        })
+        .then((response) =>
+          this.handleResponse(response, "Panel Updated Successfully", "Failed to Update Panel")
+        );
     },
-    onMove({moved}){
+    onMove({ moved }) {
       this.$Progress.start();
-      this.$http.post(
-        base_path()  + "/api/"+this.category.name+"/panels/editOrder",
-        {
+      this.$http
+        .post(base_path() + "/api/" + this.category.name + "/panels/editOrder", {
           oldIndex: moved.oldIndex,
           newIndex: moved.newIndex,
-        }
-      ).then(response=>this.handleResponse(response,"Panel Moved Successfully","Failed to Move Panel"));
+        })
+        .then((response) =>
+          this.handleResponse(response, "Panel Moved Successfully", "Failed to Move Panel")
+        );
     },
-    handleResponse(response,msgOnSuccess,msgOnFailure){
-      if(response.body==="success"){
-            this.$Progress.finish();
-            toast(msgOnSuccess,"success");
-            this.fetchPanels();
-          }else{
-            this.$Progress.fail();
-            toast(msgOnFailure,"error");
-          }
-    }
-  }
+    handleResponse(response, msgOnSuccess, msgOnFailure) {
+      if (response.body === "success") {
+        this.$Progress.finish();
+        toast(msgOnSuccess, "success");
+        this.fetchPanels();
+      } else {
+        this.$Progress.fail();
+        toast(msgOnFailure, "error");
+      }
+    },
+  },
 };
 </script>
 

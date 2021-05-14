@@ -5,7 +5,7 @@
 
       <div class="panel-inner my-4">
         <component
-          v-for="(item,index) in panel.headersAndContents"
+          v-for="(item, index) in panel.headersAndContents"
           :item="item"
           :key="index"
           :index="index"
@@ -22,11 +22,11 @@ import panel_content from "./Content.vue";
 
 export default {
   props: {
-    panel: Object
+    panel: Object,
   },
   components: {
     panel_header,
-    panel_content
-  }
+    panel_content,
+  },
 };
 </script>
