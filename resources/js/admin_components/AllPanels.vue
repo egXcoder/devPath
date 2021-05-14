@@ -87,7 +87,7 @@ export default {
     deletePanel(panel) {
       this.$Progress.start();
       window.axios
-        .post(`/api/${this.category.name}/panels/delete/${panel.id}`)
+        .post(`/api/panels/delete/${panel.id}`)
         .then((response) =>
           this.handleResponse(response, "Panel Deleted Successfully", "Failed to Delete Panel")
         );
@@ -95,7 +95,7 @@ export default {
     editPanel(panel) {
       this.$Progress.start();
       window.axios
-        .post(`/api/${this.category.name}/panels/edit/${panel.id}`, {
+        .post(`/api/panels/edit/${panel.id}`, {
           name: window.event.target.innerText,
         })
         .then((response) =>
@@ -114,7 +114,7 @@ export default {
         );
     },
     handleResponse(response, msgOnSuccess, msgOnFailure) {
-      if (response.body === "success") {
+      if (response.data === "success") {
         this.$Progress.finish();
         toast(msgOnSuccess, "success");
         this.fetchPanels();

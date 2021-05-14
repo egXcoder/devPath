@@ -1871,7 +1871,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.$Progress.start();
-      window.axios.post("/api/".concat(this.category.name, "/panels/delete/").concat(panel.id)).then(function (response) {
+      window.axios.post("/api/panels/delete/".concat(panel.id)).then(function (response) {
         return _this3.handleResponse(response, "Panel Deleted Successfully", "Failed to Delete Panel");
       });
     },
@@ -1879,7 +1879,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.$Progress.start();
-      window.axios.post("/api/".concat(this.category.name, "/panels/edit/").concat(panel.id), {
+      window.axios.post("/api/panels/edit/".concat(panel.id), {
         name: window.event.target.innerText
       }).then(function (response) {
         return _this4.handleResponse(response, "Panel Updated Successfully", "Failed to Update Panel");
@@ -1898,7 +1898,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     handleResponse: function handleResponse(response, msgOnSuccess, msgOnFailure) {
-      if (response.body === "success") {
+      if (response.data === "success") {
         this.$Progress.finish();
         toast(msgOnSuccess, "success");
         this.fetchPanels();
