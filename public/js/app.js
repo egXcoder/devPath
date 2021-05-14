@@ -1921,15 +1921,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Header_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Header.vue */ "./resources/js/admin_components/Header.vue");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var _Header_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header.vue */ "./resources/js/admin_components/Header.vue");
 //
 //
 //
@@ -1961,39 +1953,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     index: Number
   },
   watch: {
-    code_lang: function () {
-      var _code_lang = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(value) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return window.axios.post("/api/contents/edit/".concat(this.item.id), {
-                  code_lang: value
-                });
+    code_lang: function code_lang(value) {
+      var _this = this;
 
-              case 2:
-                this.code_lang = value;
-                toast("Code language is updated Successfully"); //highlight with prism when code_lang changed
+      window.axios.post("/api/contents/edit/".concat(this.item.id), {
+        code_lang: value
+      }).then(function (response) {
+        _this.code_lang = value;
+        toast("Code language is updated Successfully", "success"); //highlight with prism when code_lang changed
 
-                Prism.highlightAll();
-
-              case 5:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function code_lang(_x) {
-        return _code_lang.apply(this, arguments);
-      }
-
-      return code_lang;
-    }()
+        Prism.highlightAll();
+      });
+    }
   },
   mounted: function mounted() {
     //highlight with prism when content visible to screen
@@ -2001,7 +1972,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     submitContentEdit: function submitContentEdit() {
-      var _this = this;
+      var _this2 = this;
 
       this.$Progress.start();
       var newText = event.target.innerText;
@@ -2010,12 +1981,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       window.axios.post("/api/contents/edit/".concat(this.item.id), {
         content: newText
       }).then(function (response) {
-        if (response.body === "success") {
-          _this.$Progress.finish();
+        if (response.data === "success") {
+          _this2.$Progress.finish();
 
           toast("Content is Updated Successfully", "success");
         } else {
-          _this.$Progress.fail();
+          _this2.$Progress.fail();
 
           toast("Failed To Update Content", "error");
         }
@@ -2023,18 +1994,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.isEditable = false;
     },
     deleteContent: function deleteContent() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$Progress.start();
       window.axios.post("/api/contents/delete/".concat(this.item.id), {}).then(function (response) {
-        if (response.body === "success") {
-          _this2.$Progress.finish();
+        if (response.data === "success") {
+          _this3.$Progress.finish();
 
           toast("Content is Deleted Successfully", "success");
 
-          _this2.$emit("deleteContentEvent", _this2.index);
+          _this3.$emit("deleteContentEvent", _this3.index);
         } else {
-          _this2.$Progress.fail();
+          _this3.$Progress.fail();
 
           toast("Failed To Delete Content", "error");
         }
@@ -2080,11 +2051,9 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$Progress.start();
       window.axios.post("/api/headers/edit/".concat(this.item.id), {
-        name: event.target.innerText
+        name: window.event.target.innerText
       }).then(function (response) {
-        console.log(response);
-
-        if (response.body === "success") {
+        if (response.data === "success") {
           _this.$Progress.finish();
 
           toast("Header is Updated Successfully", "success");
@@ -2100,7 +2069,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$Progress.start();
       window.axios.post("/api/headers/delete/".concat(this.item.id)).then(function (response) {
-        if (response.body === "success") {
+        if (response.data === "success") {
           _this2.$Progress.finish();
 
           toast("Header is Deleted Successfully", "success");

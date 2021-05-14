@@ -23,10 +23,9 @@ export default {
     submitHeaderEdit() {
       this.$Progress.start();
       window.axios
-        .post(`/api/headers/edit/${this.item.id}`, { name: event.target.innerText })
+        .post(`/api/headers/edit/${this.item.id}`, { name: window.event.target.innerText })
         .then((response) => {
-          console.log(response);
-          if (response.body === "success") {
+          if (response.data === "success") {
             this.$Progress.finish();
             toast("Header is Updated Successfully", "success");
           } else {
@@ -38,7 +37,7 @@ export default {
     deleteHeader() {
       this.$Progress.start();
       window.axios.post(`/api/headers/delete/${this.item.id}`).then((response) => {
-        if (response.body === "success") {
+        if (response.data === "success") {
           this.$Progress.finish();
           toast("Header is Deleted Successfully", "success");
           this.$emit("deleteHeaderEvent", this.index);

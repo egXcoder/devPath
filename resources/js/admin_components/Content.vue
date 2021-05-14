@@ -30,14 +30,15 @@ export default {
     index: Number,
   },
   watch: {
-    async code_lang(value) {
-      await window.axios.post(`/api/contents/edit/${this.item.id}`, {
-        code_lang: value,
-      });
-      this.code_lang = value;
-      toast("Code language is updated Successfully");
-      //highlight with prism when code_lang changed
-      Prism.highlightAll();
+    code_lang(value) {
+      window.axios
+        .post(`/api/contents/edit/${this.item.id}`, { code_lang: value })
+        .then((response) => {
+          this.code_lang = value;
+          toast("Code language is updated Successfully","success");
+          //highlight with prism when code_lang changed
+          Prism.highlightAll();
+        });
     },
   },
   mounted() {
@@ -53,7 +54,7 @@ export default {
       window.axios
         .post(`/api/contents/edit/${this.item.id}`, { content: newText })
         .then((response) => {
-          if (response.body === "success") {
+          if (response.data === "success") {
             this.$Progress.finish();
             toast("Content is Updated Successfully", "success");
           } else {
@@ -65,18 +66,16 @@ export default {
     },
     deleteContent() {
       this.$Progress.start();
-      window.axios
-        .post(`/api/contents/delete/${this.item.id}`, {})
-        .then((response) => {
-          if (response.body === "success") {
-            this.$Progress.finish();
-            toast("Content is Deleted Successfully", "success");
-            this.$emit("deleteContentEvent", this.index);
-          } else {
-            this.$Progress.fail();
-            toast("Failed To Delete Content", "error");
-          }
-        });
+      window.axios.post(`/api/contents/delete/${this.item.id}`, {}).then((response) => {
+        if (response.data === "success") {
+          this.$Progress.finish();
+          toast("Content is Deleted Successfully", "success");
+          this.$emit("deleteContentEvent", this.index);
+        } else {
+          this.$Progress.fail();
+          toast("Failed To Delete Content", "error");
+        }
+      });
     },
   },
 };
