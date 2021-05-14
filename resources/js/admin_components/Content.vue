@@ -17,7 +17,7 @@
 
 <script>
 import Prism from "../../../public/css/plugins/prism/prism";
-import panel_header from "./Header.vue";
+
 export default {
   data() {
     return {
@@ -34,7 +34,7 @@ export default {
     code_lang(value) {
       window.axios
         .post(`/api/contents/edit/${this.item.id}`, { code_lang: value })
-        .then((response) => {
+        .then(() => {
           this.code_lang = value;
           window.toastr.success("Code language is updated Successfully");
           //highlight with prism when code_lang changed
