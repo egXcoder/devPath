@@ -17406,7 +17406,7 @@ nav .menu-toggle span {
 
 .collapsed-menu .header .closeButton a {
   cursor: pointer;
-  color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 .collapsed-menu .header .closeButton a i {
@@ -17448,10 +17448,11 @@ nav .menu-toggle span {
   position: relative;
   transition: all 0.2s;
   padding: 0.5rem 1rem;
+  text-transform: capitalize;
 }
 
 .collapsed-menu .menu-container .list-unstyled li:hover {
-  background-color: var(--third-color);
+  background-color: var(--secondary-color);
   color: var(--primary-color);
 }
 
