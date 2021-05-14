@@ -31,10 +31,6 @@ window.toast = function toast(msg, type) {
     if (type === "error") toastr.error(msg);
 }
 
-//import prism
-window.Prism = require('../../public/css/plugins/prism/prism');
-
-
 import Loading from 'vue-loading-overlay';
 Vue.use(Loading);
 

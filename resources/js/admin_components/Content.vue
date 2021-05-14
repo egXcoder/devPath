@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import Prism from '../../../public/css/plugins/prism/prism';
 import panel_header from "./Header.vue";
 export default {
   data() {

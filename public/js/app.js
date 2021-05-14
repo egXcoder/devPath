@@ -1934,7 +1934,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Header_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header.vue */ "./resources/js/admin_components/Header.vue");
+/* harmony import */ var _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../public/css/plugins/prism/prism */ "./public/css/plugins/prism/prism.js");
+/* harmony import */ var _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Header_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Header.vue */ "./resources/js/admin_components/Header.vue");
 //
 //
 //
@@ -1952,6 +1954,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1975,13 +1978,13 @@ __webpack_require__.r(__webpack_exports__);
         _this.code_lang = value;
         toast("Code language is updated Successfully", "success"); //highlight with prism when code_lang changed
 
-        Prism.highlightAll();
+        _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_0___default.a.highlightAll();
       });
     }
   },
   mounted: function mounted() {
     //highlight with prism when content visible to screen
-    Prism.highlightAll();
+    _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_0___default.a.highlightAll();
   },
   methods: {
     submitContentEdit: function submitContentEdit() {
@@ -1990,7 +1993,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start();
       var newText = event.target.innerText;
       this.content = newText;
-      Prism.highlightAll();
+      _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_0___default.a.highlightAll();
       window.axios.post("/api/contents/edit/".concat(this.item.id), {
         content: newText
       }).then(function (response) {
@@ -2334,12 +2337,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Header_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header.vue */ "./resources/js/home_components/Header.vue");
+/* harmony import */ var _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../public/css/plugins/prism/prism */ "./public/css/plugins/prism/prism.js");
+/* harmony import */ var _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2349,7 +2355,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    Prism.highlightAll();
+    _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_1___default.a.highlightAll();
   },
   props: {
     item: Object,
@@ -39934,10 +39940,8 @@ window.toastr = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.
 window.toast = function toast(msg, type) {
   if (type === "success") toastr.success(msg);
   if (type === "error") toastr.error(msg);
-}; //import prism
+};
 
-
-window.Prism = __webpack_require__(/*! ../../public/css/plugins/prism/prism */ "./public/css/plugins/prism/prism.js");
 
 Vue.use(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a);
 
