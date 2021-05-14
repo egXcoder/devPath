@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import panel_header from "./Header.vue";
 import Prism from "../../../public/css/plugins/prism/prism";
 
 export default {

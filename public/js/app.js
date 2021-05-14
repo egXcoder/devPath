@@ -2224,22 +2224,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       showDeleteBox: false,
-      panels: [],
       loader: {}
     };
   },
   created: function created() {
+    var _this = this;
+
     this.loader = this.$loading.show({
       // Pass props by their camelCased names
       container: this.$refs.loadingContainer,
@@ -2253,7 +2248,9 @@ __webpack_require__.r(__webpack_exports__);
       opacity: 0.5,
       zIndex: 999
     });
-    this.fetchPanels();
+    this.$store.dispatch("fetchPanels", this.category.name).then(function () {
+      _this.loader.hide();
+    });
   },
   props: {
     category: Object
@@ -2261,17 +2258,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     panel: _Panel_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  methods: {
-    fetchPanels: function fetchPanels() {
-      var _this = this;
-
-      window.axios.get("/api/".concat(this.category.name, "/panels")).then(function (response) {
-        _this.panels = response.data.data;
-
-        _this.loader.hide();
-      });
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -2285,16 +2272,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Header_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header.vue */ "./resources/js/home_components/Header.vue");
-/* harmony import */ var _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../public/css/plugins/prism/prism */ "./public/css/plugins/prism/prism.js");
-/* harmony import */ var _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../public/css/plugins/prism/prism */ "./public/css/plugins/prism/prism.js");
+/* harmony import */ var _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2304,7 +2289,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_1___default.a.highlightAll();
+    _public_css_plugins_prism_prism__WEBPACK_IMPORTED_MODULE_0___default.a.highlightAll();
   },
   props: {
     item: Object,
@@ -24562,59 +24547,29 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "text-center" }, [
+      _c("img", { attrs: { width: "100px", src: _vm.category.image_url } }),
+      _vm._v(" "),
+      _c("h1", [_vm._v(_vm._s(_vm.category.name) + " Path")])
+    ]),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row" },
       [
-        _c(
-          "div",
-          { staticClass: "col-lg-4 col-md-6 head" },
-          [
-            _c("img", {
-              attrs: { width: "100px", src: _vm.category.image_url }
-            }),
-            _vm._v(" "),
-            _c("h1", [_vm._v(_vm._s(_vm.category.name) + " Path")]),
-            _vm._v(" "),
-            _vm.panels[0]
-              ? _c(
-                  "panel",
-                  {
-                    staticClass: "col-lg-12 col-md-12 mt-5",
-                    attrs: { panel: _vm.panels[0] }
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "panel-title",
-                        attrs: { slot: "panel_title" },
-                        slot: "panel_title"
-                      },
-                      [_c("h1", [_vm._v(_vm._s(_vm.panels[0].name))])]
-                    )
-                  ]
-                )
-              : _vm._e()
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _vm._l(_vm.panels, function(panel, index) {
+        _vm._l(_vm.$store.getters.panels(_vm.category.name), function(panel) {
           return [
-            index >= 1
-              ? _c("panel", { key: panel.id, attrs: { panel: panel } }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "panel-title",
-                      attrs: { slot: "panel_title" },
-                      slot: "panel_title"
-                    },
-                    [_c("h1", [_vm._v(_vm._s(panel.name))])]
-                  )
-                ])
-              : _vm._e()
+            _c("panel", { key: panel.id, attrs: { panel: panel } }, [
+              _c(
+                "div",
+                {
+                  staticClass: "panel-title",
+                  attrs: { slot: "panel_title" },
+                  slot: "panel_title"
+                },
+                [_c("h1", [_vm._v(_vm._s(panel.name))])]
+              )
+            ])
           ]
         })
       ],

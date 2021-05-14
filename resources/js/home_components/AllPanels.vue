@@ -1,18 +1,12 @@
 <template>
   <div class="container-fluid">
+    <div class="text-center">
+      <img width="100px" :src="category.image_url" />
+      <h1>{{ category.name }} Path</h1>
+    </div>
     <div class="row">
-      <div class="col-lg-4 col-md-6 head">
-        <img width="100px" :src="category.image_url" />
-        <h1>{{ category.name }} Path</h1>
-        <panel class="col-lg-12 col-md-12 mt-5" v-if="panels[0]" :panel="panels[0]">
-          <div slot="panel_title" class="panel-title">
-            <h1>{{ panels[0].name }}</h1>
-          </div>
-        </panel>
-      </div>
-
-      <template v-for="(panel, index) in panels">
-        <panel v-if="index >= 1" :key="panel.id" :panel="panel">
+      <template v-for="panel in $store.getters.panels(category.name)">
+        <panel :key="panel.id" :panel="panel">
           <div slot="panel_title" class="panel-title">
             <h1>{{ panel.name }}</h1>
           </div>
@@ -28,7 +22,6 @@ export default {
   data() {
     return {
       showDeleteBox: false,
-      panels: [],
       loader: {},
     };
   },
@@ -45,7 +38,10 @@ export default {
       opacity: 0.5,
       zIndex: 999,
     });
-    this.fetchPanels();
+
+    this.$store.dispatch("fetchPanels", this.category.name).then(() => {
+      this.loader.hide();
+    });
   },
   props: {
     category: Object,
@@ -53,14 +49,7 @@ export default {
   components: {
     panel,
   },
-  methods: {
-    fetchPanels() {
-      window.axios.get(`/api/${this.category.name}/panels`).then((response) => {
-        this.panels = response.data.data;
-        this.loader.hide();
-      });
-    },
-  },
+  methods: {},
 };
 </script>
 
