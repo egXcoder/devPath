@@ -8,11 +8,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return $this->showCategory(Category::first());
+        return view('index', ['categories' => Category::all()]);
     }
 
     public function showCategory(Category $category)
     {
-        return view('index', ['categories' => Category::all(), 'selectedCategory' => $category]);
+        return view('category', ['categories' => Category::all(), 'selectedCategory' => $category]);
     }
 }

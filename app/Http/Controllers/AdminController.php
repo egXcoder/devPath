@@ -13,11 +13,6 @@ class AdminController extends Controller
 
     public function showCategory(Category $category)
     {
-        return view('index', ['categories' => Category::all(), 'selectedCategory' => $category, 'api_token' => $this->getAdminApiToken()]);
-    }
-
-    public function getAdminApiToken()
-    {
-        return \App\User::find(1)->api_token;
+        return view('category', ['categories' => Category::all(), 'selectedCategory' => $category]);
     }
 }
