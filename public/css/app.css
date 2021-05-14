@@ -17581,15 +17581,14 @@ main .head {
   color: white;
   line-height: 1.8rem;
   overflow: hidden;
-  padding: 2px 0rem;
   border-bottom: 2px solid var(--secondary-color);
   color: black;
 }
 
 #panel .panel .panel-inner .header span {
-  background: var(--third-color);
+  background: white;
   content: "";
-  width: 0.5rem;
+  width: 0.3rem;
 }
 
 #panel .panel .panel-inner .header p {

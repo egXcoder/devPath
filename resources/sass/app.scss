@@ -298,14 +298,13 @@ main {
         color: white;
         line-height: 1.8rem;
         overflow: hidden;
-        padding: 2px 0rem;
         border-bottom: 2px solid var(--secondary-color);
         color: black;
 
         span {
-          background: var(--third-color);
+          background: white;
           content: "";
-          width: 0.5rem;
+          width: 0.3rem;
         }
         p {
           margin-left: 1rem;
