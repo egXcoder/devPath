@@ -31,10 +31,6 @@ window.toast = function toast(msg,type) {
 //import prism
 window.Prism = require('../../public/css/plugins/prism/prism');
 
-//Using Vue Plugins
-import vue_resource from '../../node_modules/vue-resource/dist/vue-resource';
-Vue.use(vue_resource);
-
 import Loading from 'vue-loading-overlay';
 Vue.use(Loading);
 

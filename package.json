@@ -34,7 +34,6 @@
         "toastr": "^2.1.4",
         "vue-loading-overlay": "^3.2.0",
         "vue-progressbar": "^0.7.5",
-        "vue-resource": "^1.5.1",
         "vue-router": "^3.0.6",
         "vuedraggable": "^2.20.0"
     }
