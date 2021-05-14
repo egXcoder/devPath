@@ -2004,7 +2004,7 @@ __webpack_require__.r(__webpack_exports__);
 
           window.toastr.success("Content is Deleted Successfully");
 
-          _this3.$emit("deleteContentEvent", _this3.index);
+          _this3.$emit("deleteItem", _this3.index);
         } else {
           _this3.$Progress.fail();
 
@@ -2075,7 +2075,7 @@ __webpack_require__.r(__webpack_exports__);
 
           window.toastr.success("Header is Deleted Successfully");
 
-          _this2.$emit("deleteHeaderEvent", _this2.index);
+          _this2.$emit("deleteItem", _this2.index);
         } else {
           _this2.$Progress.fail();
 
@@ -2107,7 +2107,6 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-//
 //
 //
 //
@@ -2188,7 +2187,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         window.toastr.success("Content created successfully");
       });
     },
-    deleteHeaderOrContent: function deleteHeaderOrContent(index) {
+    deleteItem: function deleteItem(index) {
       var newHeadersAndContents = _toConsumableArray(this.headersAndContents);
 
       newHeadersAndContents.splice(index, 1);
@@ -24496,11 +24495,8 @@ var render = function() {
                   tag: "component",
                   attrs: { item: item, index: index },
                   on: {
-                    deleteContentEvent: function($event) {
-                      return _vm.deleteHeaderOrContent($event)
-                    },
-                    deleteHeaderEvent: function($event) {
-                      return _vm.deleteHeaderOrContent($event)
+                    deleteItem: function($event) {
+                      return _vm.deleteItem($event)
                     }
                   }
                 })

@@ -5,8 +5,7 @@
 
       <div class="panel-inner mt-4">
         <component
-          @deleteContentEvent="deleteHeaderOrContent($event)"
-          @deleteHeaderEvent="deleteHeaderOrContent($event)"
+          @deleteItem="deleteItem($event)"
           v-for="(item, index) in headersAndContents"
           :item="item"
           :key="index"
@@ -78,7 +77,7 @@ export default {
         window.toastr.success("Content created successfully");
       });
     },
-    deleteHeaderOrContent(index) {
+    deleteItem(index) {
       let newHeadersAndContents = [...this.headersAndContents];
       newHeadersAndContents.splice(index, 1);
       this.$emit("update:headersAndContents", newHeadersAndContents);

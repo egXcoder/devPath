@@ -71,7 +71,7 @@ export default {
         if (response.data === "success") {
           this.$Progress.finish();
           window.toastr.success("Content is Deleted Successfully");
-          this.$emit("deleteContentEvent", this.index);
+          this.$emit("deleteItem", this.index);
         } else {
           this.$Progress.fail();
           window.toastr.error("Failed To Delete Content");
