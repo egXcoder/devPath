@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Panel;
-use App\Http\Resources\PanelResource;
-class CategoriesController extends Controller {
+
+class CategoriesController extends Controller
+{
+    public function listCategories()
+    {
+        return response()->json(Category::all());
+    }
 }

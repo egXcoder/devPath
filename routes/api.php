@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('categories', 'CategoriesController@listCategories');
+
 Route::get('{category}/panels', 'PanelsController@listPanelsInCategory');
 
 Route::middleware('auth:api')->group(function () {

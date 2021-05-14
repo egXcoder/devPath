@@ -41876,6 +41876,7 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
+    categories: [],
     categoryPanels: {}
   },
   getters: {
@@ -41890,6 +41891,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       var category_name = _ref.category_name,
           panels = _ref.panels;
       vue__WEBPACK_IMPORTED_MODULE_0___default.a.set(state.categoryPanels, category_name, panels);
+    },
+    setCategories: function setCategories(state, payload) {
+      vue__WEBPACK_IMPORTED_MODULE_0___default.a.set(state.categories, payload);
     }
   },
   actions: {
@@ -41899,6 +41903,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           category_name: category_name,
           panels: response.data.data
         });
+      });
+    },
+    fetchCategories: function fetchCategories(context) {
+      return window.axios.get("/api/categories").then(function (response) {
+        context.commit('setCategories', response.data.data);
       });
     }
   }
