@@ -23,7 +23,7 @@ export default {
     submitHeaderEdit() {
       this.$Progress.start();
       window.axios
-        .post(base_path() + "/api/headers/edit/" + this.item.id, { name: event.target.innerText })
+        .post(`/api/headers/edit/${this.item.id}`, { name: event.target.innerText })
         .then((response) => {
           console.log(response);
           if (response.body === "success") {
@@ -37,7 +37,7 @@ export default {
     },
     deleteHeader() {
       this.$Progress.start();
-      window.axios.post(base_path() + "/api/headers/delete/" + this.item.id, {}).then((response) => {
+      window.axios.post(`/api/headers/delete/${this.item.id}`).then((response) => {
         if (response.body === "success") {
           this.$Progress.finish();
           toast("Header is Deleted Successfully", "success");

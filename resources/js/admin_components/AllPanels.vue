@@ -45,7 +45,7 @@ export default {
     };
   },
   created() {
-    this.loader = Vue.$loading.show({
+    this.loader = this.$loading.show({
       // Pass props by their camelCased names
       container: this.$refs.loadingContainer,
       canCancel: true, // default false
@@ -69,7 +69,7 @@ export default {
   methods: {
     fetchPanels() {
       this.$Progress.start();
-      window.axios.get(base_path() + "/api/" + this.category.name + "/panels").then((response) => {
+      window.axios.get(`/api/${this.category.name}/panels`).then((response) => {
         this.panels = response.data.data;
         this.$Progress.finish();
         this.loader.hide();
@@ -79,7 +79,7 @@ export default {
       this.$Progress.start();
 
       window.axios
-        .post(base_path() + "/api/" + this.category.name + "/panels/create")
+        .post(`/api/${this.category.name}/panels/create`)
         .then((response) =>
           this.handleResponse(response, "Panel Created Successfully", "Failed to Create Panel")
         );
@@ -87,7 +87,7 @@ export default {
     deletePanel(panel) {
       this.$Progress.start();
       window.axios
-        .post(base_path() + "/api/panels/delete/" + panel.id)
+        .post(`/api/${this.category.name}/panels/delete/${panel.id}`)
         .then((response) =>
           this.handleResponse(response, "Panel Deleted Successfully", "Failed to Delete Panel")
         );
@@ -95,8 +95,8 @@ export default {
     editPanel(panel) {
       this.$Progress.start();
       window.axios
-        .post(base_path() + "/api/panels/edit/" + panel.id, {
-          name: event.target.innerText,
+        .post(`/api/${this.category.name}/panels/edit/${panel.id}`, {
+          name: window.event.target.innerText,
         })
         .then((response) =>
           this.handleResponse(response, "Panel Updated Successfully", "Failed to Update Panel")
@@ -105,7 +105,7 @@ export default {
     onMove({ moved }) {
       this.$Progress.start();
       window.axios
-        .post(base_path() + "/api/" + this.category.name + "/panels/editOrder", {
+        .post(`/api/${this.category.name}/panels/editOrder`, {
           oldIndex: moved.oldIndex,
           newIndex: moved.newIndex,
         })

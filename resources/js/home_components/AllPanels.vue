@@ -33,7 +33,7 @@ export default {
     };
   },
   created() {
-    this.loader = Vue.$loading.show({
+    this.loader = this.$loading.show({
       // Pass props by their camelCased names
       container: this.$refs.loadingContainer,
       canCancel: true, // default false
@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     fetchPanels() {
-      window.axios.get(base_path() + "/api/" + this.category.name + "/panels").then((response) => {
+      window.axios.get(`/api/${this.category.name}/panels`).then((response) => {
         this.panels = response.data.data;
         this.loader.hide();
       });

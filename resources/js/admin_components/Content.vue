@@ -31,7 +31,7 @@ export default {
   },
   watch: {
     async code_lang(value) {
-      await window.axios.post(base_path() + "/api/contents/edit/" + this.item.id, {
+      await window.axios.post(`/api/contents/edit/${this.item.id}`, {
         code_lang: value,
       });
       this.code_lang = value;
@@ -51,7 +51,7 @@ export default {
       this.content = newText;
       Prism.highlightAll();
       window.axios
-        .post(base_path() + "/api/contents/edit/" + this.item.id, { content: newText })
+        .post(`/api/contents/edit/${this.item.id}`, { content: newText })
         .then((response) => {
           if (response.body === "success") {
             this.$Progress.finish();
@@ -65,16 +65,18 @@ export default {
     },
     deleteContent() {
       this.$Progress.start();
-      window.axios.post(base_path() + "/api/contents/delete/" + this.item.id, {}).then((response) => {
-        if (response.body === "success") {
-          this.$Progress.finish();
-          toast("Content is Deleted Successfully", "success");
-          this.$emit("deleteContentEvent", this.index);
-        } else {
-          this.$Progress.fail();
-          toast("Failed To Delete Content", "error");
-        }
-      });
+      window.axios
+        .post(`/api/contents/delete/${this.item.id}`, {})
+        .then((response) => {
+          if (response.body === "success") {
+            this.$Progress.finish();
+            toast("Content is Deleted Successfully", "success");
+            this.$emit("deleteContentEvent", this.index);
+          } else {
+            this.$Progress.fail();
+            toast("Failed To Delete Content", "error");
+          }
+        });
     },
   },
 };

@@ -40,11 +40,9 @@ export default {
     async createHeader() {
       var header_id;
 
-      await window.axios
-        .post(base_path() + "/api/" + this.panel.id + "/headers/create", {})
-        .then((response) => {
-          header_id = response.body.id;
-        });
+      await window.axios.post(`/api/${this.panel.id}/headers/create`).then((response) => {
+        header_id = response.body.id;
+      });
 
       let highestOrder = this.panel.headersAndContents.slice(-1).pop().order;
       toast("Header created successfully");

@@ -1824,7 +1824,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.loader = Vue.$loading.show({
+    this.loader = this.$loading.show({
       // Pass props by their camelCased names
       container: this.$refs.loadingContainer,
       canCancel: true,
@@ -1851,7 +1851,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$Progress.start();
-      window.axios.get(base_path() + "/api/" + this.category.name + "/panels").then(function (response) {
+      window.axios.get("/api/".concat(this.category.name, "/panels")).then(function (response) {
         _this.panels = response.data.data;
 
         _this.$Progress.finish();
@@ -1863,7 +1863,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$Progress.start();
-      window.axios.post(base_path() + "/api/" + this.category.name + "/panels/create").then(function (response) {
+      window.axios.post("/api/".concat(this.category.name, "/panels/create")).then(function (response) {
         return _this2.handleResponse(response, "Panel Created Successfully", "Failed to Create Panel");
       });
     },
@@ -1871,7 +1871,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.$Progress.start();
-      window.axios.post(base_path() + "/api/panels/delete/" + panel.id).then(function (response) {
+      window.axios.post("/api/".concat(this.category.name, "/panels/delete/").concat(panel.id)).then(function (response) {
         return _this3.handleResponse(response, "Panel Deleted Successfully", "Failed to Delete Panel");
       });
     },
@@ -1879,8 +1879,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.$Progress.start();
-      window.axios.post(base_path() + "/api/panels/edit/" + panel.id, {
-        name: event.target.innerText
+      window.axios.post("/api/".concat(this.category.name, "/panels/edit/").concat(panel.id), {
+        name: window.event.target.innerText
       }).then(function (response) {
         return _this4.handleResponse(response, "Panel Updated Successfully", "Failed to Update Panel");
       });
@@ -1890,7 +1890,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var moved = _ref.moved;
       this.$Progress.start();
-      window.axios.post(base_path() + "/api/" + this.category.name + "/panels/editOrder", {
+      window.axios.post("/api/".concat(this.category.name, "/panels/editOrder"), {
         oldIndex: moved.oldIndex,
         newIndex: moved.newIndex
       }).then(function (response) {
@@ -1970,7 +1970,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return window.axios.post(base_path() + "/api/contents/edit/" + this.item.id, {
+                return window.axios.post("/api/contents/edit/".concat(this.item.id), {
                   code_lang: value
                 });
 
@@ -2007,7 +2007,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var newText = event.target.innerText;
       this.content = newText;
       Prism.highlightAll();
-      window.axios.post(base_path() + "/api/contents/edit/" + this.item.id, {
+      window.axios.post("/api/contents/edit/".concat(this.item.id), {
         content: newText
       }).then(function (response) {
         if (response.body === "success") {
@@ -2026,7 +2026,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.$Progress.start();
-      window.axios.post(base_path() + "/api/contents/delete/" + this.item.id, {}).then(function (response) {
+      window.axios.post("/api/contents/delete/".concat(this.item.id), {}).then(function (response) {
         if (response.body === "success") {
           _this2.$Progress.finish();
 
@@ -2079,7 +2079,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$Progress.start();
-      window.axios.post(base_path() + "/api/headers/edit/" + this.item.id, {
+      window.axios.post("/api/headers/edit/".concat(this.item.id), {
         name: event.target.innerText
       }).then(function (response) {
         console.log(response);
@@ -2099,7 +2099,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$Progress.start();
-      window.axios.post(base_path() + "/api/headers/delete/" + this.item.id, {}).then(function (response) {
+      window.axios.post("/api/headers/delete/".concat(this.item.id)).then(function (response) {
         if (response.body === "success") {
           _this2.$Progress.finish();
 
@@ -2184,7 +2184,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return window.axios.post(base_path() + "/api/" + this.panel.id + "/headers/create", {}).then(function (response) {
+                return window.axios.post("/api/".concat(this.panel.id, "/headers/create")).then(function (response) {
                   header_id = response.body.id;
                 });
 
@@ -2306,7 +2306,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.loader = Vue.$loading.show({
+    this.loader = this.$loading.show({
       // Pass props by their camelCased names
       container: this.$refs.loadingContainer,
       canCancel: true,
@@ -2331,7 +2331,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchPanels: function fetchPanels() {
       var _this = this;
 
-      window.axios.get(base_path() + "/api/" + this.category.name + "/panels").then(function (response) {
+      window.axios.get("/api/".concat(this.category.name, "/panels")).then(function (response) {
         _this.panels = response.data.data;
 
         _this.loader.hide();
