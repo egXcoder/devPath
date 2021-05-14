@@ -6,8 +6,8 @@
       <img width="100px" :src="category.image_url" />
       <h1>{{ category.name }} Path</h1>
     </div>
-    <draggable @change="onMove" v-model="panels" class="row">
-      <template v-for="panel in panels">
+    <draggable @change="onMove" v-model="$store.state.categoryPanels[category.name]" class="row">
+      <template v-for="panel in $store.getters.panels(category.name)">
         <transition :key="panel.id" name="fade">
           <panel :key="panel.id" :panel="panel">
             <div slot="panelTitle" class="panel-title">
@@ -45,18 +45,6 @@ export default {
     };
   },
   created() {
-    this.loader = this.$loading.show({
-      // Pass props by their camelCased names
-      container: this.$refs.loadingContainer,
-      canCancel: true, // default false
-      color: "#2f6575",
-      loader: "bars",
-      width: 128,
-      height: 128,
-      backgroundColor: "#ffffff",
-      opacity: 0.5,
-      zIndex: 999,
-    });
     this.fetchPanels();
   },
   props: {
@@ -68,28 +56,29 @@ export default {
   },
   methods: {
     fetchPanels() {
-      this.$Progress.start();
-      window.axios.get(`/api/${this.category.name}/panels`).then((response) => {
-        this.panels = response.data.data;
-        this.$Progress.finish();
-        this.loader.hide();
-      });
+      this.showProgress();
+      this.showLoader();
+      if (!this.$store.getters.panels(this.category.name)) {
+        this.$store.dispatch("fetchPanels", this.category.name).then(() => {
+          this.hideProgress();
+          this.hideLoader();
+        });
+      }
     },
     addPanel() {
-      this.$Progress.start();
-
+      this.showProgress();
       window.axios
         .post(`/api/${this.category.name}/panels/create`)
         .then((response) =>
-          this.handleResponse(response, "Panel Created Successfully", "Failed to Create Panel")
+          this.handleResponse(response, "Panel Created Successfully", "Couldnt Create Panel")
         );
     },
     deletePanel(panel) {
-      this.$Progress.start();
+      this.showProgress();
       window.axios
         .post(`/api/panels/delete/${panel.id}`)
         .then((response) =>
-          this.handleResponse(response, "Panel Deleted Successfully", "Failed to Delete Panel")
+          this.handleResponse(response, "Panel Deleted Successfully", "Couldnt Delete Panel")
         );
     },
     editPanel(panel) {
@@ -115,13 +104,36 @@ export default {
     },
     handleResponse(response, msgOnSuccess, msgOnFailure) {
       if (response.data === "success") {
-        this.$Progress.finish();
+        this.hideProgress();
         toast(msgOnSuccess, "success");
-        this.fetchPanels();
+        this.$store.dispatch("fetchPanels", this.category.name);
       } else {
         this.$Progress.fail();
         toast(msgOnFailure, "error");
       }
+    },
+    showProgress() {
+      this.$Progress.start();
+    },
+    hideProgress() {
+      this.$Progress.finish();
+    },
+    showLoader() {
+      this.loader = this.$loading.show({
+        // Pass props by their camelCased names
+        container: this.$refs.loadingContainer,
+        canCancel: true, // default false
+        color: "#2f6575",
+        loader: "bars",
+        width: 128,
+        height: 128,
+        backgroundColor: "#ffffff",
+        opacity: 0.5,
+        zIndex: 999,
+      });
+    },
+    hideLoader() {
+      this.loader.hide();
     },
   },
 };

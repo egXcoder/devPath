@@ -9,7 +9,7 @@
   dependencies:
     "@babel/highlight" "^7.10.4"
 
-"@babel/core@^7.0.0-beta.49", "@babel/core@^7.2.0":
+"@babel/core@^7.0.0-0", "@babel/core@^7.0.0-beta.49", "@babel/core@^7.2.0":
   "integrity" "sha512-oDpASqKFlbspQfzAE7yaeTmdljSH2ADIvBlb0RwbStltTuWa0+7CCI1fYVINNv9saHPa1W7oaKeuNuKj+RQCvA=="
   "resolved" "https://registry.npmjs.org/@babel/core/-/core-7.4.3.tgz"
   "version" "7.4.3"
@@ -137,10 +137,10 @@
   dependencies:
     "@babel/types" "^7.0.0"
 
-"@babel/helper-plugin-utils@^7.0.0":
-  "integrity" "sha512-CYAOUCARwExnEixLdB6sDm2dIJ/YgEAKDM1MOeMeZu9Ld/bDgVo8aiWrXwcY7OBh+1Ea2uUcVRcxKk0GJvW7QA=="
-  "resolved" "https://registry.npmjs.org/@babel/helper-plugin-utils/-/helper-plugin-utils-7.0.0.tgz"
-  "version" "7.0.0"
+"@babel/helper-plugin-utils@^7.0.0", "@babel/helper-plugin-utils@^7.8.0":
+  "integrity" "sha512-ZPafIPSwzUlAoWT8DKs1W2VyF2gOWthGd5NGFMsBcMMol+ZhK+EQY/e6V96poa6PA/Bh+C9plWN0hXO1uB8AfQ=="
+  "resolved" "https://registry.npmjs.org/@babel/helper-plugin-utils/-/helper-plugin-utils-7.13.0.tgz"
+  "version" "7.13.0"
 
 "@babel/helper-regex@^7.0.0", "@babel/helper-regex@^7.4.3":
   "integrity" "sha512-hnoq5u96pLCfgjXuj8ZLX3QQ+6nAulS+zSgi6HulUwFbEruRAKwbGLU5OvXkE14L8XW6XsQEKsIDfgthKLRAyA=="
@@ -271,6 +271,13 @@
   "version" "7.2.0"
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0"
+
+"@babel/plugin-syntax-dynamic-import@^7.2.0":
+  "integrity" "sha512-5gdGbFon+PszYzqs83S3E5mpi7/y/8M9eC90MRTZfduQOYW76ig6SOSPNe41IG5LoP3FGBn2N0RjVDSQiS94kQ=="
+  "resolved" "https://registry.npmjs.org/@babel/plugin-syntax-dynamic-import/-/plugin-syntax-dynamic-import-7.8.3.tgz"
+  "version" "7.8.3"
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.8.0"
 
 "@babel/plugin-syntax-json-strings@^7.2.0":
   "integrity" "sha512-5UGYnMSLRE1dqqZwug+1LISpA403HzlSfsg6P9VXU6TBjcSHeNlw4DxDx7LgpF+iKZoOG/+uzqoRHTdcUpiZNg=="
@@ -1798,6 +1805,11 @@
   "integrity" "sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c="
   "resolved" "https://registry.npmjs.org/code-point-at/-/code-point-at-1.1.0.tgz"
   "version" "1.1.0"
+
+"collect.js@^4.12.8":
+  "integrity" "sha512-NAyuk1DnCotRaDZIS5kJ4sptgkwOeYqElird10yziN5JBuwYOGkOTguhNcPn5g344IfylZecxNYZAVXgv19p5Q=="
+  "resolved" "https://registry.npmjs.org/collect.js/-/collect.js-4.28.6.tgz"
+  "version" "4.28.6"
 
 "collection-visit@^1.0.0":
   "integrity" "sha1-S8A3PBZLwykbTTaMgpzxqApZ3KA="
@@ -4458,12 +4470,13 @@
   "version" "6.0.2"
 
 "laravel-mix@^4.0.7":
-  "integrity" "sha512-i1o1HLeBkM/QVe4OhW+aBy0xcQuGq7moQadgSV4kcwiHYjbfpcb1FpcDZByU2HKkkPtwK5uy+O77nVQe24wGPw=="
-  "resolved" "https://registry.npmjs.org/laravel-mix/-/laravel-mix-4.0.15.tgz"
-  "version" "4.0.15"
+  "integrity" "sha512-fpFNpPyYAdeZ5mozlKbHpw+tCiRFUCCdSsK/D2+yYhlyIEbzPcAe4ar5cjeT33TnDNiKXSS42cB58yUSW5Y5tg=="
+  "resolved" "https://registry.npmjs.org/laravel-mix/-/laravel-mix-4.1.4.tgz"
+  "version" "4.1.4"
   dependencies:
     "@babel/core" "^7.2.0"
     "@babel/plugin-proposal-object-rest-spread" "^7.2.0"
+    "@babel/plugin-syntax-dynamic-import" "^7.2.0"
     "@babel/plugin-transform-runtime" "^7.2.0"
     "@babel/preset-env" "^7.2.0"
     "@babel/runtime" "^7.2.0"
@@ -4472,6 +4485,7 @@
     "babel-merge" "^2.0.1"
     "chokidar" "^2.0.3"
     "clean-css" "^4.1.3"
+    "collect.js" "^4.12.8"
     "concatenate" "0.0.2"
     "css-loader" "^1.0.1"
     "dotenv" "^6.2.0"
@@ -4484,13 +4498,13 @@
     "html-loader" "^0.5.5"
     "imagemin" "^6.0.0"
     "img-loader" "^3.0.0"
-    "lodash" "^4.17.5"
+    "lodash" "^4.17.15"
     "md5" "^2.2.1"
     "optimize-css-assets-webpack-plugin" "^5.0.1"
     "postcss-loader" "^3.0.0"
     "style-loader" "^0.23.1"
     "terser" "^3.11.0"
-    "terser-webpack-plugin" "^1.1.0"
+    "terser-webpack-plugin" "^1.2.2"
     "vue-loader" "^15.4.2"
     "webpack" "^4.27.1"
     "webpack-cli" "^3.1.2"
@@ -7295,7 +7309,7 @@
     "safe-buffer" "^5.1.2"
     "yallist" "^3.0.2"
 
-"terser-webpack-plugin@^1.1.0":
+"terser-webpack-plugin@^1.1.0", "terser-webpack-plugin@^1.2.2":
   "integrity" "sha512-GOK7q85oAb/5kE12fMuLdn2btOS9OBZn4VsecpHDywoUC/jLhSAKOiYo0ezx7ss2EXPMzyEWFoE0s1WLE+4+oA=="
   "resolved" "https://registry.npmjs.org/terser-webpack-plugin/-/terser-webpack-plugin-1.2.3.tgz"
   "version" "1.2.3"
@@ -7730,7 +7744,7 @@
   "resolved" "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   "version" "1.9.1"
 
-"vue@^2.5.17":
+"vue@^2.0.0", "vue@^2.5.17":
   "integrity" "sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-2.6.10.tgz"
   "version" "2.6.10"
@@ -7741,6 +7755,11 @@
   "version" "2.20.0"
   dependencies:
     "sortablejs" "^1.8.4"
+
+"vuex@^3.6.2":
+  "integrity" "sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw=="
+  "resolved" "https://registry.npmjs.org/vuex/-/vuex-3.6.2.tgz"
+  "version" "3.6.2"
 
 "watchpack@^1.5.0":
   "integrity" "sha512-i6dHe3EyLjMmDlU1/bGQpEw25XSjkJULPuAVKCbNRefQVq48yXKUpwg538F7AZTf9kyr57zj++pQFltUa5H7yA=="

@@ -9,6 +9,9 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+// vuex dependecy
+import store from './store';
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -23,20 +26,21 @@ window.Vue = require('vue');
 
 // importing toastr 
 window.toastr = require('toastr');
-window.toast = function toast(msg,type) {
-    if(type==="success") toastr.success(msg);
-    if(type==="error")   toastr.error(msg);
+window.toast = function toast(msg, type) {
+    if (type === "success") toastr.success(msg);
+    if (type === "error") toastr.error(msg);
 }
 
 //import prism
 window.Prism = require('../../public/css/plugins/prism/prism');
+
 
 import Loading from 'vue-loading-overlay';
 Vue.use(Loading);
 
 import VueProgressBar from 'vue-progressbar';
 const options = {
-    color:'#35495e',
+    color: '#35495e',
     failedColor: 'red',
     thickness: '4px',
     transition: {
@@ -47,7 +51,7 @@ const options = {
     autoRevert: true,
     location: 'top',
     inverse: false,
-    autoFinish:true,
+    autoFinish: true,
 }
 Vue.use(VueProgressBar, options);
 
@@ -59,4 +63,5 @@ Vue.component('all_panels_in_home', require('./home_components/AllPanels.vue').d
 
 const app = new Vue({
     el: '#app',
+    store,
 });
