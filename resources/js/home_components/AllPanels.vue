@@ -55,8 +55,8 @@ export default {
   },
   methods: {
     fetchPanels() {
-      this.$http.get(base_path() + "/api/" + this.category.name + "/panels").then((response) => {
-        this.panels = response.body.data;
+      window.axios.get(base_path() + "/api/" + this.category.name + "/panels").then((response) => {
+        this.panels = response.data.data;
         this.loader.hide();
       });
     },

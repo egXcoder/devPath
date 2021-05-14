@@ -42,7 +42,7 @@ class LoginController extends Controller
     {
         $token = $user->generateApiToken();
 
-        $cookie = Cookie::forever('api_token', $token, null, null, null, false);
+        $cookie = Cookie::forever('api_token', $token, null, null, null, false, true);
         
         Cookie::queue($cookie);
     }

@@ -69,8 +69,8 @@ export default {
   methods: {
     fetchPanels() {
       this.$Progress.start();
-      this.$http.get(base_path() + "/api/" + this.category.name + "/panels").then((response) => {
-        this.panels = response.body.data;
+      window.axios.get(base_path() + "/api/" + this.category.name + "/panels").then((response) => {
+        this.panels = response.data.data;
         this.$Progress.finish();
         this.loader.hide();
       });
@@ -78,7 +78,7 @@ export default {
     addPanel() {
       this.$Progress.start();
 
-      this.$http
+      window.axios
         .post(base_path() + "/api/" + this.category.name + "/panels/create")
         .then((response) =>
           this.handleResponse(response, "Panel Created Successfully", "Failed to Create Panel")
@@ -86,7 +86,7 @@ export default {
     },
     deletePanel(panel) {
       this.$Progress.start();
-      this.$http
+      window.axios
         .post(base_path() + "/api/panels/delete/" + panel.id)
         .then((response) =>
           this.handleResponse(response, "Panel Deleted Successfully", "Failed to Delete Panel")
@@ -94,7 +94,7 @@ export default {
     },
     editPanel(panel) {
       this.$Progress.start();
-      this.$http
+      window.axios
         .post(base_path() + "/api/panels/edit/" + panel.id, {
           name: event.target.innerText,
         })
@@ -104,7 +104,7 @@ export default {
     },
     onMove({ moved }) {
       this.$Progress.start();
-      this.$http
+      window.axios
         .post(base_path() + "/api/" + this.category.name + "/panels/editOrder", {
           oldIndex: moved.oldIndex,
           newIndex: moved.newIndex,

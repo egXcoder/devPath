@@ -31,7 +31,7 @@ export default {
   },
   watch: {
     async code_lang(value) {
-      await this.$http.post(base_path() + "/api/contents/edit/" + this.item.id, {
+      await window.axios.post(base_path() + "/api/contents/edit/" + this.item.id, {
         code_lang: value,
       });
       this.code_lang = value;
@@ -50,7 +50,7 @@ export default {
       let newText = event.target.innerText;
       this.content = newText;
       Prism.highlightAll();
-      this.$http
+      window.axios
         .post(base_path() + "/api/contents/edit/" + this.item.id, { content: newText })
         .then((response) => {
           if (response.body === "success") {
@@ -65,7 +65,7 @@ export default {
     },
     deleteContent() {
       this.$Progress.start();
-      this.$http.post(base_path() + "/api/contents/delete/" + this.item.id, {}).then((response) => {
+      window.axios.post(base_path() + "/api/contents/delete/" + this.item.id, {}).then((response) => {
         if (response.body === "success") {
           this.$Progress.finish();
           toast("Content is Deleted Successfully", "success");

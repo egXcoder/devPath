@@ -13,7 +13,7 @@
 
 Route::get('{category}/panels', 'PanelsController@listPanelsInCategory');
 
-Route::middleware('ApiAuthenticated')->group(function () {
+Route::middleware('auth:api')->group(function () {
 
     Route::post('{category}/panels/editOrder', 'PanelsController@editOrder');
 

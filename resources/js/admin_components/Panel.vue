@@ -40,7 +40,7 @@ export default {
     async createHeader() {
       var header_id;
 
-      await this.$http
+      await window.axios
         .post(base_path() + "/api/" + this.panel.id + "/headers/create", {})
         .then((response) => {
           header_id = response.body.id;
@@ -58,7 +58,7 @@ export default {
     async createContent() {
       var content_id;
 
-      await this.$http
+      await window.axios
         .post(base_path() + "/api/" + this.panel.id + "/contents/create", {})
         .then((response) => {
           content_id = response.body.id;
