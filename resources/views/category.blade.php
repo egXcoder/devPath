@@ -2,7 +2,6 @@
 
 @section('main')
 <div id="app">
-    <sidebar></sidebar>
     <div class="loader" ref="loadingContainer"></div>
     <main class="main">
         @if (Route::currentRouteName()==='admin.index'||Route::currentRouteName()==='admin.show')

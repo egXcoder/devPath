@@ -4,18 +4,23 @@ Vue.use(VueRouter);
 
 import HomeIndex from './home_components/index.vue';
 import HomePanels from './home_components/AllPanels.vue'
+import AdminIndex from './admin_components/index.vue'
 import AdminPanels from './admin_components/AllPanels.vue'
 
 export default new VueRouter({
     mode: 'history',
     routes: [
         {
-            path: '/',
+            path: '/home',
             component: HomeIndex
         },
         {
-            path: '/:category',
+            path: '/home/:category',
             component: HomePanels
+        },
+        {
+            path: '/admin/',
+            component: AdminIndex
         },
         {
             path: '/admin/:category',

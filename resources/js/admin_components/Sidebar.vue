@@ -16,7 +16,7 @@
 
     <div class="collapsed-menu" :class="{ show: isDrawerOn }">
       <div class="header">
-        <router-link class="brand text-decoration-none" to="/" @click.native="toggleDrawer()">
+        <router-link class="brand text-decoration-none" to="/home" @click.native="toggleDrawer()">
           <img src="/images/brand.png" alt="" />
           <p>DevBooster</p>
         </router-link>
@@ -27,7 +27,7 @@
       <div class="menu-container">
         <ul class="list-unstyled">
           <li v-for="(category, index) in $store.state.categoryPanels" :key="index">
-            <router-link :to="category.name" @click.native="toggleDrawer()">
+            <router-link :to="'/admin/' + category.name" @click.native="toggleDrawer()">
               <img class="img-fluid" :src="category.image_url" />
               {{ category.name }}
             </router-link>

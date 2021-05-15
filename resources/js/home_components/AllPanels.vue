@@ -1,17 +1,20 @@
 <template>
-  <div class="container-fluid">
-    <div class="col-md-12 head">
-      <img width="100px" :src="category.image_url" />
-      <h1>{{ category.name }} Path</h1>
-    </div>
-    <div class="grid">
-      <template v-for="panel in $store.getters.panels(category.name)">
-        <panel :key="panel.id" :panel="panel">
-          <div slot="panel_title" class="panel-title">
-            <h1>{{ panel.name }}</h1>
-          </div>
-        </panel>
-      </template>
+  <div class="all-panels">
+    <sidebar></sidebar>
+    <div class="container-fluid">
+      <div class="col-md-12 head">
+        <img width="100px" :src="category.image_url" />
+        <h1>{{ category.name }} Path</h1>
+      </div>
+      <div class="grid">
+        <template v-for="panel in $store.getters.panels(category.name)">
+          <panel :key="panel.id" :panel="panel">
+            <div slot="panel_title" class="panel-title">
+              <h1>{{ panel.name }}</h1>
+            </div>
+          </panel>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -19,10 +22,12 @@
 <script>
 import panel from "./Panel.vue";
 import Masonry from "masonry-layout";
+import Sidebar from "../home_components/Sidebar";
 
 export default {
   components: {
     panel,
+    Sidebar,
   },
   data() {
     return {
@@ -91,4 +96,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.all-panels {
+  .head {
+    margin: 2rem 0rem;
+    text-align: center;
+  }
+}
 </style>

@@ -1,39 +1,30 @@
 <template>
-  <div>
-    <sidebar></sidebar>
-    <div class="all-categories">
-      <div class="container">
-        <div class="search-container">
-          <input type="text" class="form-control" placeholder="Search..." />
-          <i class="fas fa-search"></i>
-        </div>
-        <div class="row">
-          <template v-for="(category, index) in $store.state.categoryPanels">
-            <router-link
-              :to="'/home/' + category.name"
-              :key="index"
-              class="col-lg-3 col-md-4 col-sm-6 category"
-            >
-              <div>
-                <img :src="category.image_url" class="img-fluid" />
-                <p>{{ category.name }}</p>
-              </div>
-            </router-link>
-          </template>
-        </div>
+  <div class="all-categories">
+    <div class="container">
+      <div class="search-container">
+        <input type="text" class="form-control" placeholder="Search..." />
+        <i class="fas fa-search"></i>
+      </div>
+      <div class="row">
+        <template v-for="(category, index) in $store.state.categoryPanels">
+          <router-link
+            :to="'/admin/' + category.name"
+            :key="index"
+            class="col-lg-3 col-md-4 col-sm-6 category"
+          >
+            <div>
+              <img :src="category.image_url" class="img-fluid" />
+              <p>{{ category.name }}</p>
+            </div>
+          </router-link>
+        </template>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Sidebar from "../home_components/Sidebar";
-
-export default {
-  components: {
-    Sidebar,
-  },
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>

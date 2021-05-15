@@ -15,7 +15,6 @@
 <body>
 
     <div id="app">
-        <sidebar></sidebar>
         <div class="loader" ref="loadingContainer"></div>
         <main class="main">
             <router-view></router-view>
