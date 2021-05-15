@@ -16,8 +16,9 @@ Route::prefix('admin')->group(function () {
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
     Route::middleware('auth')->group(function () {
-        Route::get('/{any}', 'AdminController@index')->where('any', '.*');
+        Route::get('/', 'AdminController@index')->where('any', '.*');
+        Route::get('{any}', 'AdminController@index')->where('any', '.*');
     });
 });
 
-Route::get('/{any}', 'HomeController@index')->where('any', '.*');
+Route::get('{any}', 'HomeController@index')->where('any', '.*');

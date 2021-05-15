@@ -8,6 +8,10 @@
             <span></span>
             <span></span>
           </div>
+          <form action="/admin/logout" method="post">
+            <input type="hidden" name="_token" :value="$csrf" />
+            <button class="btn btn-link">Logout</button>
+          </form>
         </div>
       </div>
     </nav>
@@ -53,5 +57,17 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.nav {
+  .logout {
+    font-weight: bold;
+    color: var(--secondary-color);
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+  }
+}
 </style>
