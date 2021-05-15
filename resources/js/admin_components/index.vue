@@ -33,6 +33,7 @@ export default {};
   .search-container {
     display: flex;
     input {
+      background: white;
       width: 90%;
       flex-grow: 1;
     }
