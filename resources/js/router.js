@@ -3,9 +3,10 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import HomeIndex from './home_components/index.vue';
-import HomePanels from './home_components/AllPanels.vue'
-import AdminIndex from './admin_components/index.vue'
-import AdminPanels from './admin_components/AllPanels.vue'
+import HomePanels from './home_components/AllPanels.vue';
+import AdminIndex from './admin_components/index.vue';
+import AdminPanels from './admin_components/AllPanels.vue';
+import NotFound from './global_components/NotFound.vue';
 
 export default new VueRouter({
     mode: 'history',
@@ -26,5 +27,9 @@ export default new VueRouter({
             path: '/admin/:category',
             component: AdminPanels
         },
+        {
+            path: '*',
+            component: NotFound,
+        }
     ]
 })
