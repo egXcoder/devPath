@@ -13,7 +13,7 @@ class Category extends Model
         return asset($image_url);
     }
 
-    public function panel()
+    public function panels()
     {
         return $this->hasMany('App\Panel');
     }

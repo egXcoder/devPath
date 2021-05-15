@@ -16,17 +16,17 @@
 
     <div class="collapsed-menu" :class="{ show: isDrawerOn }">
       <div class="header">
-        <a class="brand text-decoration-none" href="/">
+        <router-link class="brand text-decoration-none" to="/" @click.native="toggleDrawer()">
           <img src="/images/brand.png" alt="" />
           <p>DevBooster</p>
-        </a>
+        </router-link>
         <div @click="toggleDrawer()" class="closeButton">
           <a><i class="fas fa-sign-out-alt fa-2x"></i></a>
         </div>
       </div>
       <div class="menu-container">
         <ul class="list-unstyled">
-          <li v-for="(category, index) in $store.state.categories" :key="index">
+          <li v-for="(category, index) in $store.state.categoryPanels" :key="index">
             <router-link :to="category.name" @click.native="toggleDrawer()">
               <img class="img-fluid" :src="category.image_url" />
               {{ category.name }}
@@ -48,11 +48,6 @@ export default {
   methods: {
     toggleDrawer() {
       this.isDrawerOn = !this.isDrawerOn;
-    },
-    fetchCategories() {
-      if (this.$store.state.categories.length <= 0) {
-        this.$store.dispatch("fetchCategories");
-      }
     },
   },
 };

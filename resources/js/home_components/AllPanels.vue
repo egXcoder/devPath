@@ -32,8 +32,7 @@ export default {
   },
   computed: {
     category() {
-      let category_name = this.$route.params.category;
-      let category = this.$store.state.categories.find((cat) => cat.name == category_name);
+      let category = this.$store.state.categoryPanels[this.$route.params.category];
       return category ? category : {};
     },
   },
@@ -42,24 +41,17 @@ export default {
       immediate: true,
       handler() {
         this.showLoader();
-      },
-    },
-    category: {
-      handler() {
-        this.$store.dispatch("fetchPanels", this.category.name).then(() => {
-          this.loader.hide();
-          this.loader = null;
-          this.$nextTick(() => {
-            new Masonry(".grid", {
-              // options...
-              itemSelector: "#panel",
-            });
-          });
+
+        if (this.isPanelsAlreadyExistsOnVuex()) {
+          return this.afterPanelLoaded();
+        }
+
+        this.$store.dispatch("fetchPanels", this.$route.params.category).then(() => {
+          this.afterPanelLoaded();
         });
       },
     },
   },
-  created() {},
   methods: {
     showLoader() {
       if (!this.loader) {
@@ -76,6 +68,23 @@ export default {
           zIndex: 999,
         });
       }
+    },
+    isPanelsAlreadyExistsOnVuex() {
+      return this.$store.getters.panels(this.$route.params.category);
+    },
+    afterPanelLoaded() {
+      this.$nextTick(this.initializeGrid);
+    },
+    initializeGrid() {
+      if (this.loader) {
+        this.loader.hide();
+        this.loader = null;
+      }
+
+      new Masonry(".grid", {
+        // options...
+        itemSelector: "#panel",
+      });
     },
   },
 };

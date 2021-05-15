@@ -48,7 +48,6 @@ const options = {
 }
 Vue.use(VueProgressBar, options);
 
-
 // registering global components
 Vue.component('sidebar', require('./global_components/Sidebar.vue').default);
 
