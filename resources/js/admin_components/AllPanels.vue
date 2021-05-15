@@ -8,8 +8,8 @@
         <img width="100px" :src="category.image_url" />
         <h1>{{ category.name }} Path</h1>
       </div>
-      <draggable @change="onMove" class="grid">
-        <template v-for="panel in $store.getters.panels(category.name)">
+      <draggable @change="onMove" class="row" v-model="panels">
+        <template v-for="panel in panels">
           <panel :key="panel.id" :headersAndContents.sync="panel.headersAndContents" :id="panel.id">
             <div slot="panelTitle" class="panel-title">
               <h1
@@ -57,6 +57,18 @@ export default {
       let category = this.$store.state.categoryPanels[this.$route.params.category];
       return category ? category : {};
     },
+    panels: {
+      get() {
+        return this.category.panels;
+      },
+      set(newValue) {
+        this.$set(
+          this.$store.state.categoryPanels[this.$route.params.category],
+          "panels",
+          newValue
+        );
+      },
+    },
   },
   watch: {
     $route: {
@@ -101,27 +113,6 @@ export default {
       if (this.loader) {
         this.loader.hide();
         this.loader = null;
-      }
-
-      new Masonry(".grid", {
-        // options...
-        itemSelector: "#panel",
-      });
-    },
-    fetchPanels() {
-      this.showProgress();
-      this.showLoader();
-      if (!this.$store.getters.panels(this.category.name)) {
-        this.$store.dispatch("fetchPanels", this.category.name).then(() => {
-          this.hideProgress();
-          this.hideLoader();
-          this.$nextTick(() => {
-            new Masonry(".grid", {
-              // options...
-              itemSelector: "#panel",
-            });
-          });
-        });
       }
     },
     addPanel() {

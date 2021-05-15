@@ -1825,6 +1825,14 @@ __webpack_require__.r(__webpack_exports__);
     category: function category() {
       var category = this.$store.state.categoryPanels[this.$route.params.category];
       return category ? category : {};
+    },
+    panels: {
+      get: function get() {
+        return this.category.panels;
+      },
+      set: function set(newValue) {
+        this.$set(this.$store.state.categoryPanels[this.$route.params.category], "panels", newValue);
+      }
     }
   },
   watch: {
@@ -1874,61 +1882,35 @@ __webpack_require__.r(__webpack_exports__);
         this.loader.hide();
         this.loader = null;
       }
-
-      new masonry_layout__WEBPACK_IMPORTED_MODULE_2___default.a(".grid", {
-        // options...
-        itemSelector: "#panel"
-      });
     },
-    fetchPanels: function fetchPanels() {
+    addPanel: function addPanel() {
       var _this2 = this;
 
       this.showProgress();
-      this.showLoader();
-
-      if (!this.$store.getters.panels(this.category.name)) {
-        this.$store.dispatch("fetchPanels", this.category.name).then(function () {
-          _this2.hideProgress();
-
-          _this2.hideLoader();
-
-          _this2.$nextTick(function () {
-            new masonry_layout__WEBPACK_IMPORTED_MODULE_2___default.a(".grid", {
-              // options...
-              itemSelector: "#panel"
-            });
-          });
-        });
-      }
-    },
-    addPanel: function addPanel() {
-      var _this3 = this;
-
-      this.showProgress();
       window.axios.post("/api/".concat(this.category.name, "/panels/create")).then(function (response) {
-        return _this3.handleResponse(response, "Panel Created Successfully", "Couldnt Create Panel");
+        return _this2.handleResponse(response, "Panel Created Successfully", "Couldnt Create Panel");
       });
     },
     deletePanel: function deletePanel(panel) {
-      var _this4 = this;
+      var _this3 = this;
 
       this.showProgress();
       window.axios.post("/api/panels/delete/".concat(panel.id)).then(function (response) {
-        return _this4.handleResponse(response, "Panel Deleted Successfully", "Couldnt Delete Panel");
+        return _this3.handleResponse(response, "Panel Deleted Successfully", "Couldnt Delete Panel");
       });
     },
     editPanel: function editPanel(panel) {
-      var _this5 = this;
+      var _this4 = this;
 
       this.$Progress.start();
       window.axios.post("/api/panels/edit/".concat(panel.id), {
         name: window.event.target.innerText
       }).then(function (response) {
-        return _this5.handleResponse(response, "Panel Updated Successfully", "Failed to Update Panel");
+        return _this4.handleResponse(response, "Panel Updated Successfully", "Failed to Update Panel");
       });
     },
     onMove: function onMove(_ref) {
-      var _this6 = this;
+      var _this5 = this;
 
       var moved = _ref.moved;
       this.$Progress.start();
@@ -1936,7 +1918,7 @@ __webpack_require__.r(__webpack_exports__);
         oldIndex: moved.oldIndex,
         newIndex: moved.newIndex
       }).then(function (response) {
-        return _this6.handleResponse(response, "Panel Moved Successfully", "Failed to Move Panel");
+        return _this5.handleResponse(response, "Panel Moved Successfully", "Failed to Move Panel");
       });
     },
     handleResponse: function handleResponse(response, msgOnSuccess, msgOnFailure) {
@@ -27162,11 +27144,19 @@ var render = function() {
           _vm._v(" "),
           _c(
             "draggable",
-            { staticClass: "grid", on: { change: _vm.onMove } },
+            {
+              staticClass: "row",
+              on: { change: _vm.onMove },
+              model: {
+                value: _vm.panels,
+                callback: function($$v) {
+                  _vm.panels = $$v
+                },
+                expression: "panels"
+              }
+            },
             [
-              _vm._l(_vm.$store.getters.panels(_vm.category.name), function(
-                panel
-              ) {
+              _vm._l(_vm.panels, function(panel) {
                 return [
                   _c(
                     "panel",
@@ -46204,7 +46194,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         throw "Cant Update Panels as category name is missing";
       }
 
-      state.categoryPanels[category_name] = categoryWithPanels;
       vue__WEBPACK_IMPORTED_MODULE_0___default.a.set(state.categoryPanels, category_name, categoryWithPanels);
     },
     setCategories: function setCategories(state, payload) {

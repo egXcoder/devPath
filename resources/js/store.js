@@ -21,7 +21,6 @@ export default new vuex.Store({
                 throw "Cant Update Panels as category name is missing";
             }
 
-            state.categoryPanels[category_name] = categoryWithPanels;
             vue.set(state.categoryPanels, category_name, categoryWithPanels);
         },
         setCategories(state, payload) {
