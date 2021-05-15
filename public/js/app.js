@@ -46070,6 +46070,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: [{
+    path: '/',
+    redirect: '/home'
+  }, {
     path: '/home',
     component: _home_components_index_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {

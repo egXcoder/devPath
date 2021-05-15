@@ -12,6 +12,10 @@ export default new VueRouter({
     mode: 'history',
     routes: [
         {
+            path: '/',
+            redirect: '/home',
+        },
+        {
             path: '/home',
             component: HomeIndex
         },
