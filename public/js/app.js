@@ -1803,6 +1803,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -27184,6 +27187,12 @@ var render = function() {
                         },
                         "update:headers-and-contents": function($event) {
                           return _vm.$set(panel, "headersAndContents", $event)
+                        },
+                        "delete-panel": function($event) {
+                          return _vm.deletePanel(panel)
+                        },
+                        "duplicate-panel": function($event) {
+                          return _vm.duplicatePanel(panel)
                         }
                       }
                     },
@@ -27231,21 +27240,6 @@ var render = function() {
                             ]
                           )
                         ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        {
-                          staticClass: "delete-box",
-                          attrs: { slot: "deletePanel" },
-                          on: {
-                            "delete-panel": function($event) {
-                              return _vm.deletePanel(panel)
-                            }
-                          },
-                          slot: "deletePanel"
-                        },
-                        [_c("i", { staticClass: "fas fa-times" })]
                       )
                     ]
                   )

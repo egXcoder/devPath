@@ -10,7 +10,13 @@
       </div>
       <draggable @change="onMove" class="row" v-model="panels">
         <template v-for="panel in panels">
-          <panel :key="panel.id" :headersAndContents.sync="panel.headersAndContents" :id="panel.id">
+          <panel
+            :key="panel.id"
+            :headersAndContents.sync="panel.headersAndContents"
+            :id="panel.id"
+            @delete-panel="deletePanel(panel)"
+            @duplicate-panel="duplicatePanel(panel)"
+          >
             <div slot="panelTitle" class="panel-title">
               <h1
                 contenteditable="true"
@@ -20,9 +26,6 @@
                 {{ panel.name }}
               </h1>
             </div>
-            <p slot="deletePanel" @delete-panel="deletePanel(panel)" class="delete-box">
-              <i class="fas fa-times"></i>
-            </p>
           </panel>
         </template>
       </draggable>

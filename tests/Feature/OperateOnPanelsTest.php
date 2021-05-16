@@ -41,9 +41,11 @@ class OperateOnPanelsTest extends TestCase
         //given you visit api/panels/duplicate/{id}
         $this->postJson('/api/panels/duplicate/' . $panel->id);
 
-        $this->assertCount(2, Panel::all());
-        $this->assertCount($panel->headers->count() * 2, Header::all());
-        $this->assertCount($panel->contents->count() * 2, Content::all());
+        $newPanel = Panel::orderBy('id', 'desc')->first();
+
+        $this->assertEquals($panel->name, $newPanel->name);
+        $this->assertEquals($panel->headers->count(), $newPanel->headers->count());
+        $this->assertEquals($panel->contents->count(), $newPanel->contents->count());
     }
 
     protected function createPanelWithHeadersAndContents()

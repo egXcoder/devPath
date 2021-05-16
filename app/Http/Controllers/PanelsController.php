@@ -71,19 +71,25 @@ class PanelsController extends Controller
     public function duplicate(Panel $panel)
     {
         DB::transaction(function () use ($panel) {
-            $panel->replicate([
+            $newPanel = $panel->replicate()->fill([
                 'order'=>$panel->order+1
-            ])->save();
+            ]);
+                
+            $newPanel->save();
 
             foreach ($panel->headers as $header) {
-                $header->replicate()->save();
+                $header->replicate()->fill([
+                    'panel_id'=> $newPanel->id,
+                ])->save();
             }
 
             foreach ($panel->contents as $content) {
-                $content->replicate()->save();
+                $content->replicate()->fill([
+                    'panel_id'=> $newPanel->id,
+                ])->save();
             }
         });
-        
+
         return 'success';
     }
 
