@@ -1,6 +1,13 @@
 <template>
   <div class="content">
-    <pre><code @mouseenter="isEditable = true" :contenteditable="isEditable" @blur="submitContentEdit()" style="display:inline-block;width:100%;outline:none;" :class="code_lang">{{content}}</code></pre>
+    <pre><code 
+    @mouseenter="isEditable = true" 
+    :contenteditable="isEditable" 
+    @blur="submitContentEdit()" 
+    style="display:inline-block;width:100%;outline:none;" 
+    :class="code_lang"
+    spellcheck='false'
+    >{{content}}</code></pre>
 
     <a @click="deleteContent" class="x"><i class="fas fa-times"></i></a>
     <div class="form-group">
@@ -32,14 +39,12 @@ export default {
   },
   watch: {
     code_lang(value) {
-      window.axios
-        .post(`/api/contents/edit/${this.item.id}`, { code_lang: value })
-        .then(() => {
-          this.code_lang = value;
-          window.toastr.success("Code language is updated Successfully");
-          //highlight with prism when code_lang changed
-          Prism.highlightAll();
-        });
+      window.axios.post(`/api/contents/edit/${this.item.id}`, { code_lang: value }).then(() => {
+        this.code_lang = value;
+        window.toastr.success("Code language is updated Successfully");
+        //highlight with prism when code_lang changed
+        Prism.highlightAll();
+      });
     },
   },
   mounted() {
