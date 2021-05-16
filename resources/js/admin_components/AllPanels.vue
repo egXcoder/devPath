@@ -20,7 +20,7 @@
                 {{ panel.name }}
               </h1>
             </div>
-            <p slot="deletePanel" @click="deletePanel(panel)" class="delete-box">
+            <p slot="deletePanel" @delete-panel="deletePanel(panel)" class="delete-box">
               <i class="fas fa-times"></i>
             </p>
           </panel>
@@ -37,7 +37,6 @@
 <script>
 import draggable from "vuedraggable";
 import panel from "./Panel";
-import Masonry from "masonry-layout";
 import Sidebar from "../admin_components/Sidebar";
 
 export default {
@@ -129,6 +128,14 @@ export default {
         .post(`/api/panels/delete/${panel.id}`)
         .then((response) =>
           this.handleResponse(response, "Panel Deleted Successfully", "Couldnt Delete Panel")
+        );
+    },
+    duplicatePanel(panel) {
+      this.showProgress();
+      window.axios
+        .post(`/api/panels/duplicate/${panel.id}`)
+        .then((response) =>
+          this.handleResponse(response, "Panel Duplicated Successfully", "Couldnt Duplicate Panel")
         );
     },
     editPanel(panel) {

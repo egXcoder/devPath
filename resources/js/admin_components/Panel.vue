@@ -19,7 +19,14 @@
         </div>
       </div>
     </div>
-    <slot name="deletePanel"></slot>
+    <div class="actions">
+      <p @click="$emit('duplicate-panel')" class="duplicate-box">
+        <i class="fas fa-clone"></i>
+      </p>
+      <p @click="$emit('delete-panel')" class="delete-box">
+        <i class="fas fa-times"></i>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -86,11 +93,50 @@ export default {
 };
 </script>
 
-<style scoped>
-.panel {
-  cursor: move;
-}
-.panel-inner {
-  cursor: auto;
+<style scoped lang="scss">
+#panel {
+  .panel {
+    cursor: move;
+    .panel-inner {
+      cursor: auto;
+    }
+  }
+  .actions {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    .delete-box {
+      cursor: pointer;
+      background: #e03535;
+      color: white;
+      padding: 0.2rem 0.5rem;
+      margin-left: 5px;
+      margin-right: 5px;
+      font-weight: bold;
+      border-radius: 4px;
+      p {
+        margin-bottom: 0;
+      }
+    }
+    .duplicate-box {
+      cursor: pointer;
+      background: #354fe0;
+      color: white;
+      padding: 0.2rem 0.5rem;
+      font-weight: bold;
+      border-radius: 4px;
+      margin-left: 5px;
+      margin-right: 5px;
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+  &:hover .actions {
+    opacity: 1;
+  }
 }
 </style>

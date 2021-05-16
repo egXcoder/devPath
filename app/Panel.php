@@ -10,8 +10,8 @@ class Panel extends Model {
     public function getHeadersAndContentsFrom($panel_id) {
         $panel = Panel::findOrFail($panel_id);
 
-        $Headers = $panel->header;
-        $Contents = $panel->content;
+        $Headers = $panel->headers;
+        $Contents = $panel->contents;
         $sortedArray = $Headers->concat($Contents)->sortBy('order');
 
         return $sortedArray;
@@ -21,11 +21,11 @@ class Panel extends Model {
         return $this->belongsTo('App\Category');
     }
 
-    public function header() {
+    public function headers() {
         return $this->hasMany('App\Header');
     }
 
-    public function content() {
+    public function contents() {
         return $this->hasMany('App\Content');
     }
 }

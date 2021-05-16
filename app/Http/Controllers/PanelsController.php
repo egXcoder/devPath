@@ -6,6 +6,7 @@ use App\Panel;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Http\Resources\CategoryResource;
+use DB;
 use Illuminate\Support\Facades\Validator;
 
 class PanelsController extends Controller
@@ -64,6 +65,25 @@ class PanelsController extends Controller
         $category_id = $panel->category_id;
         $panel->delete();
         $this->syncOrder($category_id);
+        return 'success';
+    }
+
+    public function duplicate(Panel $panel)
+    {
+        DB::transaction(function () use ($panel) {
+            $panel->replicate([
+                'order'=>$panel->order+1
+            ])->save();
+
+            foreach ($panel->headers as $header) {
+                $header->replicate()->save();
+            }
+
+            foreach ($panel->contents as $content) {
+                $content->replicate()->save();
+            }
+        });
+        
         return 'success';
     }
 

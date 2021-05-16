@@ -22,6 +22,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('{category}/panels/create', 'PanelsController@create');
     Route::post('panels/edit/{panel}', 'PanelsController@edit');
     Route::post('panels/delete/{panel}', 'PanelsController@destroy');
+    Route::post('panels/duplicate/{panel}', 'PanelsController@duplicate');
 
     Route::post('{panel}/headers/create', 'HeadersController@create');
     Route::post('/headers/edit/{header}', 'HeadersController@edit');

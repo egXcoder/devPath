@@ -17672,29 +17672,6 @@ nav .menu-toggle span {
   border-radius: 5px;
 }
 
-#panel .delete-box {
-  display: none;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #e03535;
-  color: white;
-  padding: 0.2rem 0.5rem;
-  font-weight: bold;
-  border-radius: 4px;
-  opacity: 0;
-}
-
-#panel .delete-box p {
-  margin-bottom: 0;
-}
-
-#panel:hover .delete-box {
-  display: block;
-  opacity: 1;
-}
-
 .add-box {
   position: fixed;
   bottom: 10px;
